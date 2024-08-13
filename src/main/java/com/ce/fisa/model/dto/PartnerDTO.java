@@ -26,4 +26,7 @@ public class PartnerDTO {
 
 	@Column(name = "partner_info", length = 800)
 	private String partner_info;
+	
+	@Column(name = "partner_img", length = 800)
+	private String partner_img;
 }
