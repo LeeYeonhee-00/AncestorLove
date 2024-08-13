@@ -9,10 +9,9 @@ import com.ce.fisa.model.entity.Inquiry;
 
 public interface InquiryRepository extends JpaRepository<Inquiry, Long> {
 	
-//	public List<Inquiry> findList();
 	public List<Inquiry> findAll();
 	
+//	List<Inquiry> findByInquiryId(long inquiryId);
 	public Inquiry findByInquiryId(long inquiryId);
-//	public Optional<Inquiry> findById(Long inquiry_id);
 
 }

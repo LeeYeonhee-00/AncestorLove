@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ce.fisa.exception.NotExistInquiryException;
@@ -24,9 +25,9 @@ public class InquiryController {
 		return inqService.getAllInquiry();
 	}
 	
-	@GetMapping("inquriy")
-	public InquiryDTO getMethodName(@RequestParam Long inquriy_id) throws NotExistInquiryException {
-		return inqService.getInquiry(inquriy_id);
+	@GetMapping("/inquriy/{id}")
+	public InquiryDTO getMethodName(@PathVariable("id") Long inquityid) throws NotExistInquiryException {
+		return inqService.getInquiry(inquityid);
 	}
 	
 
