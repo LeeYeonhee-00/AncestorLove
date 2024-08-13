@@ -27,18 +27,18 @@ public class Comment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "com_id")
-	private long com_id;
+	private long comId;
 
 	@ManyToOne
 	@JoinColumn(name = "inquiry_id")
-	private Inquiry inquiry_id; 
+	private Inquiry inquiryId; 
 
 	@Column(name = "com_content", length = 800)
-	private String com_content;
+	private String comContent;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "com_consign")
-	private Contract com_consign;
+	private Contract comConsign;
 	
 	// Enum for Gender
     public enum Contract {
