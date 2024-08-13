@@ -27,23 +27,23 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "user_id")
-	private long user_id;
+	private long userId;
 
     @Column(name = "user_name")
 	private String userName;
 
 	@Column(name = "user_email")
-	private String user_email;
+	private String userEmail;
 
 	@Column(name = "user_pw", length = 100)
-	private String user_pw;
+	private String userPw;
 
 	@Column(name = "user_age")
-	private int user_age;
+	private int userAge;
 
 	@Enumerated(EnumType.STRING)
     @Column(name = "user_gender")
-    private Gender user_gender; // 이분형 타입으로 정의된 Gender
+    private Gender userGender; // 이분형 타입으로 정의된 Gender
 
     // Enum for Gender
     public enum Gender {

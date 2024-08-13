@@ -14,6 +14,6 @@ public interface InquiryService {
 	public List<InquiryDTO> getAllInquiry();
 	
 	// ID값으로 Inquiry 상세 조회
-	public InquiryDTO getInquiry(long inquiry_id) throws NotExistInquiryException;
+	public InquiryDTO getInquiry(long inquiryId) throws NotExistInquiryException;
 
 }

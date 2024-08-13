@@ -15,11 +15,11 @@ import lombok.ToString;
 @ToString
 public class InquiryDTO {
 	
-	private long inquiry_id;
-	private UserDTO user_id;
-	private WorkDTO work_id;
-	private LocalDateTime inquiry_date;
-	private String inquiry_address;
-	private String inquiry_content;
-	private String inquiry_title;
+	private long inquiryId;
+	private UserDTO userId;
+	private WorkDTO workId;
+	private LocalDateTime inquiryDate;
+	private String inquiryAddress;
+	private String inquiryContent;
+	private String inquiryTitle;
 }

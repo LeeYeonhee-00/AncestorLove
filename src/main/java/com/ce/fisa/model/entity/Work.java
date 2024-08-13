@@ -25,8 +25,8 @@ public class Work {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "work_id")
-	private long work_id;
+	private long workId;
 
 	@Column(name = "work_name")
-	private String work_name;
+	private String workName;
 }

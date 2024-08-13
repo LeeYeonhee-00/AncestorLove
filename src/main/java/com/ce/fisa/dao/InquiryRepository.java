@@ -12,7 +12,7 @@ public interface InquiryRepository extends JpaRepository<Inquiry, Long> {
 //	public List<Inquiry> findList();
 	public List<Inquiry> findAll();
 	
-	public Inquiry findByInquiry_id(long inquiry_id);
+	public Inquiry findByInquiryId(long inquiryId);
 //	public Optional<Inquiry> findById(Long inquiry_id);
 
 }

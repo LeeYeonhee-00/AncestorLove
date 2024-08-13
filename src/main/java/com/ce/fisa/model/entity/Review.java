@@ -29,11 +29,11 @@ public class Review {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "re_id")
-	private long re_id;
+	private long reId;
 
 	@ManyToOne
 	@JoinColumn(name = "partner_id")
-	private Partner partner_id;
+	private Partner partnerId;
 
 	// For Refactoring
 //	@ManyToOne
@@ -41,14 +41,14 @@ public class Review {
 //	private Users user_id; 
 	
 	@Column(name = "reuser_id")
-	private long reuser_id;
+	private long reuserId;
 
 	@Column(name = "re_content", length = 800)
-	private String re_content;
+	private String reContent;
 
 	@Column(name = "re_date")
-	private LocalDateTime re_date;
+	private LocalDateTime reDate;
 
 	@Column(name = "re_rating")
-	private int re_rating;
+	private int reRating;
 }

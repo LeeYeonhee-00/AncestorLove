@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ce.fisa.dao.InquiryRepository;
-import com.ce.fisa.exception.NotExistEmp2Exception;
 import com.ce.fisa.exception.NotExistInquiryException;
-import com.ce.fisa.model.dto.Emp2DTO;
 import com.ce.fisa.model.dto.InquiryDTO;
 import com.ce.fisa.model.entity.Inquiry;
 
@@ -36,9 +34,9 @@ public class InquiryServiceImpl implements InquiryService {
 	}
 
 	@Override
-	public InquiryDTO getInquiry(long inquiry_id) throws NotExistInquiryException {
+	public InquiryDTO getInquiry(long inquiryId) throws NotExistInquiryException {
 
-		Inquiry inquiryEntity = inquiryDAO.findByInquiry_id(inquiry_id);
+		Inquiry inquiryEntity = inquiryDAO.findByInquiryId(inquiryId);
 		System.out.println("getAllInquiry() : " + inquiryEntity);
 		
 		if (inquiryEntity == null) {

@@ -1,7 +1,5 @@
 package com.ce.fisa.model.entity;
 
-import com.ce.fisa.model.entity.Comment.Contract;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,17 +23,17 @@ public class Partner {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "partner_id")
-	private long partner_id; 
+	private long partnerId; 
 
 	@Column(name = "partner_name")
-	private String partner_name;
+	private String partnerName;
 
 	@Column(name = "partner_location")
-	private String partner_location;
+	private String partnerLocation;
 
 	@Column(name = "metric_price")
-	private int metric_price;
+	private int metricPrice;
 
 	@Column(name = "partner_info", length = 800)
-	private String partner_info;
+	private String partnerInfo;
 }
