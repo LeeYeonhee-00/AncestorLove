@@ -1,7 +1,5 @@
 package com.ce.fisa.model.dto;
 
-import com.ce.fisa.model.entity.Inquiry;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class CommentDTO {
 	private long comId;
-	private Inquiry inquiryId; 
+	private InquiryDTO inquiryId; 
 	private String comContent;
 	private Contract comConsign;
     public enum Contract {

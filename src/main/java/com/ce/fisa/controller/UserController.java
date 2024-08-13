@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ce.fisa.model.entity.User;
-import com.ce.fisa.service.LoginRequest;
 import com.ce.fisa.service.UserServiceImpl;
 
 
@@ -24,6 +23,7 @@ public class UserController {
 	        
 	    }
 		
+
 		@PostMapping("/login")
 	    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
 			boolean isAuthenticated = userService.authenticate(loginRequest.getUserName(), loginRequest.getUserPW());
@@ -34,6 +34,7 @@ public class UserController {
 	            return ResponseEntity.status(401).body("로그인 실패");
 	        }
 	    }
+
 		
 
 }

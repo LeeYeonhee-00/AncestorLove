@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
 	public boolean authenticate(String userName, String userPW) {
         User user = userRepository.findByUserName(userName);
         if (user != null) {
+
         	
         	
         	if (userPW.equals(user.getUserPw())) {
@@ -41,6 +42,7 @@ public class UserServiceImpl implements UserService {
 				 
                 return true;
             }
+
         }
         return false;
     }

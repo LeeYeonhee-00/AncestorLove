@@ -2,8 +2,6 @@ package com.ce.fisa.model.entity;
 
 import java.time.LocalDateTime;
 
-import com.ce.fisa.model.entity.Comment.Contract;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

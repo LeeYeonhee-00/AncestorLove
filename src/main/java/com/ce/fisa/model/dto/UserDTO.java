@@ -1,10 +1,5 @@
 package com.ce.fisa.model.dto;
 
-import java.time.LocalDateTime;
-
-import com.ce.fisa.model.entity.User;
-import com.ce.fisa.model.entity.Work;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
