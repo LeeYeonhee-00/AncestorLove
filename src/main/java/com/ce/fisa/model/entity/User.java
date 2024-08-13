@@ -29,8 +29,8 @@ public class User {
 	@Column(name = "user_id")
 	private long user_id;
 
-	@Column(name = "user_name")
-	private String user_name;
+    @Column(name = "user_name")
+	private String userName;
 
 	@Column(name = "user_email")
 	private String user_email;

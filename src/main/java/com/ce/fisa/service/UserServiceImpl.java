@@ -20,5 +20,13 @@ public class UserServiceImpl implements UserService {
 		}
 		return true;
 	}
+	public boolean authenticate(String userName, String password) {
+        User user = userRepository.findByUserName(userName);
+        if (user != null) {
+            // 비밀번호 암호화 없이 직접 비교
+            return password.equals(user.getUser_pw());
+        }
+        return false;
+    }
 
 }
