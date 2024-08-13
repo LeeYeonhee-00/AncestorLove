@@ -29,25 +29,25 @@ public class Inquiry {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "inquiry_id")
-	private long inquiry_id;
+	private long inquiryId;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private User user_id;
+	private User userId;
 
 	@ManyToOne
 	@JoinColumn(name = "work_id")
-	private Work work_id;
+	private Work workId;
 
 	@Column(name = "inquiry_date")
-	private LocalDateTime inquiry_date;
+	private LocalDateTime inquiryDate;
 
 	@Column(name = "inquiry_address")
-	private String inquiry_address;
+	private String inquiryAddress;
 
 	@Column(name = "inquiry_content")
-	private String inquiry_content;
+	private String inquiryContent;
 
 	@Column(name = "inquiry_title")
-	private String inquiry_title;
+	private String inquiryTitle;
 }

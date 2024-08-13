@@ -28,18 +28,17 @@ public class UserServiceImpl implements UserService {
 	public boolean authenticate(String userName, String userPW) {
         User user = userRepository.findByUserName(userName);
         if (user != null) {
-
         	
         	
         	if (userPW.equals(user.getUserPw())) {
                 // 로그인 성공 시 세션에 사용자 정보 저장
                 httpSession.setAttribute("user", user);
-				/*
-				 * 세션 사용법 
-				 * System.out.println (httpSession.getAttribute("user")); User user2 =
-				 * (User) httpSession.getAttribute("user");
-				 * System.out.println(user2.getUserName());
-				 */
+				
+//				  세션 사용법 
+				  System.out.println (httpSession.getAttribute("user")); User user2 =
+				  (User) httpSession.getAttribute("user");
+				  System.out.println(user2.getUserName());
+				 
                 return true;
             }
         }
