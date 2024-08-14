@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ce.fisa.model.entity.User;
+import com.ce.fisa.service.LoginRequest;
 import com.ce.fisa.service.UserServiceImpl;
 
 
