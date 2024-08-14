@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.ce.fisa.exception.NotExistPartnerException;
 import com.ce.fisa.model.dto.InquiryDTO;
 import com.ce.fisa.model.dto.PartnerAndReviewDTO;
 import com.ce.fisa.model.dto.PartnerDTO;
@@ -16,6 +17,6 @@ public interface PartnerService {
 
 	public List<PartnerDTO> getAllPartner();
 
-	public PartnerDTO getPartners(long partnerId);
+	public PartnerDTO getPartners(long partnerId) throws NotExistPartnerException;
 
 }

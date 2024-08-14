@@ -1,5 +1,10 @@
 package com.ce.fisa.model.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ce.fisa.model.entity.Review;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,4 +22,5 @@ public class PartnerDTO {
 	private String partnerLocation;
 	private int metricPrice;
 	private String partnerInfo;
+	private List<Review> reviews = new ArrayList<>();
 }

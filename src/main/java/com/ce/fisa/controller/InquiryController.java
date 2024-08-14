@@ -25,6 +25,7 @@ public class InquiryController {
 		return inqService.getAllInquiry();
 	}
 	
+	// 특정 Inquiry 상세 조회
 	@GetMapping("/inquriy/{id}")
 	public InquiryDTO getMethodName(@PathVariable("id") Long inquityid) throws NotExistInquiryException {
 		return inqService.getInquiry(inquityid);
