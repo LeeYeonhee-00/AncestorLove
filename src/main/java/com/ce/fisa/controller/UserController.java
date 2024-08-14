@@ -16,12 +16,26 @@ import com.ce.fisa.model.dto.UserDTO;
 import com.ce.fisa.model.entity.User;
 import com.ce.fisa.service.UserServiceImpl;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 public class UserController {
 	@Autowired
 	private UserServiceImpl userService;
+	
 
 	private static final Logger logger = LogManager.getLogger(UserController.class);
+	
+	@PostMapping("/logout")
+	public ResponseEntity<String> logout(HttpSession session){
+		boolean result = userService.logout(session);
+        if (result) {
+            return ResponseEntity.ok("로그아웃 성공");
+        } else {
+            return ResponseEntity.status(500).body("로그아웃 실패");
+        }
+		
+	}
 
 	@PostMapping("/signup")
 	public String signupUser(@RequestBody UserDTO user) throws InvalidSignupException {
@@ -31,6 +45,7 @@ public class UserController {
 			logger.info("회원가입 성공");
 			return "회원가입 성공!!";
 		} else {
+	 		logger.warn("회원가입 실패");
 			throw new InvalidSignupException("유효한 값을 입력하세요");
 		}
 	}
@@ -46,7 +61,7 @@ public class UserController {
 			logger.info("로그인 성공");
 			return ResponseEntity.ok("로그인 성공");
 		} else {
-			logger.info("로그인 실패");
+			logger.warn("로그인 실패");
 			return ResponseEntity.status(401).body("로그인 실패");
 		}
 	}
