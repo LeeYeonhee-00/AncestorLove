@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class CommentDTO {
 	private long comId;
-	private InquiryDTO inquiryId; 
+	private long inquiryId; 
 	private String comContent;
 	private Contract comConsign;
     public enum Contract {

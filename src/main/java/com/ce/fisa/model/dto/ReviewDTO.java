@@ -16,7 +16,7 @@ import lombok.ToString;
 public class ReviewDTO {
 	
 	private long reId;
-	private PartnerDTO partnerId;
+	private long partnerId;
 	private long reuserId;
 	private String reContent;
 	private LocalDateTime reDate;

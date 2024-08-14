@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ce.fisa.model.dto.InquiryDTO;
-import com.ce.fisa.model.dto.PartnerAndReviewDTO;
 import com.ce.fisa.model.dto.PartnerDTO;
 import com.ce.fisa.service.PartnerService;
 

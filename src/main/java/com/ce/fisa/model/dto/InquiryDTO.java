@@ -16,8 +16,8 @@ import lombok.ToString;
 public class InquiryDTO {
 	
 	private long inquiryId;
-	private UserDTO userId;
-	private WorkDTO workId;
+	private long userId;
+	private long workId;
 	private LocalDateTime inquiryDate;
 	private String inquiryAddress;
 	private String inquiryContent;
