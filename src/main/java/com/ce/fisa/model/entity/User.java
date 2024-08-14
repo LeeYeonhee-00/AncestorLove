@@ -11,11 +11,14 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -27,13 +30,15 @@ public class User {
 	@Column(name = "user_id")
 	private long userId;
 
-    @Column(name = "user_name")
+    @Column(name = "user_name", nullable = false)
 	private String userName;
 
-	@Column(name = "user_email")
+	@Column(name = "user_email", nullable = false)
+	@NonNull
 	private String userEmail;
 
-	@Column(name = "user_pw", length = 100)
+	@Column(name = "user_pw", length = 100, nullable = false)
+	@NonNull
 	private String userPw;
 
 	@Column(name = "user_age")
