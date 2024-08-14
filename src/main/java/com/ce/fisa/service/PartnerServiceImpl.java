@@ -6,12 +6,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ce.fisa.controller.PartnerController;
 import com.ce.fisa.dao.PartnerRepository;
 import com.ce.fisa.dao.ReviewRepository;
+import com.ce.fisa.exception.NotExistInquiryException;
+import com.ce.fisa.exception.NotExistPartnerException;
 import com.ce.fisa.model.dto.InquiryDTO;
 import com.ce.fisa.model.dto.PartnerAndReviewDTO;
 import com.ce.fisa.model.dto.PartnerDTO;
@@ -20,21 +25,29 @@ import com.ce.fisa.model.entity.Partner;
 
 @Service
 public class PartnerServiceImpl implements PartnerService {
-	
+
 	@Autowired
 	private PartnerRepository partnerDAO;
+
 	@Autowired
 	private ReviewRepository reviewDAO;
-	
+
 	private ModelMapper mapper = new ModelMapper();
-	
-	public PartnerDTO getPartners(long partnerId) {
-		
-		Partner entity = partnerDAO.findByPartnerId(partnerId);
-		
-		// 예외 처리
-		
-		PartnerDTO parterdto = mapper.map(entity, PartnerDTO.class);
+
+	private static final Logger logger = LogManager.getLogger(PartnerServiceImpl.class);
+
+	@Override
+	public PartnerDTO getPartners(long partnerId) throws NotExistPartnerException {
+
+		Partner partnerEntity = partnerDAO.findByPartnerId(partnerId);
+
+		if (partnerEntity == null) {
+			logger.info("Partner 상세조회 실패");
+			throw new NotExistPartnerException("No exists inquiry ");
+		}
+
+		PartnerDTO parterdto = mapper.map(partnerEntity, PartnerDTO.class);
+		logger.info("Partner 상세조회 성공");
 		return parterdto;
 	}
 
@@ -42,10 +55,10 @@ public class PartnerServiceImpl implements PartnerService {
 	public List<PartnerDTO> getAllPartner() {
 		List<Partner> partnerEntityList = partnerDAO.findAll();
 		System.out.println("getAllPartner() : " + partnerEntityList);
-		
-		List<PartnerDTO> partnerDTOList = partnerEntityList.stream()
-	            .map(entity -> mapper.map(entity, PartnerDTO.class))
-	            .collect(Collectors.toList());
+
+		List<PartnerDTO> partnerDTOList = partnerEntityList.stream().map(entity -> mapper.map(entity, PartnerDTO.class))
+				.collect(Collectors.toList());
+		logger.info("Partner 전체조회 성공");
 		return partnerDTOList;
 
 	}
@@ -62,13 +75,8 @@ public class PartnerServiceImpl implements PartnerService {
 			response.add(map);
 		}
 
+		logger.info("Partner 전체조회 성공");
 		return response;
 	}
 
-		
-		// 1. 받아온 파트너 id로 partnerDAO를 이용해서 파트너 이름이랑 주소지를 받아온다
-		// 2. 받아온 파트너 id로 reviewDAO를 이용해서 해당 파트너의 평균 별점을 받아온다
-		// 3. 받아온 값들을 정의한 DTO로 담아서 반환		
-    }
-
-
+}

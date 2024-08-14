@@ -30,7 +30,7 @@ public class Review {
 	private long reId;
 
 	@ManyToOne
-	@JoinColumn(name = "partner_id")
+	@JoinColumn(name = "partner_id", nullable = false)
 	private Partner partnerId;
 
 	// For Refactoring
