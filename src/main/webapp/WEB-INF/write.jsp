@@ -1,8 +1,9 @@
-<%@ taglib uri="http://jakarta.apache.org/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.time.LocalDateTime, java.time.format.DateTimeFormatter" %>
-<%@ page import="com.yourpackage.model.InquiryDTO, com.yourpackage.service.InquiryService" %>
+<%@ page import="com.ce.fisa.model.dto.InquiryDTO, com.ce.fisa.service.InquiryService" %>
 <%@ page import="org.springframework.web.context.support.SpringBeanAutowiringSupport" %>
+
 <%
     // Enable Spring to autowire beans in JSP
     SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
@@ -27,8 +28,8 @@
         inquiry.setUserId(Long.parseLong(userId));
         inquiry.setWorkId(Long.parseLong(workId));
 
-        inquiryService.saveInquiry(inquiry);
-        response.sendRedirect("list.jsp");
+
+        response.sendRedirect("list");
     }
 %>
 
@@ -77,15 +78,15 @@
 <!-- Navbar -->
 <div class="nav-bar">
   <div class="w3-bar w3-red w3-card w3-left-align w3-large">
-    <a href="index.jsp" class="w3-bar-item w3-button w3-padding-large w3-hover-white">Home</a>
-    <a href="list.jsp" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-white">의뢰하기</a>
-    <a href="partner.jsp" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
+    <a href="home" class="w3-bar-item w3-button w3-padding-large w3-hover-white">Home</a>
+    <a href="list" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-white">의뢰하기</a>
+    <a href="partner" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-green w3-right">회원님 안녕하세요</a>
   </div>
 </div>
 
 <!-- Form Section -->
-<form action="write.jsp" method="post">
+<form id="requestForm" action="write.jsp" method="post">
     <table> 
         <tr><td><h2>의뢰정보입력</h2></td></tr>
         <tr><td class="header">제목</td></tr>
@@ -111,6 +112,29 @@
         <tr><td style="text-align:right;"><input type="submit" value="게시하기"></td></tr>
     </table>
 </form>
+
+<script>
+    document.getElementById('requestForm').addEventListener('submit', function(event) {
+        // 입력값 유효성 검사
+        var title = document.getElementsByName('inquiryTitle')[0].value.trim();
+        var address = document.getElementsByName('inquiryAddress')[0].value.trim();
+        var date = document.getElementsByName('inquiryDate')[0].value.trim();
+        var userId = document.getElementsByName('userId')[0].value.trim();
+        var content = document.getElementsByName('inquiryContent')[0].value.trim();
+        
+        if (!title || !address || !date || !userId || !content) {
+            // 입력값이 하나라도 비어있는 경우
+            alert('오류 : 내용을 입력해주세요');
+            event.preventDefault(); // 폼 제출 중단
+        } else {
+            // 모든 필드가 올바르게 입력된 경우
+            alert('게시 완료!');
+            this.submit(); // 폼 제출
+            //location.href='/write.jsp';
+            window.location.href = 'list.jsp'; 
+        }
+    });
+</script>
 
 </body>
 </html>

@@ -33,11 +33,11 @@ body, h1, h2, h3, h4, h5, h6 {
 				class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
 				href="javascript:void(0);" onclick="myFunction()"
 				title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a> <a
-				href="#" class="w3-bar-item w3-button w3-padding-large w3-green">Home</a>
-			<a href="list.html"
+				href="home" class="w3-bar-item w3-button w3-padding-large w3-green">Home</a>
+			<a href="list"
 				class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-light-green">의뢰하기</a>
 			<!-- Updated link -->
-			<a href="partner.html"
+			<a href="/partner"
 				class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-light-green">파트너</a>
 			<a href="login.html"
 				class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-green w3-right">로그인</a>
@@ -61,7 +61,7 @@ body, h1, h2, h3, h4, h5, h6 {
 		<p class="w3-xlarge">예초 및 벌초 의뢰 매칭 서비스</p>
 		<button
 			class="w3-button w3-black w3-padding-large w3-large w3-margin-top"
-			onclick="location.href='write.html'">의뢰하기</button>
+			onclick="location.href='/write'">의뢰하기</button>
 	</header>
 
 	<!-- First Grid -->
