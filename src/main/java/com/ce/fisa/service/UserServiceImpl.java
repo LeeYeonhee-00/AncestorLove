@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private HttpSession httpSession; // 세션 객체 주입
+	
 	// DTO <-> Entity
 	private ModelMapper mapper = new ModelMapper();
 
@@ -53,9 +54,9 @@ public class UserServiceImpl implements UserService {
 				httpSession.setAttribute("userName", user.getUserName());
 
 
-//				  세션 사용법 
+				 // 세션 사용법 
 				logger.debug("사용자 id: " + httpSession.getAttribute("userId"));
-				logger.debug("사용자 이름: " +httpSession.getAttribute("userName"));
+				logger.debug("사용자 이름: " + httpSession.getAttribute("userName"));
 
 				return true;
 			}

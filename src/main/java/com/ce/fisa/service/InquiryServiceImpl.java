@@ -12,13 +12,18 @@ import org.springframework.stereotype.Service;
 import com.ce.fisa.controller.PartnerController;
 import com.ce.fisa.dao.CommentRepository;
 import com.ce.fisa.dao.InquiryRepository;
+import com.ce.fisa.dao.UserRepository;
+import com.ce.fisa.dao.WorkRepository;
 import com.ce.fisa.exception.NotExistInquiryException;
+import com.ce.fisa.model.dto.AllInquiryDTO;
 import com.ce.fisa.model.dto.CommentDTO;
 import com.ce.fisa.model.dto.InquiryDTO;
 import com.ce.fisa.model.entity.Comment;
 import com.ce.fisa.model.entity.Inquiry;
 import com.ce.fisa.model.entity.User;
 import com.ce.fisa.model.entity.Work;
+
+import jakarta.servlet.http.HttpSession;
 
 @Service
 public class InquiryServiceImpl implements InquiryService {
@@ -31,9 +36,19 @@ public class InquiryServiceImpl implements InquiryService {
 	@Autowired
 	private CommentRepository commentDAO;
 	
+	@Autowired
+	private UserRepository userDAO;
+
+	@Autowired
+	private WorkRepository workDAO;
+	
+	@Autowired
+	private HttpSession httpSession;
+	
 	// DTO <-> Entity
 	private ModelMapper mapper = new ModelMapper();
 	
+	// Entity to DTO conversion
 	private InquiryDTO convertToDTO(Inquiry inquiry) {
         return InquiryDTO.builder()
                 .inquiryId(inquiry.getInquiryId())
@@ -49,7 +64,7 @@ public class InquiryServiceImpl implements InquiryService {
                 .build();
     }
 	
-	
+	// Entity to DTO conversion
 	private CommentDTO convertCommentToDTO(Comment comment) {
 	    return CommentDTO.builder()
 	            .comId(comment.getComId())
@@ -59,27 +74,36 @@ public class InquiryServiceImpl implements InquiryService {
 	            .build();
 	}
 	
-	// DTO to Entity conversion if needed
-//    private Inquiry convertToEntity(InquiryDTO dto) {
-//        return Inquiry.builder()
-//                .inquiryId(dto.getInquiryId())
-//                .userId(dto.getUserId())  // Assuming User has a constructor that takes userId
-//                .workId(dto.getWorkId())  // Assuming Work has a constructor that takes workId
-//                .inquiryDate(dto.getInquiryDate())
-//                .inquiryAddress(dto.getInquiryAddress())
-//                .inquiryContent(dto.getInquiryContent())
-//                .inquiryTitle(dto.getInquiryTitle())
-//                .build();
-//    }
+	// DTO to Entity conversion
+    private Inquiry convertToEntity(User user, Work work, InquiryDTO dto) {
+        return Inquiry.builder()
+                .userId(user)  // Assuming User has a constructor that takes userId
+                .workId(work)  // Assuming Work has a constructor that takes workId
+                .inquiryDate(dto.getInquiryDate())
+                .inquiryAddress(dto.getInquiryAddress())
+                .inquiryContent(dto.getInquiryContent())
+                .inquiryTitle(dto.getInquiryTitle())
+                .build();
+    }
 
 	@Override
-	public List<InquiryDTO> getAllInquiry() {
+	public List<AllInquiryDTO> getAllInquiry() {
 
 		List<Inquiry> inquiryEntityList = inquiryDAO.findAll();
 		System.out.println("getAllInquiry() : " + inquiryEntityList);
 		
-		List<InquiryDTO> inquiryDTOList = inquiryEntityList.stream()
-		        .map(this::convertToDTO)
+//		List<AllInquiryDTO> inquiryDTOList = inquiryEntityList.stream()
+//		        .map(this::convertToDTO)
+//		        .collect(Collectors.toList());
+		
+		List<AllInquiryDTO> inquiryDTOList = inquiryEntityList.stream()
+		        .map(inquiry -> new AllInquiryDTO(
+		            inquiry.getInquiryId(),
+		            inquiry.getUserId() != null ? inquiry.getUserId().getUserName() : "Unknown", // Null 체크와 기본값 설정
+		            inquiry.getWorkId() != null ? inquiry.getWorkId().getWorkName() : "Unknown", // Null 체크와 기본값 설정
+		            inquiry.getInquiryDate(),
+		            inquiry.getInquiryTitle()
+		        ))
 		        .collect(Collectors.toList());
 		
 		return inquiryDTOList;
@@ -102,6 +126,25 @@ public class InquiryServiceImpl implements InquiryService {
 		return inquiryDTO;
 	}
 
+	@Override
+	public Inquiry postInquiry(InquiryDTO inquiryDTO) throws NotExistInquiryException {
+		
+		long seesionUserId = (long)httpSession.getAttribute("userId");
+		User user = userDAO.findByUserId(seesionUserId);
+		
+		Work work = workDAO.findByWorkId(inquiryDTO.getWorkId());
+		
+		if (user == null) {
+			logger.warn("Inquiry 작성 실패");
+			throw new NotExistInquiryException("작성자 정보가 누락되었습니다.");
+		}
+		
+		Inquiry inquiry = convertToEntity(user, work, inquiryDTO);
+		Inquiry result = inquiryDAO.save(inquiry);
+		// TODO Auto-generated method stub
+		return result;
+	}
+	
 	@Override
 	public Comment postComment(CommentDTO commentDTO) throws NotExistInquiryException {
 

@@ -9,7 +9,11 @@ import com.ce.fisa.model.dto.UserDTO;
 
 @Service
 public interface UserService {
+	
+	// 회원가입
 	public boolean signupUser(UserDTO user) throws InvalidSignupException ;
+	
+	// 로그인
 	public boolean authenticate(String userEmail, String userPW) throws NotExistUserException;
 
 }

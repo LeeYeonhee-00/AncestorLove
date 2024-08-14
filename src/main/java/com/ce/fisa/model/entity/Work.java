@@ -18,7 +18,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-//@Builder
 @Table(name = "Work")
 @Entity
 public class Work {

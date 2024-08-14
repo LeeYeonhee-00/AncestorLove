@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ce.fisa.exception.InvalidSignupException;
 import com.ce.fisa.exception.NotExistInquiryException;
+import com.ce.fisa.model.dto.AllInquiryDTO;
 import com.ce.fisa.model.dto.CommentDTO;
 import com.ce.fisa.model.dto.InquiryDTO;
 import com.ce.fisa.model.entity.Comment;
+import com.ce.fisa.model.entity.Inquiry;
 import com.ce.fisa.service.InquiryService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +32,7 @@ public class InquiryController {
 	
 	// 전체 Inquiry 리스트 조회
 	@GetMapping("/allinquriy")
-	public List<InquiryDTO> getAllInquiryList() {
+	public List<AllInquiryDTO> getAllInquiryList() {
 		logger.debug("Inquiry 전체조회 요청");
 		return inqService.getAllInquiry();
 	}
@@ -41,14 +44,28 @@ public class InquiryController {
 	}
 	
 	// Inquiry 작성
+	@PostMapping("inquriy")
+	public String postInquiry(@RequestBody InquiryDTO inquiryDTO) throws NotExistInquiryException {
+		logger.debug("의뢰하기 요청");
+		
+		Inquiry result = inqService.postInquiry(inquiryDTO);
+
+		if (result != null) {
+			logger.info("의뢰하기 성공");
+			return "의뢰하기 성공!!";
+		} else {
+			throw new NotExistInquiryException("유효한 값을 입력하세요");
+		}
+	}
+	
 	
 	// Comment 작성
 	@PostMapping("/comment")
-	public ResponseEntity<String> postComment(@RequestBody CommentDTO comment) throws NotExistInquiryException {
+	public ResponseEntity<String> postComment(@RequestBody CommentDTO commentDTO) throws NotExistInquiryException {
 
 		logger.debug("Comment 작성 요청");
 
-		Comment result = inqService.postComment(comment);
+		Comment result = inqService.postComment(commentDTO);
 
 		if (result != null) {
 			logger.info("Comment 작성 성공");
