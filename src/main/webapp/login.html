@@ -203,13 +203,12 @@ input[type="text"], input[type="password"], input[type="date"] {
 			<div class="container">
 				<h1>Login</h1>
 				<label for="uname"><b>이메일</b></label> <input type="text"
-					id="userEmail" placeholder="Enter Username" name="userEmail"
-					required> <label for="psw"><b>비밀번호</b></label> <input
-					type="password" id="userPw" placeholder="Enter Password"
-					name="userPw" required>
+					placeholder="Enter Username" name="userEmail" required> <label
+					for="psw"><b>비밀번호</b></label> <input type="password"
+					placeholder="Enter Password" name="userPw" required>
 
 				<div class="button-container">
-					<button id="loginBtn" type="submit" onclick="alert()">로그인</button>
+					<button type="submit">로그인</button>
 					<button id="openModalBtn" style="width: auto;">회원가입</button>
 				</div>
 			</div>
@@ -226,15 +225,26 @@ input[type="text"], input[type="password"], input[type="date"] {
 
 							<hr>
 							<label for="name"><b>이름</b></label> <input type="text"
-								placeholder="Enter Name" name="name" required> <label
+								placeholder="Enter Name" name="userName" required> <label
 								for="email"><b>이메일</b></label> <input type="text"
-								placeholder="Enter Email" name="email" required> <label
+								placeholder="Enter Email" name="userEmail" required> <label
 								for="psw"><b>비밀번호</b></label> <input type="password"
-								placeholder="Enter Password" name="psw" required> <label
-								for="age"><b>나이</b></label> <input type="text"
-								placeholder="Enter Age" name="age" required>
+								placeholder="Enter Password" name="userPw" required>
+							<!-- <label
+								for="psw-repeat"><b>비밀번호 확인</b></label> <input type="password"
+								placeholder="Repeat Password" name="psw-repeat" required> -->
 
-						
+							<!-- <label for="birthdate"><b>생년월일</b></label> <input type="date"
+								name="birthdate" required> -->
+							<label for="age"><b>나이</b></label> <input type="number"
+								placeholder="Enter Age" name="userAge" required> <label
+								for="gender"><b>성별</b></label>
+							<div class="gender-selection">
+								<label> <input type="radio" name="userGender"
+									value="male" required> 남성
+								</label> <label> <input type="radio" name="userGender"
+									value="female" required> 여성
+								</label>
 							</div>
 
 							<div class="clearfix">
@@ -258,56 +268,84 @@ input[type="text"], input[type="password"], input[type="date"] {
 	</footer>
 
 	<script>
-		var modal = document.getElementById('id01');
-		var openModalBtn = document.getElementById('openModalBtn');
-		var closeModalBtn = document.getElementsByClassName('close')[0];
+	// 모달 관련 코드
+	var modal = document.getElementById('id01');
+	var btn = document.getElementById("openModalBtn");
+	var span = document.getElementsByClassName("close")[0];
 
-		openModalBtn.onclick = function() {
-			modal.style.display = 'block';
-		}
+	btn.onclick = function() {
+	    modal.style.display = "block";
+	}
 
-		closeModalBtn.onclick = function() {
-			modal.style.display = 'none';
-		}
+	span.onclick = function() {
+	    modal.style.display = "none";
+	}
 
-		window.onclick = function(event) {
-			if (event.target == modal) {
-				modal.style.display = 'none';
-			}
-		}
+	window.onclick = function(event) {
+	    if (event.target == modal) {
+	        modal.style.display = "none";
+	    }
+	}
 
-		document.querySelector('.cancelbtn').onclick = function() {
-			modal.style.display = 'none';
-		}
+	document.getElementById('signupForm').addEventListener('submit', function(event) {
+	    event.preventDefault();
 
-		var signupForm = document.getElementById('signupForm');
-		signupForm.onsubmit = function(e) {
-			e.preventDefault();
+	    var userName = document.getElementsByName('userName')[0].value;
+	    var userEmail = document.getElementsByName('userEmail')[1].value;
+	    var userPw = document.getElementsByName('userPw')[1].value;
+	    var userAge = document.getElementsByName('userAge')[0].value;
+	    var userGender = document.querySelector('input[name="userGender"]:checked').value;
 
-			var name = document.getElementsByName('name')[0].value;
-			var email = document.getElementsByName('email')[0].value;
-			var password = document.getElementsByName('psw')[0].value;
-			var age = document.getElementsByName('age')[0].value;
-			
-			fetch('/signup', {
-		        method: 'POST',
-		        headers: {
-		            'Content-Type': 'application/json',
-		        },
-		        body: JSON.stringify({ name, email, password, age }), 
-		    })
-		    .then(response => response.text())
-		    .then(data => {
-		        alert(data);
-		    })
-		    .catch(error => {
-		        console.error('Error:', error);
-		    });
-			console.log('폼 제출:', name, email, password, age);
-			modal.style.display = 'none';
+	    // Gender 값을 대문자로 변경
+	    userGender = userGender.toUpperCase();
 
-			alert('회원가입이 완료되었습니다. 로그인 후 이용해주세요.');
-		}
-	</script>
+	    if (!userName || !userEmail || !userPw || !userAge || !userGender) {
+	        alert('모든 필드를 입력해주세요.');
+	        return;
+	    }
+
+	    fetch('/signup', {
+	        method: 'POST',
+	        headers: {
+	            'Content-Type': 'application/json'
+	        },
+	        body: JSON.stringify({
+	            userName: userName,
+	            userEmail: userEmail,
+	            userPw: userPw,
+	            userAge: parseInt(userAge),
+	            userGender: userGender // 'userGender'로 키 이름 변경
+	        })
+	    })
+	    .then(response => {
+	        if (!response.ok) {
+	            throw new Error('서버 응답이 실패했습니다.');
+	        }
+	        return response.text();
+	    })
+	    .then(data => {
+	        alert(data);
+	        modal.style.display = "none";
+	    })
+	    .catch(error => {
+	        console.error('Error:', error);
+	        alert('회원가입 중 오류가 발생했습니다: ' + error.message);
+	    });
+	});
+	// 로그인 폼 제출 처리 (기존 코드 유지)
+	document.querySelector('button[type="submit"]').addEventListener('click', function(event) {
+	    event.preventDefault();
+
+	    var userEmail = document.getElementsByName('userEmail')[0].value;
+	    var userPw = document.getElementsByName('userPw')[0].value;
+
+	    if (!userEmail || !userPw) {
+	        alert('이메일과 비밀번호를 입력하세요.');
+	        return;
+	    }
+
+	    // 여기에 로그인 요청 코드를 추가할 수 있습니다.
+	});
+    </script>
 </body>
 </html>
