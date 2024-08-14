@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ce.fisa.exception.InvalidSignupException;
 import com.ce.fisa.exception.NotExistInquiryException;
 import com.ce.fisa.exception.NotExistUserException;
+import com.ce.fisa.model.dto.LoginResponseDTO;
 import com.ce.fisa.model.dto.UserDTO;
 import com.ce.fisa.model.entity.User;
 import com.ce.fisa.service.UserServiceImpl;
@@ -20,9 +21,12 @@ import jakarta.servlet.http.HttpSession;
 
 @RestController
 public class UserController {
+	
 	@Autowired
 	private UserServiceImpl userService;
 	
+	@Autowired
+	private HttpSession httpSession;
 
 	private static final Logger logger = LogManager.getLogger(UserController.class);
 	
@@ -51,7 +55,7 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody UserDTO user) throws NotExistUserException {
+	public ResponseEntity<LoginResponseDTO> login(@RequestBody UserDTO user) throws NotExistUserException {
 
 		logger.debug("로그인 요청");
 
@@ -59,11 +63,22 @@ public class UserController {
 
 		if (isAuthenticated) {
 			logger.info("로그인 성공");
-			return ResponseEntity.ok("로그인 성공");
-		} else {
-			logger.warn("로그인 실패");
-			return ResponseEntity.status(401).body("로그인 실패");
-		}
+			
+			long id = (long)httpSession.getAttribute("userId");
+			String name = (String)httpSession.getAttribute("userName");
+			
+			LoginResponseDTO response = new LoginResponseDTO("로그인 성공", id, name);
+	        return ResponseEntity.ok(response);
+	    } else {
+	        logger.warn("로그인 실패");
+	        return ResponseEntity.status(401).body(new LoginResponseDTO("로그인 실패", 0, null));
+	    }
+			
+//			return ResponseEntity.ok("로그인 성공");
+//		} else {
+//			logger.warn("로그인 실패");
+//			return ResponseEntity.status(401).body("로그인 실패");
+//		}
 	}
 
 }
