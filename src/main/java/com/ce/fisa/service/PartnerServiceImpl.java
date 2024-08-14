@@ -29,9 +29,6 @@ public class PartnerServiceImpl implements PartnerService {
 	@Autowired
 	private PartnerRepository partnerDAO;
 
-	@Autowired
-	private ReviewRepository reviewDAO;
-
 	private ModelMapper mapper = new ModelMapper();
 
 	private static final Logger logger = LogManager.getLogger(PartnerServiceImpl.class);
@@ -42,8 +39,8 @@ public class PartnerServiceImpl implements PartnerService {
 		Partner partnerEntity = partnerDAO.findByPartnerId(partnerId);
 
 		if (partnerEntity == null) {
-			logger.info("Partner 상세조회 실패");
-			throw new NotExistPartnerException("No exists inquiry ");
+			logger.warn("Partner 상세조회 실패");
+			throw new NotExistPartnerException("해당 파트너는 존재하지 않습니다.");
 		}
 
 		PartnerDTO parterdto = mapper.map(partnerEntity, PartnerDTO.class);

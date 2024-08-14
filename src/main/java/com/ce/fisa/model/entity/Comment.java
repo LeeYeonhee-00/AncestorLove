@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +22,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@Builder
 @Table(name = "Comments")
 @Entity
 public class Comment {
@@ -29,8 +31,9 @@ public class Comment {
 	@Column(name = "com_id")
 	private long comId;
 
+	@ToString.Exclude // toString() 메서드에서 제외
 	@ManyToOne
-	@JoinColumn(name = "inquiry_id")
+	@JoinColumn(name = "inquiry_id", nullable = false)
 	private Inquiry inquiryId; 
 
 	@Column(name = "com_content", length = 800)
@@ -39,9 +42,4 @@ public class Comment {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "com_consign")
 	private Contract comConsign;
-	
-	// Enum for Gender
-    public enum Contract {
-        CONSIGN, UNCONSIGN
-    }
 }

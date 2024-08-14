@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.ce.fisa.exception.NotExistInquiryException;
+import com.ce.fisa.model.dto.CommentDTO;
 import com.ce.fisa.model.dto.InquiryDTO;
+import com.ce.fisa.model.entity.Comment;
 
 @Service
 public interface InquiryService {
@@ -16,4 +18,5 @@ public interface InquiryService {
 	// ID값으로 Inquiry 상세 조회
 	public InquiryDTO getInquiry(long inquiryId) throws NotExistInquiryException;
 
+	public Comment postComment(CommentDTO comment) throws NotExistInquiryException;
 }
