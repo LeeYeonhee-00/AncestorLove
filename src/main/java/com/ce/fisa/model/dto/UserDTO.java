@@ -20,5 +20,5 @@ public class UserDTO {
 	private String userEmail;
 	private String userPw;
 	private int userAge;
-    private Gender userGender; // 이분형 타입으로 정의된 Gender
+  private Gender userGender; // 이분형 타입으로 정의된 Gender
 }

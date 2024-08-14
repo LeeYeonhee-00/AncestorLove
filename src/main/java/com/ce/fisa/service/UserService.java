@@ -7,6 +7,8 @@ import com.ce.fisa.exception.NotExistInquiryException;
 import com.ce.fisa.exception.NotExistUserException;
 import com.ce.fisa.model.dto.UserDTO;
 
+import jakarta.servlet.http.HttpSession;
+
 @Service
 public interface UserService {
 	
@@ -15,5 +17,6 @@ public interface UserService {
 	
 	// 로그인
 	public boolean authenticate(String userEmail, String userPW) throws NotExistUserException;
+	public boolean logout (HttpSession httpSession);
 
 }
