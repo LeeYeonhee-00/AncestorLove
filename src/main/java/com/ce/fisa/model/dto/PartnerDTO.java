@@ -6,6 +6,7 @@ import java.util.List;
 import com.ce.fisa.model.entity.Review;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +16,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 @ToString
 public class PartnerDTO {
 	private long partnerId; 
@@ -22,5 +24,5 @@ public class PartnerDTO {
 	private String partnerLocation;
 	private int metricPrice;
 	private String partnerInfo;
-	private List<Review> reviews = new ArrayList<>();
+	private List<ReviewDTO> reviews = new ArrayList<>();
 }

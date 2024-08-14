@@ -1,6 +1,6 @@
 package com.ce.fisa.model.dto;
 
-import com.ce.fisa.model.entity.User;
+import com.ce.fisa.model.entity.Gender;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,9 +20,5 @@ public class UserDTO {
 	private String userEmail;
 	private String userPw;
 	private int userAge;
-    private User.Gender userGender; // 이분형 타입으로 정의된 Gender
-    // Enum for Gender
-    public enum Gender {
-        MALE, FEMALE
-    }
+  private Gender userGender; // 이분형 타입으로 정의된 Gender
 }

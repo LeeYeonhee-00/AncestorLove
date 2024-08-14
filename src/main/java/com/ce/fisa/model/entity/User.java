@@ -47,9 +47,4 @@ public class User {
 	@Enumerated(EnumType.STRING)
     @Column(name = "user_gender")
     private Gender userGender; // 이분형 타입으로 정의된 Gender
-
-    // Enum for Gender
-    public enum Gender {
-        MALE, FEMALE
-    }
 }
