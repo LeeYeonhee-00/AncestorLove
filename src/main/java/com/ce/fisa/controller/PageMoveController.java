@@ -11,4 +11,9 @@ public class PageMoveController {
 		return "main";
 	}
 	
+	@GetMapping("write")
+	public String write() {
+		return "/write";
+	}
+	
 }
