@@ -31,7 +31,7 @@ public class PartnerController {
 		return partnerService.getPartners(partnerId);
 	}
 	
-	// 별점 평균 없이 Partner 전체 정보 조회
+	// 별점 평균 없이 Partner 전체 정보 조회 - 사용 안함(디버깅 위함)
 	@GetMapping("/partnerall")
 	public List<PartnerDTO> getAllPartner() {
 		logger.debug("Partner 정보 전체조회");

@@ -84,7 +84,6 @@ function createPartnerCard(partner) {
             <h3><a href="partnerdetail.html?id=${partner.partnerId}">${partner.partnerName}</a></h3>
             <p>작업 지역: ${partner.partnerLocation}</p>
             <p>평점: ${renderStars(partner.averageRating)}</p>
-            <p>소개: ${partner.partnerInfo}</p> <!-- 파트너 소개 추가 -->
         </div>
     `;
     return card;
