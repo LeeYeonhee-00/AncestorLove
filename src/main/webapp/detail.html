@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>detail.html</title>
 <style>
     .content {
@@ -19,23 +22,23 @@
 
 <!-- Navbar -->
 <div class="nav-bar">
-  <div class="w3-bar w3-red w3-card w3-left-align w3-large">
-    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    <a href="index.html" class="w3-bar-item w3-button w3-padding-large w3-hover-white">Home</a>
-    <a href="list.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-white">의뢰하기</a>
-    <a href="partner.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-green w3-right">회원님 안녕하세요</a>
-  </div>
+    <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+        <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
+           href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+        <a href="index.html" class="w3-bar-item w3-button w3-padding-large w3-hover-white">Home</a>
+        <a href="list.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-white">의뢰하기</a>
+        <a href="partner.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
+        <div id="loginSection" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-green w3-right"></div>
+    </div>
 
-  <!-- Navbar on small screens -->
-  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 4</a>
-  </div>
+    <!-- Navbar on small screens -->
+    <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+        <a href="#" id="smallScreenLogin" class="w3-bar-item w3-button w3-padding-large">로그인</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 4</a>
+    </div>
 </div>
-
 
 <div class="content">
     <h2>의뢰 상세 내용</h2>
@@ -50,11 +53,9 @@
         const inquiryId = urlParams.get('id');  // URL에서 실제 id 값을 가져옴
 
         if (inquiryId) {
-            // 백엔드에서 의뢰 데이터를 가져옵니다.
             fetch(`/inquiry/${inquiryId}`)  // 백엔드 API 호출
                 .then(response => response.json())  // JSON 형식으로 응답을 파싱
                 .then(data => {
-                    // HTML 요소에 데이터를 삽입합니다.
                     const inquiryDetails = document.getElementById('inquiry-details');
                     inquiryDetails.innerHTML = `
                         <h3>의뢰 번호: ${data.inquiryId}</h3>
@@ -79,6 +80,45 @@
         } else {
             document.getElementById('inquiry-details').innerHTML = '<p>유효한 의뢰 ID가 제공되지 않았습니다.</p>';
         }
+
+        // 로그인 상태 확인 및 UI 업데이트 함수
+        function updateLoginUI() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const loginSection = document.getElementById('loginSection');
+            const smallScreenLogin = document.getElementById('smallScreenLogin');
+
+            if (user && user.name) {
+                loginSection.innerHTML = `
+                    <a class="w3-bar-item w3-hide-small w3-padding-large">${user.name}님 환영합니다</a>
+                    <a onclick="logout()" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그아웃</a>
+                `;
+                if (smallScreenLogin) {
+                    smallScreenLogin.textContent = "로그아웃";
+                    smallScreenLogin.onclick = logout;
+                }
+            } else {
+                loginSection.innerHTML = `
+                    <a href="login.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그인</a>
+                `;
+                if (smallScreenLogin) {
+                    smallScreenLogin.textContent = "로그인";
+                    smallScreenLogin.onclick = null;
+                    smallScreenLogin.href = "login.html";
+                }
+            }
+        }
+
+        // 로그아웃 함수
+        function logout() {
+            localStorage.removeItem('user');
+            updateLoginUI();
+            alert('로그아웃이 완료되었습니다.');
+            window.location.href = 'main.html';
+            // logout api 추가하기
+        }
+
+        // 페이지 로드 시 로그인 UI 업데이트
+        document.addEventListener('DOMContentLoaded', updateLoginUI);
     </script>
 </div>
 
