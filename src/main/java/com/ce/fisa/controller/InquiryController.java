@@ -20,6 +20,7 @@ import com.ce.fisa.model.entity.Inquiry;
 import com.ce.fisa.service.InquiryService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @RestController
@@ -31,20 +32,20 @@ public class InquiryController {
 	private static final Logger logger = LogManager.getLogger(PartnerController.class);
 	
 	// 전체 Inquiry 리스트 조회
-	@GetMapping("/allinquriy")
+	@GetMapping("/allinquiry")
 	public List<AllInquiryDTO> getAllInquiryList() {
 		logger.debug("Inquiry 전체조회 요청");
 		return inqService.getAllInquiry();
 	}
 	
 	// 특정 Inquiry 상세 조회
-	@GetMapping("/inquriy/{id}")
-	public InquiryDTO getInquiryById(@PathVariable("id") Long inquityid) throws NotExistInquiryException {
-		return inqService.getInquiry(inquityid);
+	@GetMapping("/inquiry/{id}")
+	public InquiryDTO getInquiryById(@PathVariable("id") Long inquiryid) throws NotExistInquiryException {
+		return inqService.getInquiry(inquiryid);
 	}
 	
 	// Inquiry 작성
-	@PostMapping("inquriy")
+	@PostMapping("inquiry")
 	public String postInquiry(@RequestBody InquiryDTO inquiryDTO) throws NotExistInquiryException {
 		logger.debug("의뢰하기 요청");
 		
