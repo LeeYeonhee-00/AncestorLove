@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>W3.CSS Template</title>
+<title>Partner List</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -11,17 +11,19 @@
 body, h1, h2, h3, h4, h5, h6 { font-family: "Raleway", sans-serif; }
 .header-container { padding-top: 70px; } /* Adjust this value if necessary */
 
-.partner-card img {
-    width: 80%; /* Increase the image width */
-    max-width: 250px; /* Limit the maximum width */
-    height: auto; /* Maintain aspect ratio */
+.partner-card {
+    background-color: #f1f1f1; /* Card background color */
+    padding: 20px;
+    border-radius: 10px;
     margin-bottom: 20px;
-    border-radius: 10px; /* Match the card's border radius */
 }
 
 .partner-card img {
-    width: 50px;
-    margin-bottom: 10px;
+    width: 100%; /* Increase the image width to fill container */
+    max-width: 500px; /* Increase the maximum width */
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 10px;
 }
 
 .partner-card h3 {
@@ -29,7 +31,7 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Raleway", sans-serif; }
 }
 
 .partner-card p {
-    margin: 5px 0;
+    margin: 10px 0;
 }
 </style>
 </head>
@@ -38,103 +40,23 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Raleway", sans-serif; }
 <!-- Navbar -->
 <div class="w3-top">
   <div class="w3-bar w3-red w3-card w3-left-align w3-large">
-    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
     <a href="index.html" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
     <a href="list.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">의뢰하기</a>
     <a href="partner.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
     <a href="login.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-green w3-right">로그인</a>
   </div>
-
-  <!-- Navbar on small screens -->
-  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-    <a href="inquiry.html" class="w3-bar-item w3-button w3-padding-large">의뢰하기</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 4</a>
-  </div>
 </div>
-
-<!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
 <!-- Header -->
 <header id="PartnerList" class="header-container">
-  <a href="#"><img src="/w3images/avatar_g2.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
-  <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
   <div class="w3-container">
     <h1><b>제휴 파트너 리스트</b></h1>
-    <div class="w3-section w3-bottombar w3-padding-16">
-      <span class="w3-margin-right">Filter:</span> 
-      <button class="w3-button w3-black">ALL</button>
-    </div>
   </div>
 </header>
 
 <!-- Partner List -->
 <div class="w3-row-padding">
-    <!-- Partner card start -->
-    <!-- <div class="w3-col l4 m6">
-        <div class="partner-card w3-card-2">
-            <img src="images/yecho.jpg" alt="그린 파머스">
-            <h3><a href="partnerdetail.html?id=1">그린 파머스</a></h3>
-            <p>작업 지역: 전국</p>
-            <p>평점: ★★★★★</p>
-        </div>
-    </div>
-    Repeat this block for each partner
-    <div class="w3-col l4 m6">
-        <div class="partner-card w3-card-2">
-            <img src="images/yecho.jpg" alt="온누리 벌초">
-            <h3><a href="partnerdetail.html?id=2">온누리 벌초</a></h3>
-            <p>작업 지역: 수도권</p>
-            <p>평점: ★★★</p>
-        </div>
-    </div>
-    <div class="w3-col l4 m6">
-        <div class="partner-card w3-card-2">
-            <img src="images/yecho.jpg" alt="벌초 닷컴">
-            <h3><a href="partnerdetail.html?id=3">벌초 닷컴</a></h3>
-            <p>작업 지역: 전국</p>
-            <p>평점: ★★★★</p>
-        </div>
-    </div>
-    <div class="w3-col l4 m6">
-        <div class="partner-card w3-card-2">
-            <img src="images/yecho.jpg" alt="다온 벌초대행">
-            <h3><a href="partnerdetail.html?id=4">다온 벌초대행</a></h3>
-            <p>작업 지역: 영남</p>
-            <p>평점: ★★★</p>
-        </div>
-    </div>
-    <div class="w3-col l4 m6">
-        <div class="partner-card w3-card-2">
-            <img src="images/yecho.jpg" alt="벌초 청년">
-            <h3><a href="partnerdetail.html?id=5">벌초 청년</a></h3>
-            <p>작업 지역: 제주</p>
-            <p>평점: ★★★★</p>
-        </div>
-    </div>
-    <div class="w3-col l4 m6">
-        <div class="partner-card w3-card-2">
-            <img src="images/yecho.jpg" alt="예초 닷컴">
-            <h3><a href="partnerdetail.html?id=6">예초 닷컴</a></h3>
-            <p>작업 지역: 전국</p>
-            <p>평점: ★★</p>
-        </div>
-    </div> -->
-    <!-- Partner card end -->
-</div>
-
-<!-- Pagination -->
-<div class="w3-center w3-padding-32">
-  <div class="w3-bar">
-    <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
-    <a href="#" class="w3-bar-item w3-black w3-button">1</a>
-    <a href="#" class="w3-bar-item w3-button w3-hover-black">2</a>
-    <a href="#" class="w3-bar-item w3-button w3-hover-black">3</a>
-    <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
-    <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
-  </div>
+    <!-- Partner cards will be inserted here -->
 </div>
 
 <script>
@@ -150,18 +72,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 partnerList.appendChild(partnerCard);
             });
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => console.error('Error fetching partners:', error)); // 오류 메시지를 명확하게 변경
 });
 
 function createPartnerCard(partner) {
     const card = document.createElement('div');
-    card.className = 'w3-col l4 m6';
+    card.className = 'w3-col l4 m12';
     card.innerHTML = `
         <div class="partner-card w3-card-2">
-            <img src="images/yecho.jpg" alt="${partner.partnerName}">
+            <img src="images/yecho.jpg" alt="${partner.partnerName}"> <!-- 이미지 경로 수정 가능 -->
             <h3><a href="partnerdetail.html?id=${partner.partnerId}">${partner.partnerName}</a></h3>
             <p>작업 지역: ${partner.partnerLocation}</p>
             <p>평점: ${renderStars(partner.averageRating)}</p>
+            <p>소개: ${partner.partnerInfo}</p> <!-- 파트너 소개 추가 -->
         </div>
     `;
     return card;

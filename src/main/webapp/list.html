@@ -118,10 +118,10 @@ button:active {
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        fetch('/api/inquiries')
+        fetch('/allinquiry')
             .then(response => response.json())
             .then(data => {
-                var inquiryList = document.getElementById('inquiryId');
+                var inquiryList = document.getElementById('inquiryList');
                 inquiryList.innerHTML = '';
 
                 data.forEach(function(inquiry, index) {

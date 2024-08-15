@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -78,7 +78,7 @@ input[type="submit"]:active {
 </div>
 
 <body>
-	<form id="requestForm" onsubmit="return validateForm();">
+	<form id="requestForm">
 
 		<table>
 			<tr>
@@ -101,7 +101,7 @@ input[type="submit"]:active {
 				<td class="header">작업날짜</td>
 			</tr>
 			<tr>
-				<td><input type="text" placeholder="작업날짜를 입력하세요" name="inquiryDate"></td>
+				<td><input type="datetime-local" name="inquiryDate"></td>
 			</tr>
 			<tr>
 				<td class="header">작업유형</td>
@@ -121,7 +121,7 @@ input[type="submit"]:active {
 			</tr>
 			<tr>
 				<td style="text-align: right;"><input type="submit"
-					value="게시하기" onclick="return validateForm();"></td>
+					value="게시하기"></td>
 			</tr>
 		</table>
 	</form>
@@ -129,7 +129,11 @@ input[type="submit"]:active {
 	<script>
     document.getElementById('requestForm').addEventListener('submit', function(event) {
         event.preventDefault();
+		
+        var submitButton = document.querySelector('input[type="submit"]');
+        submitButton.disabled = true; // 폼 제출 후 버튼 비활성화
 
+        
         var inquiryTitle = document.getElementsByName('inquiryTitle')[0].value.trim();
         var inquiryAddress = document.getElementsByName('inquiryAddress')[0].value.trim();
         var inquiryDate = document.getElementsByName('inquiryDate')[0].value.trim();
@@ -140,6 +144,7 @@ input[type="submit"]:active {
             alert('오류 : 내용을 입력해주세요');
             return;
         }
+        
 
         fetch('inquiry', {
             method: 'POST',
@@ -154,9 +159,9 @@ input[type="submit"]:active {
                 inquiryContent: inquiryContent
             }),
         })
-        .then(response => response.json())
+        .then(response => response.text())
         .then(data => {
-            alert('게시 완료!');
+            alert(data);
             window.location.href = 'list.html';
         })
         .catch(error => {
