@@ -49,6 +49,8 @@ public class UserServiceImpl implements UserService {
 				// 로그인 성공 시 세션에 사용자 정보 저장
 				httpSession.setAttribute("userId", user.getUserId());
 				httpSession.setAttribute("userName", user.getUserName());
+				httpSession.setAttribute("userAge", user.getUserAge());
+				httpSession.setAttribute("userGender", user.getUserGender());
 
 				 // 세션 사용법 
 				logger.debug("사용자 id: " + httpSession.getAttribute("userId"));
