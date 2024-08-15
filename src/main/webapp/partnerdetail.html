@@ -103,40 +103,71 @@ body, h1, h2, h3, h4, h5, h6 {
 		<a href="#" class="w3-bar-item w3-button w3-padding-large">Link 4</a>
 	</div>
 
-	<!-- Partner Detail Section -->
-	<div class="partner-detail-container">
-		<div class="partner-info">
-			<h1>
-				<b>파트너 이름</b>
-			</h1>
-			<p>작업 지역 : 경기도 00시 00구</p>
-			<p>평당 금액 : 000원</p>
-			<p>분묘 금액 : 000원</p>
-			<p>파트너 설명 : 어쩌구 저쩌구</p>
-		</div>
-		<div class="partner-photo">
-			<h3>사장 사진</h3>
-			<img src="images/boss.jpg" alt="사장 사진">
-		</div>
-	</div>
+	  <div class="partner-detail-container" id="partnerDetail">
+        <!-- 파트너 정보가 여기에 동적으로 로드됩니다 -->
+    </div>
 
-	<!-- Reviews Section -->
-	<div class="reviews-section">
-		<h3>후기</h3>
-		<div class="review">
-			<img src="images/profile.jpg" alt="프로필 사진">
-			<p>아 좀 실망이네요</p>
-			<div class="stars">★☆☆☆☆</div>
-			<div class="date">2024.08.09</div>
-		</div>
-		<div class="review">
-			<img src="images/profile.jpg" alt="프로필 사진">
-			<p>아주 대만족 합니다</p>
-			<div class="stars">★★★★★</div>
-			<div class="date">2024.08.09</div>
-		</div>
-	</div>
+    <div class="reviews-section" id="reviewsSection">
+        <!-- 리뷰가 여기에 동적으로 로드됩니다 -->
+    </div>
 
+    <script>
+        // URL에서 파트너 ID를 추출하는 함수
+        function getPartnerId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
+
+        // 파트너 정보를 가져와서 표시하는 함수
+        function loadPartnerDetails() {
+            const partnerId = getPartnerId();
+            fetch(`/partner/${partnerId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(partner => {
+                    document.getElementById('partnerDetail').innerHTML = `
+                        <div class="partner-info">
+                            <h1>${partner.partnerName}</h1>
+                            <p>작업 지역: ${partner.partnerLocation}</p>
+                            <p>평당 금액: ${partner.metricPrice}원</p>
+                            <p>파트너 설명: ${partner.partnerInfo}</p>
+                        </div>
+                    `;
+
+                    // 리뷰 섹션 로드
+                    loadReviews(partner.reviews);
+                })
+                .catch(error => {
+                    console.error('파트너 정보를 불러오는 데 실패했습니다:', error);
+                });
+        }
+
+        // 리뷰를 표시하는 함수
+        function loadReviews(reviews) {
+            const reviewsHtml = reviews.map(review => `
+                <div class="review">
+                    <img src="images/profile.jpg" alt="프로필 사진">
+                    <p>${review.reContent}</p>
+                    <div class="stars">
+                        ${'★'.repeat(review.reRating)}${'☆'.repeat(5 - review.reRating)}
+                    </div>
+                    <div class="date">${new Date(review.reDate).toLocaleDateString()}</div>
+                </div>
+            `).join('');
+
+            document.getElementById('reviewsSection').innerHTML = `
+                <h3>후기</h3>
+                ${reviewsHtml}
+            `;
+        }
+
+        // 페이지 로드 시 파트너 정보 불러오기
+        window.onload = loadPartnerDetails;
+</script>
 
 </body>
 </html>
