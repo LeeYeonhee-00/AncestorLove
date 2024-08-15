@@ -3,113 +3,122 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Partner Detail</title>
+<title>조상사랑 - 예초 벌초 매칭 서비스</title>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="icon" type="image/png" sizes="16x16" href="../images/icon.png">
 <style>
 body, h1, h2, h3, h4, h5, h6 {
-    font-family: "Raleway", sans-serif;
+	font-family: "Lato", sans-serif
+}
+
+.w3-bar, h1, button {
+	font-family: "Lato", sans-serif
 }
 
 .header-container {
-    padding-top: 20px;
+	padding-top: 20px;
 }
 
 .partner-detail-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    border-bottom: 1px solid #ccc;
-    margin-top: 60px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
+	border-bottom: 1px solid #ccc;
+	margin-top: 60px;
 }
 
 .partner-info {
-    max-width: 60%;
+	max-width: 60%;
 }
 
 .partner-info h2 {
-    margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 .partner-info p {
-    margin: 5px 0;
+	margin: 5px 0;
 }
 
 .partner-photo {
-    max-width: 30%;
-    text-align: center;
+	max-width: 30%;
+	text-align: center;
 }
 
 .partner-photo img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
 }
 
 .reviews-section {
-    padding: 20px;
+	padding: 20px;
 }
 
 .review {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #eee;
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	border-bottom: 1px solid #eee;
 }
 
 .review img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin-right: 10px;
 }
 
 .review p {
-    flex: 1;
+	flex: 1;
 }
 
 .review .stars, .review .date {
-    margin-left: 10px;
-    text-align: right;
+	margin-left: 10px;
+	text-align: right;
 }
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%; 
+    background-color: #f1f1f1; 
+
 </style>
 </head>
 <body>
 
-    <!-- Navbar -->
+	<!-- 네비게이션 바 -->
+	<div class="w3-top">
+		<div class="w3-bar w3-light-green w3-card w3-left-align w3-large">
+			<a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
+				href="javascript:void(0);" title="Toggle Navigation Menu"> 
+				<i class="fa fa-bars"></i></a> 
+			<a href="main.html" class="w3-bar-item w3-button w3-padding-large w3-hover-white w3-green">Home</a>
+			<a href="list.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">의뢰하기</a>
+			<a href="partner.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
+			<div id="loginSection" class="w3-right">
+				
+				<!-- 로그인/로그아웃 버튼이 여기에 동적으로 삽입 -->
+			</div>
+		</div>
 
-    <div class="w3-top">
-        <div class="w3-bar w3-light-green w3-card w3-left-align w3-large">
-            <a
-                class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
-                href="javascript:void(0);" title="Toggle Navigation Menu"> <i
-                class="fa fa-bars"></i>
-            </a> <a href="main.html"
-                class="w3-bar-item w3-button w3-padding-large w3-hover-white w3-green">Home</a>
-            <a href="list.html"
-                class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">의뢰하기</a>
-            <a href="partner.html"
-                class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
-            <div id="loginSection" class="w3-right">
-                <!-- 로그인/로그아웃 버튼이 여기에 동적으로 삽입됩니다 -->
-            </div>
-        </div>
+		<!-- 네비게이션 on small screens -->
+		<div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+		</div>
+	</div>
 
-        <!-- Navbar on small screens -->
-        <div id="navDemo"
-            class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-        </div>
-    </div>  
+		<!-- 파트너 정보가 여기에 동적으로 로드 -->
+	<div class="partner-detail-container" id="partnerDetail">
+	</div>
 
-    <div class="partner-detail-container" id="partnerDetail">
-        <!-- 파트너 정보가 여기에 동적으로 로드됩니다 -->
-    </div>
+		<!-- 리뷰가 여기에 동적으로 로드 -->
+	<div class="reviews-section" id="reviewsSection">
+	</div>
 
-    <div class="reviews-section" id="reviewsSection">
-        <!-- 리뷰가 여기에 동적으로 로드됩니다 -->
-    </div>
-
-    <script>
+	<script>
         // URL에서 파트너 ID를 추출하는 함수
         function getPartnerId() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -118,11 +127,11 @@ body, h1, h2, h3, h4, h5, h6 {
 
         // 파트너 정보를 가져와서 표시하는 함수
         function loadPartnerDetails() {
-            const partnerId = getPartnerId();
+        	const partnerId = getPartnerId();
             fetch(`/partner/${partnerId}`)
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Network response was not ok');
+                        throw new Error('서버 응답이 실패했습니다.');
                     }
                     return response.json();
                 })
@@ -190,21 +199,54 @@ body, h1, h2, h3, h4, h5, h6 {
             }
         }
 
-        // 로그아웃 함수
+     // 로그아웃 함수
         function logout() {
             localStorage.removeItem('user');
             updateLoginUI();
-            alert('로그아웃이 완료되었습니다.'); 
-            window.location.href = 'main.html';
-            // logout API 추가하기
+            
+         // 서버에 로그아웃 요청을 보냅니다.
+            fetch('/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include' // 세션 쿠키를 포함시킵니다.
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw new Error('로그아웃을 실패하였습니다.');
+                }
+            })
+            .then(message => {
+            	alert('로그아웃이 완료되었습니다.'); 
+                localStorage.removeItem('user');  // 로컬 저장소에서 사용자 정보를 삭제합니다.
+                window.location.href = 'main.html';  // 로그아웃 후 메인 페이지로 이동합니다.
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('로그아웃 중 오류가 발생했습니다.');
+            });
         }
+     
+     // 페이지 로드 시 로그인 UI 업데이트
+        document.addEventListener('DOMContentLoaded', updateLoginUI);
 
-        // 페이지 로드 시 파트너 정보 및 로그인 UI 불러오기
+// 페이지 로드 시 파트너 정보 및 로그인 UI 불러오기
         document.addEventListener('DOMContentLoaded', () => {
             loadPartnerDetails();
             updateLoginUI();
         });
+        
     </script>
-
+    
+    	<footer class="w3-container w3-padding-16 w3-center w3-opacity footer">
+    	<div class="w3-xlarge"></div>
+    	<p>
+      	  Powered by <a href="https://github.com/LeeYeonhee-00/AncestorLove"
+          	  target="_blank">체큇아웃 </a>
+   		</p>
+	</footer>
 </body>
 </html>
