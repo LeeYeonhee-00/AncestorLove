@@ -54,6 +54,7 @@ public class InquiryController {
 			logger.info("의뢰하기 작성 성공");
 			return "의뢰하기 성공!!";
 		} else {
+			logger.warn("의뢰하기 작성 실패");
 			throw new NotExistInquiryException("유효한 값을 입력하세요");
 		}
 	}
