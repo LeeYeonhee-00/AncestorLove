@@ -13,6 +13,7 @@
         margin: auto;
         width: 80%;
         padding: 20px;
+        padding-top: 70px; /* 네비게이션 바 높이에 맞춰 패딩 추가 */
         border: 1px solid lightgray;
         border-radius: 10px;
     }
@@ -21,29 +22,27 @@
 <body>
 
 <!-- Navbar -->
-<div class="nav-bar">
-    <div class="w3-bar w3-red w3-card w3-left-align w3-large">
-        <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
-           href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-        <a href="index.html" class="w3-bar-item w3-button w3-padding-large w3-hover-white">Home</a>
-        <a href="list.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-white">의뢰하기</a>
+<div class="w3-top">
+    <div class="w3-bar w3-light-green w3-card w3-left-align w3-large">
+        <a
+            class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
+            href="javascript:void(0);" title="Toggle Navigation Menu"> 
+            <i class="fa fa-bars"></i>
+        </a>
+        <a href="main.html" class="w3-bar-item w3-button w3-padding-large w3-hover-white w3-green">Home</a>
+        <a href="list.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">의뢰하기</a>
         <a href="partner.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
-        <div id="loginSection" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-green w3-right"></div>
+        <div id="loginSection" class="w3-right">
+            <!-- 로그인/로그아웃 버튼이 여기에 동적으로 삽입됩니다 -->
+        </div>
     </div>
 
     <!-- Navbar on small screens -->
     <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-        <a href="#" id="smallScreenLogin" class="w3-bar-item w3-button w3-padding-large">로그인</a>
-        <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
-        <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
-        <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 4</a>
     </div>
 </div>
 
 <div class="content">
-    <h2>의뢰 상세 내용</h2>
-    <p>여기에서 해당 의뢰의 ID를 기반으로 상세 내용을 보여줍니다.</p>
-    <p>예시: 작업유형, 작성자, 작업주소, 작업날짜, 의뢰내용 등</p>
     <div id="inquiry-details"></div>
 
     <!-- JavaScript to parse the query string and display the details based on the ID -->

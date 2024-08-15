@@ -20,9 +20,9 @@ public interface PartnerRepository extends JpaRepository<Partner, Long>{
 
 	// 모든 파트너의 정보를 리뷰 평균과 함께 보기 위한 sql
 	@Query(value = "SELECT p.partner_id, p.partner_name, p.partner_location, AVG(r.re_rating) AS average_rating " +
-			"FROM Review r " +
-			"JOIN Partner p ON r.partner_id = p.partner_id " +
-			"GROUP BY p.partner_id, p.partner_name, p.partner_location",
-			nativeQuery = true)
+	        "FROM Partner p " +
+	        "LEFT JOIN Review r ON r.partner_id = p.partner_id " +
+	        "GROUP BY p.partner_id, p.partner_name, p.partner_location",
+	        nativeQuery = true)
 	List<Object[]> findAverageRatingsForPartners();
 }
