@@ -136,12 +136,27 @@ button:active {
             });
     });
 </script>
+<!--  글 작성 시 로그인 체크하는 기능 -->
+<script type="text/javascript">
+function checkLoginAndRedirect() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user && user.id) {
+        // 로그인된 경우, 글쓰기 페이지로 이동
+        window.location.href = 'write.html';
+    } else {
+        // 로그인되지 않은 경우, 경고 메시지 표시
+        alert('로그인이 필요합니다. 로그인 후 이용해 주세요.');
+        // 옵션: 로그인 페이지로 리다이렉트
+        // window.location.href = 'login.html';
+    }
+}
+</script>
 
 
 	<br>
 	<table>
 		<tr>
-			<td><button onclick="location.href='write.html'">글쓰기</button></td>
+			<td><button onclick="checkLoginAndRedirect()">글쓰기</button></td>
 		</tr>
 	</table>
 </body>
