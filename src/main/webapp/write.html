@@ -127,49 +127,60 @@ input[type="submit"]:active {
 	</form>
 
 	<script>
-    document.getElementById('requestForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-		
-        var submitButton = document.querySelector('input[type="submit"]');
-        submitButton.disabled = true; // 폼 제출 후 버튼 비활성화
+		// Check if user is logged in
+		function isUserLoggedIn() {
+			return localStorage.getItem('user') !== null;
+		}
 
-        
-        var inquiryTitle = document.getElementsByName('inquiryTitle')[0].value.trim();
-        var inquiryAddress = document.getElementsByName('inquiryAddress')[0].value.trim();
-        var inquiryDate = document.getElementsByName('inquiryDate')[0].value.trim();
-        var workId = document.querySelector('select[name="workId"]').value;
-        var inquiryContent = document.getElementsByName('inquiryContent')[0].value.trim();
+		document.getElementById('requestForm').addEventListener('submit', function(event) {
+			event.preventDefault();
 
-        if (!inquiryTitle || !inquiryAddress || !inquiryDate || !workId || !inquiryContent) {
-            alert('오류 : 내용을 입력해주세요');
-            return;
-        }
-        
+			if (!isUserLoggedIn()) {
+				alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
+				window.location.href = 'login.html'; // Redirect to login page
+				return;
+			}
 
-        fetch('inquiry', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                inquiryTitle: inquiryTitle,
-                inquiryAddress: inquiryAddress,
-                inquiryDate: inquiryDate,
-                workId: workId,
-                inquiryContent: inquiryContent
-            }),
-        })
-        .then(response => response.text())
-        .then(data => {
-            alert(data);
-            window.location.href = 'list.html';
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('오류가 발생했습니다.');
-        });
-    });
-    </script>
+			var submitButton = document.querySelector('input[type="submit"]');
+			submitButton.disabled = true; // 폼 제출 후 버튼 비활성화
+
+			var inquiryTitle = document.getElementsByName('inquiryTitle')[0].value.trim();
+			var inquiryAddress = document.getElementsByName('inquiryAddress')[0].value.trim();
+			var inquiryDate = document.getElementsByName('inquiryDate')[0].value.trim();
+			var workId = document.querySelector('select[name="workId"]').value;
+			var inquiryContent = document.getElementsByName('inquiryContent')[0].value.trim();
+
+			if (!inquiryTitle || !inquiryAddress || !inquiryDate || !workId || !inquiryContent) {
+				alert('오류 : 내용을 입력해주세요');
+				submitButton.disabled = false; // Re-enable the submit button
+				return;
+			}
+
+			fetch('inquiry', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					inquiryTitle: inquiryTitle,
+					inquiryAddress: inquiryAddress,
+					inquiryDate: inquiryDate,
+					workId: workId,
+					inquiryContent: inquiryContent
+				}),
+			})
+			.then(response => response.text())
+			.then(data => {
+				alert(data);
+				window.location.href = 'list.html';
+			})
+			.catch(error => {
+				console.error('Error:', error);
+				alert('오류가 발생했습니다.');
+				submitButton.disabled = false; // Re-enable the submit button on error
+			});
+		});
+	</script>
 
 </body>
 </html>
