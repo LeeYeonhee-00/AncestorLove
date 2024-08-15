@@ -4,12 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>detail.html</title>
 <style>
     .content {
         margin: auto;
         width: 80%;
         padding: 20px;
+        padding-top: 70px; /* 네비게이션 바 높이에 맞춰 패딩 추가 */
         border: 1px solid lightgray;
         border-radius: 10px;
     }
@@ -18,65 +22,103 @@
 <body>
 
 <!-- Navbar -->
-<div class="nav-bar">
-  <div class="w3-bar w3-red w3-card w3-left-align w3-large">
-    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    <a href="index.html" class="w3-bar-item w3-button w3-padding-large w3-hover-white">Home</a>
-    <a href="list.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-white">의뢰하기</a>
-    <a href="partner.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-green w3-right">회원님 안녕하세요</a>
-  </div>
+<div class="w3-top">
+    <div class="w3-bar w3-light-green w3-card w3-left-align w3-large">
+        <a
+            class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
+            href="javascript:void(0);" title="Toggle Navigation Menu"> 
+            <i class="fa fa-bars"></i>
+        </a>
+        <a href="main.html" class="w3-bar-item w3-button w3-padding-large w3-hover-white w3-green">Home</a>
+        <a href="list.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">의뢰하기</a>
+        <a href="partner.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
+        <div id="loginSection" class="w3-right">
+            <!-- 로그인/로그아웃 버튼이 여기에 동적으로 삽입됩니다 -->
+        </div>
+    </div>
 
-  <!-- Navbar on small screens -->
-  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 4</a>
-  </div>
+    <!-- Navbar on small screens -->
+    <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+    </div>
 </div>
 
-
 <div class="content">
-    <h2>의뢰 상세 내용</h2>
-    <p>여기에서 해당 의뢰의 ID를 기반으로 상세 내용을 보여줍니다.</p>
-    <p>예시: 작업유형, 작성자, 작업주소, 작업날짜, 의뢰내용 등</p>
-	<div id="inquiry-details"></div>
+    <div id="inquiry-details"></div>
+
     <!-- JavaScript to parse the query string and display the details based on the ID -->
-<script>
-    // URL에서 inquiryId를 가져옵니다.
-    const urlParams = new URLSearchParams(window.location.search);
-    const inquiryId = urlParams.get('id');  // URL에서 실제 id 값을 가져옴
+    <script>
+        // URL에서 inquiryId를 가져옵니다.
+        const urlParams = new URLSearchParams(window.location.search);
+        const inquiryId = urlParams.get('id');  // URL에서 실제 id 값을 가져옴
 
-    if (inquiryId) {
-        fetch("/inquiry/${inquiryId}")  // {id} 대신 inquiryId를 사용
-            .then(response => response.json())
-            .then(data => {
-                const inquiryDetails = document.getElementById('inquiry-details');
-                inquiryDetails.innerHTML = `
-                    <h3>의뢰 번호: ${data.inquiryId}</h3>
-                    <p>제목: ${data.inquiryTitle}</p>
-                    <p>작업유형: ${data.workId}</p>
-                    <p>작성자 ID: ${data.userId}</p>
-                    <p>작업주소: ${data.inquiryAddress}</p>
-                    <p>작업날짜: ${data.inquiryDate}</p>
-                    <p>의뢰내용: ${data.inquiryContent}</p>
-                    <h4>댓글</h4>
-                    <ul>
-                        ${data.comments && data.comments.length > 0 ? data.comments.map(comment => `<li>${comment.content}</li>`).join('') : '<li>댓글이 없습니다.</li>'}
-                    </ul>
+        if (inquiryId) {
+            fetch(`/inquiry/${inquiryId}`)  // 백엔드 API 호출
+                .then(response => response.json())  // JSON 형식으로 응답을 파싱
+                .then(data => {
+                    const inquiryDetails = document.getElementById('inquiry-details');
+                    inquiryDetails.innerHTML = `
+                        <h3>의뢰 번호: ${data.inquiryId}</h3>
+                        <p>제목: ${data.inquiryTitle}</p>
+                        <p>작업유형: ${data.workId}</p>
+                        <p>작성자 ID: ${data.userId}</p>
+                        <p>작업주소: ${data.inquiryAddress}</p>
+                        <p>작업날짜: ${new Date(data.inquiryDate).toLocaleString()}</p>
+                        <p>의뢰내용: ${data.inquiryContent}</p>
+                        <h4>댓글</h4>
+                        <ul>
+                            ${data.comments && data.comments.length > 0 
+                                ? data.comments.map(comment => `<li>${comment.content}</li>`).join('') 
+                                : '<li>댓글이 없습니다.</li>'}
+                        </ul>
+                    `;
+                })
+                .catch(error => {
+                    console.error('Error fetching inquiry details:', error);
+                    document.getElementById('inquiry-details').innerHTML = '<p>의뢰 내용을 가져오는 중 오류가 발생했습니다.</p>';
+                });
+        } else {
+            document.getElementById('inquiry-details').innerHTML = '<p>유효한 의뢰 ID가 제공되지 않았습니다.</p>';
+        }
+
+        // 로그인 상태 확인 및 UI 업데이트 함수
+        function updateLoginUI() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const loginSection = document.getElementById('loginSection');
+            const smallScreenLogin = document.getElementById('smallScreenLogin');
+
+            if (user && user.name) {
+                loginSection.innerHTML = `
+                    <a class="w3-bar-item w3-hide-small w3-padding-large">${user.name}님 환영합니다</a>
+                    <a onclick="logout()" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그아웃</a>
                 `;
-            })
-            .catch(error => {
-                console.error('Error fetching inquiry details:', error);
-                document.getElementById('inquiry-details').innerHTML = `<p>의뢰 내용을 가져오는 중 오류가 발생했습니다.</p>`;
-            });
-    } else {
-        document.getElementById('inquiry-details').innerHTML = `<p>유효한 의뢰 ID가 제공되지 않았습니다.</p>`;
-    }
-</script>
+                if (smallScreenLogin) {
+                    smallScreenLogin.textContent = "로그아웃";
+                    smallScreenLogin.onclick = logout;
+                }
+            } else {
+                loginSection.innerHTML = `
+                    <a href="login.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그인</a>
+                `;
+                if (smallScreenLogin) {
+                    smallScreenLogin.textContent = "로그인";
+                    smallScreenLogin.onclick = null;
+                    smallScreenLogin.href = "login.html";
+                }
+            }
+        }
 
+        // 로그아웃 함수
+        function logout() {
+            localStorage.removeItem('user');
+            updateLoginUI();
+            alert('로그아웃이 완료되었습니다.');
+            window.location.href = 'main.html';
+            // logout api 추가하기
+        }
 
+        // 페이지 로드 시 로그인 UI 업데이트
+        document.addEventListener('DOMContentLoaded', updateLoginUI);
+    </script>
 </div>
 
 </body>
