@@ -105,7 +105,7 @@ button:active {
 	</div>
 
 <table class="table">
-    <tr><td colspan="5"><h2>의뢰게시판</h2></td></tr>
+    <tr><td colspan="4"><h2>의뢰게시판</h2></td></tr>
     <tr class="header">
         <td class="num">번호</td>
         <td class="title">제목</td>
@@ -125,12 +125,19 @@ button:active {
                 inquiryList.innerHTML = '';
 
                 data.forEach(function(inquiry, index) {
+                    // 날짜를 사람이 읽기 좋은 형식으로 변환
+                    const formattedDate = new Date(inquiry.inquiryDate).toLocaleDateString('ko-KR', { 
+                        year: 'numeric', 
+                        month: '2-digit', 
+                        day: '2-digit' 
+                    });
+
                     inquiryList.innerHTML += `
                         <tr class='body'>
                             <td>${index + 1}</td>
-                            <td class='title'><a href='detail.html?id=${inquiry.id}'>${inquiry.inquiryTitle}</a></td>
+                            <td class='title'><a href='detail.html?id=${inquiry.inquiryId}'>${inquiry.inquiryTitle}</a></td>
                             <td class='type'>${inquiry.workId}</td>
-                            <td>${inquiry.inquiryDate}</td>
+                            <td>${formattedDate}</td>
                         </tr>`;
                 });
             });
