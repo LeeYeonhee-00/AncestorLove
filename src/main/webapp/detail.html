@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="icon" type="image/png" sizes="16x16" href="../images/icon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../images/favicon.png">
 <title>조상사랑 - 예초 벌초 매칭 서비스</title>
 <style>
 body, h1, h2, h3, h4, h5, h6 {
@@ -63,7 +63,7 @@ body, h1, h2, h3, h4, h5, h6 {
 			<a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
 				href="javascript:void(0);" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a> 
 				<a href="main.html" class="w3-bar-item w3-button w3-padding-large w3-hover-white w3-green">Home</a>
-			<a href="list.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">의뢰하기</a>
+			<a href="list.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">의뢰 게시판</a>
 			<a href="partner.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
 			<div id="loginSection" class="w3-right">
 			
@@ -100,17 +100,17 @@ body, h1, h2, h3, h4, h5, h6 {
                         <p>작업주소: ${data.inquiryAddress}</p>
                         <p>작업날짜: ${new Date(data.inquiryDate).toLocaleString()}</p>
                         <p>의뢰내용: ${data.inquiryContent}</p>
-                        <h4>댓글</h4>
-                        <br>
+                        <hr>
+                        <h4>댓글달기</h4>
                         <form action="/action_page.php" id="usrform">
-                        ${data.userId} : <input type="text" name="usrname"><br><br>
-
+                        파트너 : <input type="text" name="partnername"><br><br>
                         	<div class="comment-container">
-                            <textarea id="commentContent" rows="4" cols="50" name="comment"></textarea><br>
-                            <button onclick="submitComment()" class="submit-btn">제출</button>
+                        댓글내용 : <textarea id="commentContent" rows="4" cols="50" name="comment"></textarea><br>
+                            <button onclick="submitComment()" class="submit-btn">작성하기</button>
                         </div>
                     		</form>
                     		<br><hr><br>
+                    	<h4>댓글목록</h4>
                         <ul>
                             ${data.comments && data.comments.length > 0 
                                 ? data.comments.map(comment => `<li>${comment.content}</li>`).join('') 
