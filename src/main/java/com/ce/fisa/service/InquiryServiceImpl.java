@@ -106,6 +106,7 @@ public class InquiryServiceImpl implements InquiryService {
 		        ))
 		        .collect(Collectors.toList());
 		
+		logger.info("의뢰하기 전체 조회 성공");
 		return inquiryDTOList;
 	}
 
@@ -116,13 +117,13 @@ public class InquiryServiceImpl implements InquiryService {
 		logger.debug("inquiryEntity() : " + inquiryEntity);
 		
 		if (inquiryEntity == null) {
-			logger.warn("Inquiry 상세조회 실패");
+			logger.warn("의뢰하기 상세조회 실패");
 			throw new NotExistInquiryException("해당 의뢰는 존재하지 않습니다.");
 		}
 		
 		InquiryDTO inquiryDTO = convertToDTO(inquiryEntity);
 		logger.debug("inquiryDTO() : " + inquiryDTO);
-		logger.info("Inquiry 상세조회 성공");
+		logger.info("의뢰하기 상세 조회 성공");
 		return inquiryDTO;
 	}
 
@@ -141,7 +142,7 @@ public class InquiryServiceImpl implements InquiryService {
 		
 		Inquiry inquiry = convertToEntity(user, work, inquiryDTO);
 		Inquiry result = inquiryDAO.save(inquiry);
-		// TODO Auto-generated method stub
+		
 		return result;
 	}
 	
