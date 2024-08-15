@@ -77,6 +77,7 @@ button:active {
 <body>
 
 	<!-- Navbar -->
+
 	<div class="w3-top">
 		<div class="w3-bar w3-light-green w3-card w3-left-align w3-large">
 			<a
@@ -127,7 +128,7 @@ button:active {
                         <tr class='body'>
                             <td>${index + 1}</td>
                             <td class='title'><a href='detail.html?id=${inquiry.id}'>${inquiry.inquiryTitle}</a></td>
-                            <td class='type'>${inquiry.workName}</td>
+                            <td class='type'>${inquiry.workId}</td>
                             <td>${inquiry.inquiryDate}</td>
                         </tr>`;
                 });

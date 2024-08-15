@@ -7,175 +7,204 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
 body, h1, h2, h3, h4, h5, h6 {
-	font-family: "Raleway", sans-serif;
+    font-family: "Raleway", sans-serif;
 }
 
 .header-container {
-	padding-top: 20px;
+    padding-top: 20px;
 }
 
 .partner-detail-container {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 20px;
-	border-bottom: 1px solid #ccc;
-	margin-top: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+    margin-top: 60px;
 }
 
 .partner-info {
-	max-width: 60%;
+    max-width: 60%;
 }
 
 .partner-info h2 {
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .partner-info p {
-	margin: 5px 0;
+    margin: 5px 0;
 }
 
 .partner-photo {
-	max-width: 30%;
-	text-align: center;
+    max-width: 30%;
+    text-align: center;
 }
 
 .partner-photo img {
-	width: 150px;
-	height: 150px;
-	border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
 }
 
 .reviews-section {
-	padding: 20px;
+    padding: 20px;
 }
 
 .review {
-	display: flex;
-	align-items: center;
-	padding: 10px;
-	border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
 }
 
 .review img {
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-	margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
 }
 
 .review p {
-	flex: 1;
+    flex: 1;
 }
 
 .review .stars, .review .date {
-	margin-left: 10px;
-	text-align: right;
+    margin-left: 10px;
+    text-align: right;
 }
 </style>
 </head>
 <body>
 
-	<!-- Navbar -->
+    <!-- Navbar -->
 
-	<div class="w3-top">
-		<div class="w3-bar w3-light-green w3-card w3-left-align w3-large">
-			<a
-				class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
-				href="javascript:void(0);" title="Toggle Navigation Menu"> <i
-				class="fa fa-bars"></i>
-			</a> <a href="main.html"
-				class="w3-bar-item w3-button w3-padding-large w3-hover-white w3-green">Home</a>
-			<a href="list.html"
-				class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">의뢰하기</a>
-			<a href="partner.html"
-				class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
-			<div id="loginSection" class="w3-right">
-				<!-- 로그인/로그아웃 버튼이 여기에 동적으로 삽입됩니다 -->
-			</div>
-		</div>
+    <div class="w3-top">
+        <div class="w3-bar w3-light-green w3-card w3-left-align w3-large">
+            <a
+                class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
+                href="javascript:void(0);" title="Toggle Navigation Menu"> <i
+                class="fa fa-bars"></i>
+            </a> <a href="main.html"
+                class="w3-bar-item w3-button w3-padding-large w3-hover-white w3-green">Home</a>
+            <a href="list.html"
+                class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">의뢰하기</a>
+            <a href="partner.html"
+                class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
+            <div id="loginSection" class="w3-right">
+                <!-- 로그인/로그아웃 버튼이 여기에 동적으로 삽입됩니다 -->
+            </div>
+        </div>
 
-		<!-- Navbar on small screens -->
-		<div id="navDemo"
-			class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-		</div>
-	</div>	
+        <!-- Navbar on small screens -->
+        <div id="navDemo"
+            class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+        </div>
+    </div>  
 
-	<!-- Partner Detail Section -->
-	<div class="partner-detail-container">
-		<div class="partner-info">
-			<h1>
-				<b>파트너 이름</b>
-			</h1>
-			<p>작업 지역 : 경기도 00시 00구</p>
-			<p>평당 금액 : 000원</p>
-			<p>분묘 금액 : 000원</p>
-			<p>파트너 설명 : 어쩌구 저쩌구</p>
-		</div>
-		<div class="partner-photo">
-			<h3>사장 사진</h3>
-			<img src="images/boss.jpg" alt="사장 사진">
-		</div>
-	</div>
+    <div class="partner-detail-container" id="partnerDetail">
+        <!-- 파트너 정보가 여기에 동적으로 로드됩니다 -->
+    </div>
 
-	<!-- Reviews Section -->
-	<div class="reviews-section">
-		<h3>후기</h3>
-		<div class="review">
-			<img src="images/profile.jpg" alt="프로필 사진">
-			<p>아 좀 실망이네요</p>
-			<div class="stars">★☆☆☆☆</div>
-			<div class="date">2024.08.09</div>
-		</div>
-		<div class="review">
-			<img src="images/profile.jpg" alt="프로필 사진">
-			<p>아주 대만족 합니다</p>
-			<div class="stars">★★★★★</div>
-			<div class="date">2024.08.09</div>
-		</div>
-	</div>
-	
-	<script>
-	 // 로그인 상태 확인 및 UI 업데이트 함수
-	function updateLoginUI() {
-	    const user = JSON.parse(localStorage.getItem('user'));
-	    const loginSection = document.getElementById('loginSection');
-	    const smallScreenLogin = document.getElementById('smallScreenLogin');
+    <div class="reviews-section" id="reviewsSection">
+        <!-- 리뷰가 여기에 동적으로 로드됩니다 -->
+    </div>
 
-	    if (user && user.name) {
-	        loginSection.innerHTML = `
-	            <a class="w3-bar-item w3-hide-small w3-padding-large">${user.name}님 환영합니다</a>
-	            <a onclick="logout()" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그아웃</a>
-	        `;
-	        if (smallScreenLogin) {
-	            smallScreenLogin.textContent = "로그아웃";
-	            smallScreenLogin.onclick = logout;
-	        }
-	    } else {
-	        loginSection.innerHTML = `
-	            <a href="login.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그인</a>
-	        `;
-	        if (smallScreenLogin) {
-	            smallScreenLogin.textContent = "로그인";
-	            smallScreenLogin.onclick = null;
-	            smallScreenLogin.href = "login.html";
-	        }
-	    }
-	}
+    <script>
+        // URL에서 파트너 ID를 추출하는 함수
+        function getPartnerId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
 
-//로그아웃 함수
-function logout() {
-localStorage.removeItem('user');
-updateLoginUI();
-alert('로그아웃이 완료되었습니다.'); 
-window.location.href = 'main.html';
-// logout api 추가하기
-}
+        // 파트너 정보를 가져와서 표시하는 함수
+        function loadPartnerDetails() {
+            const partnerId = getPartnerId();
+            fetch(`/partner/${partnerId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(partner => {
+                    document.getElementById('partnerDetail').innerHTML = `
+                        <div class="partner-info">
+                            <h1>${partner.partnerName}</h1>
+                            <p>작업 지역: ${partner.partnerLocation}</p>
+                            <p>평당 금액: ${partner.metricPrice}원</p>
+                            <p>파트너 설명: ${partner.partnerInfo}</p>
+                        </div>
+                    `;
 
-//페이지 로드 시 로그인 UI 업데이트
-document.addEventListener('DOMContentLoaded', updateLoginUI);
-	
-	</script>
+                    // 리뷰 섹션 로드
+                    loadReviews(partner.reviews);
+                })
+                .catch(error => {
+                    console.error('파트너 정보를 불러오는 데 실패했습니다:', error);
+                });
+        }
+
+        // 리뷰를 표시하는 함수
+        function loadReviews(reviews) {
+            const reviewsHtml = reviews.map(review => `
+                <div class="review">
+                    <img src="images/profile.jpg" alt="프로필 사진">
+                    <p>${review.reContent}</p>
+                    <div class="stars">
+                        ${'★'.repeat(review.reRating)}${'☆'.repeat(5 - review.reRating)}
+                    </div>
+                    <div class="date">${new Date(review.reDate).toLocaleDateString()}</div>
+                </div>
+            `).join('');
+
+            document.getElementById('reviewsSection').innerHTML = `
+                <h3>후기</h3>
+                ${reviewsHtml}
+            `;
+        }
+
+        // 로그인 상태 확인 및 UI 업데이트 함수
+        function updateLoginUI() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const loginSection = document.getElementById('loginSection');
+            const smallScreenLogin = document.getElementById('smallScreenLogin');
+
+            if (user && user.name) {
+                loginSection.innerHTML = `
+                    <a class="w3-bar-item w3-hide-small w3-padding-large">${user.name}님 환영합니다</a>
+                    <a onclick="logout()" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그아웃</a>
+                `;
+                if (smallScreenLogin) {
+                    smallScreenLogin.textContent = "로그아웃";
+                    smallScreenLogin.onclick = logout;
+                }
+            } else {
+                loginSection.innerHTML = `
+                    <a href="login.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그인</a>
+                `;
+                if (smallScreenLogin) {
+                    smallScreenLogin.textContent = "로그인";
+                    smallScreenLogin.onclick = null;
+                    smallScreenLogin.href = "login.html";
+                }
+            }
+        }
+
+        // 로그아웃 함수
+        function logout() {
+            localStorage.removeItem('user');
+            updateLoginUI();
+            alert('로그아웃이 완료되었습니다.'); 
+            window.location.href = 'main.html';
+            // logout API 추가하기
+        }
+
+        // 페이지 로드 시 파트너 정보 및 로그인 UI 불러오기
+        document.addEventListener('DOMContentLoaded', () => {
+            loadPartnerDetails();
+            updateLoginUI();
+        });
+    </script>
 
 </body>
 </html>

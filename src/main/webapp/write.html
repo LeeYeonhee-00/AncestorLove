@@ -5,59 +5,59 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Lato">
+    href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Montserrat">
+    href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>write.html</title>
 <style>
 table {
-	margin: auto;
+    margin: auto;
 }
 
 input[type="text"] {
-	border: 1.5px rgb(68, 136, 244) solid;
-	width: 500px;
-	height: 30px;
-	border-radius: 5px;
-	padding-left: 10px;
+    border: 1.5px rgb(68, 136, 244) solid;
+    width: 500px;
+    height: 30px;
+    border-radius: 5px;
+    padding-left: 10px;
 }
 
 textarea {
-	border: 1.5px rgb(68, 136, 244) solid;
-	width: 500px;
-	height: 400px;
-	border-radius: 5px;
-	padding-left: 10px;
-	padding-top: 10px;
-	resize: none;
+    border: 1.5px rgb(68, 136, 244) solid;
+    width: 500px;
+    height: 400px;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-top: 10px;
+    resize: none;
 }
 
 .header {
-	height: 30px;
+    height: 30px;
 }
 
 input[type="submit"] {
-	width: 100px;
-	height: 40px;
-	font-size: 15px;
-	border: 0;
-	outline: 1.5px rgb(68, 136, 244) solid;
-	border-radius: 5px;
-	padding-left: 10px;
-	background-color: rgb(164, 199, 255);
+    width: 100px;
+    height: 40px;
+    font-size: 15px;
+    border: 0;
+    outline: 1.5px rgb(68, 136, 244) solid;
+    border-radius: 5px;
+    padding-left: 10px;
+    background-color: rgb(164, 199, 255);
 }
 
 input[type="submit"]:active {
-	width: 100px;
-	height: 40px;
-	font-size: 15px;
-	border: 0;
-	border-radius: 5px;
-	outline: 1.5px rgb(27, 76, 155) solid;
-	padding-left: 10px;
-	background-color: rgb(68, 136, 244);
+    width: 100px;
+    height: 40px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 5px;
+    outline: 1.5px rgb(27, 76, 155) solid;
+    padding-left: 10px;
+    background-color: rgb(68, 136, 244);
 }
 </style>
 </head>
@@ -65,161 +65,171 @@ input[type="submit"]:active {
 <!-- Navbar -->
 
 <div class="w3-top">
-	<div class="w3-bar w3-light-green w3-card w3-left-align w3-large">
-		<a
-			class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
-			href="javascript:void(0);" title="Toggle Navigation Menu"> <i
-			class="fa fa-bars"></i>
-		</a> <a href="main.html"
-			class="w3-bar-item w3-button w3-padding-large w3-hover-white w3-green">Home</a>
-		<a href="list.html"
-			class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">의뢰하기</a>
-		<a href="partner.html"
-			class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
-		<div id="loginSection" class="w3-right">
-			<!-- 로그인/로그아웃 버튼이 여기에 동적으로 삽입됩니다 -->
-		</div>
-	</div>
+    <div class="w3-bar w3-light-green w3-card w3-left-align w3-large">
+        <a
+            class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
+            href="javascript:void(0);" title="Toggle Navigation Menu"> <i
+            class="fa fa-bars"></i>
+        </a> <a href="main.html"
+            class="w3-bar-item w3-button w3-padding-large w3-hover-white w3-green">Home</a>
+        <a href="list.html"
+            class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">의뢰하기</a>
+        <a href="partner.html"
+            class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
+        <div id="loginSection" class="w3-right">
+            <!-- 로그인/로그아웃 버튼이 여기에 동적으로 삽입됩니다 -->
+        </div>
+    </div>
 
-	<!-- Navbar on small screens -->
-	<div id="navDemo"
-		class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-	</div>
+    <!-- Navbar on small screens -->
+    <div id="navDemo"
+        class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+    </div>
 </div>
 
 <body>
-	<form id="requestForm">
+    <form id="requestForm">
 
-		<table>
-			<tr>
-				<td><h2>의뢰정보입력</h2></td>
-			</tr>
-			<tr>
-				<td class="header">제목</td>
-			</tr>
-			<tr>
-				<td><input type="text" placeholder="제목을 입력하세요"
-					name="inquiryTitle"></td>
-			</tr>
-			<tr>
-				<td class="header">작업주소</td>
-			</tr>
-			<tr>
-				<td><input type="text" placeholder="작업 주소를 입력하세요"
-					name="inquiryAddress"></td>
-			</tr>
-			<tr>
-				<td class="header">작업날짜</td>
-			</tr>
-			<tr>
-				<td><input type="datetime-local" name="inquiryDate"></td>
-			</tr>
-			<tr>
-				<td class="header">작업유형</td>
-			</tr>
-			<tr>
-				<td><select name="workId">
-						<option value="1">예초</option>
-						<option value="2">벌초</option>
-						<option value="3">정원관리</option>
-				</select></td>
-			</tr>
-			<tr>
-				<td class="header">의뢰내용</td>
-			</tr>
-			<tr>
-				<td><textarea placeholder="의뢰내용을 입력하세요" name="inquiryContent"></textarea></td>
-			</tr>
-			<tr>
-				<td style="text-align: right;"><input type="submit"
-					value="게시하기"></td>
-			</tr>
-		</table>
-	</form>
+        <table>
+            <tr>
+                <td><h2>의뢰정보입력</h2></td>
+            </tr>
+            <tr>
+                <td class="header">제목</td>
+            </tr>
+            <tr>
+                <td><input type="text" placeholder="제목을 입력하세요"
+                    name="inquiryTitle"></td>
+            </tr>
+            <tr>
+                <td class="header">작업주소</td>
+            </tr>
+            <tr>
+                <td><input type="text" placeholder="작업 주소를 입력하세요"
+                    name="inquiryAddress"></td>
+            </tr>
+            <tr>
+                <td class="header">작업날짜</td>
+            </tr>
+            <tr>
+                <td><input type="datetime-local" name="inquiryDate"></td>
+            </tr>
+            <tr>
+                <td class="header">작업유형</td>
+            </tr>
+            <tr>
+                <td><select name="workId">
+                        <option value="1">예초</option>
+                        <option value="2">벌초</option>
+                        <option value="3">정원관리</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td class="header">의뢰내용</td>
+            </tr>
+            <tr>
+                <td><textarea placeholder="의뢰내용을 입력하세요" name="inquiryContent"></textarea></td>
+            </tr>
+            <tr>
+                <td style="text-align: right;"><input type="submit"
+                    value="게시하기"></td>
+            </tr>
+        </table>
+    </form>
 
-	<script>
-    document.getElementById('requestForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-		
-        var submitButton = document.querySelector('input[type="submit"]');
-        submitButton.disabled = true; // 폼 제출 후 버튼 비활성화
-
-        
-        var inquiryTitle = document.getElementsByName('inquiryTitle')[0].value.trim();
-        var inquiryAddress = document.getElementsByName('inquiryAddress')[0].value.trim();
-        var inquiryDate = document.getElementsByName('inquiryDate')[0].value.trim();
-        var workId = document.querySelector('select[name="workId"]').value;
-        var inquiryContent = document.getElementsByName('inquiryContent')[0].value.trim();
-
-        if (!inquiryTitle || !inquiryAddress || !inquiryDate || !workId || !inquiryContent) {
-            alert('오류 : 내용을 입력해주세요');
-            return;
+    <script>
+        // 로그인 상태 확인 함수
+        function isUserLoggedIn() {
+            return localStorage.getItem('user') !== null;
         }
-        
 
-        fetch('inquiry', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                inquiryTitle: inquiryTitle,
-                inquiryAddress: inquiryAddress,
-                inquiryDate: inquiryDate,
-                workId: workId,
-                inquiryContent: inquiryContent
-            }),
-        })
-        .then(response => response.text())
-        .then(data => {
-            alert(data);
-            window.location.href = 'list.html';
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('오류가 발생했습니다.');
+        // 로그인 상태에 따른 UI 업데이트 함수
+        function updateLoginUI() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const loginSection = document.getElementById('loginSection');
+            const smallScreenLogin = document.getElementById('smallScreenLogin');
+
+            if (user && user.name) {
+                loginSection.innerHTML = `
+                    <a class="w3-bar-item w3-hide-small w3-padding-large">${user.name}님 환영합니다</a>
+                    <a onclick="logout()" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그아웃</a>
+                `;
+                if (smallScreenLogin) {
+                    smallScreenLogin.textContent = "로그아웃";
+                    smallScreenLogin.onclick = logout;
+                }
+            } else {
+                loginSection.innerHTML = `
+                    <a href="login.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그인</a>
+                `;
+                if (smallScreenLogin) {
+                    smallScreenLogin.textContent = "로그인";
+                    smallScreenLogin.onclick = null;
+                    smallScreenLogin.href = "login.html";
+                }
+            }
+        }
+
+        // 로그아웃 함수
+        function logout() {
+            localStorage.removeItem('user');
+            updateLoginUI();
+            alert('로그아웃이 완료되었습니다.');
+            window.location.href = 'main.html';
+            // logout API 추가하기
+        }
+
+        // 폼 제출 처리 함수
+        document.getElementById('requestForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            if (!isUserLoggedIn()) {
+                alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
+                window.location.href = 'login.html'; // 로그인 페이지로 리디렉션
+                return;
+            }
+
+            var inquiryTitle = document.getElementsByName('inquiryTitle')[0].value.trim();
+            var inquiryAddress = document.getElementsByName('inquiryAddress')[0].value.trim();
+            var inquiryDate = document.getElementsByName('inquiryDate')[0].value.trim();
+            var workId = document.querySelector('select[name="workId"]').value;
+            var inquiryContent = document.getElementsByName('inquiryContent')[0].value.trim();
+            var submitButton = document.querySelector('input[type="submit"]');
+
+            if (!inquiryTitle || !inquiryAddress || !inquiryDate || !workId || !inquiryContent) {
+                alert('오류: 모든 필드를 입력해주세요.');
+                return;
+            }
+
+            submitButton.disabled = true; // 폼 제출 후 버튼 비활성화
+
+            fetch('inquiry', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    inquiryTitle: inquiryTitle,
+                    inquiryAddress: inquiryAddress,
+                    inquiryDate: inquiryDate,
+                    workId: workId,
+                    inquiryContent: inquiryContent
+                }),
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                window.location.href = 'list.html';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('오류가 발생했습니다.');
+                submitButton.disabled = false; // 오류 발생 시 버튼 다시 활성화
+            });
         });
-    });
-    
-    // 로그인 상태 확인 및 UI 업데이트 함수
-	function updateLoginUI() {
-	    const user = JSON.parse(localStorage.getItem('user'));
-	    const loginSection = document.getElementById('loginSection');
-	    const smallScreenLogin = document.getElementById('smallScreenLogin');
 
-	    if (user && user.name) {
-	        loginSection.innerHTML = `
-	            <a class="w3-bar-item w3-hide-small w3-padding-large">${user.name}님 환영합니다</a>
-	            <a onclick="logout()" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그아웃</a>
-	        `;
-	        if (smallScreenLogin) {
-	            smallScreenLogin.textContent = "로그아웃";
-	            smallScreenLogin.onclick = logout;
-	        }
-	    } else {
-	        loginSection.innerHTML = `
-	            <a href="login.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그인</a>
-	        `;
-	        if (smallScreenLogin) {
-	            smallScreenLogin.textContent = "로그인";
-	            smallScreenLogin.onclick = null;
-	            smallScreenLogin.href = "login.html";
-	        }
-	    }
-	}
-
-//로그아웃 함수
-function logout() {
-localStorage.removeItem('user');
-updateLoginUI();
-alert('로그아웃이 완료되었습니다.'); 
-window.location.href = 'main.html';
-// logout api 추가하기
-}
-
-//페이지 로드 시 로그인 UI 업데이트
-document.addEventListener('DOMContentLoaded', updateLoginUI);
+        // 페이지 로드 시 로그인 UI 업데이트
+        document.addEventListener('DOMContentLoaded', updateLoginUI);
     </script>
-
 </body>
 </html>
