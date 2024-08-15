@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,7 +26,8 @@ import lombok.ToString;
 @Entity
 public class Review {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "review_seq_gen")
+	@SequenceGenerator(name = "review_seq_gen", sequenceName = "review_seq", initialValue = 1, allocationSize = 1)
 	@Column(name = "re_id")
 	private long reId;
 

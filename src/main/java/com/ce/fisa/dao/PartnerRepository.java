@@ -14,11 +14,6 @@ import java.util.List;
 @Repository
 public interface PartnerRepository extends JpaRepository<Partner, Long>{
 	
-//    @Query("SELECT p.partnerName, p.partnerLocation, AVG(r.reRating) FROM Partner p LEFT JOIN Review r ON p.partnerId = r.partnerId GROUP BY p.partnerName, p.partnerLocation")
-//		List<Object[]> findPartnerWithAverageRating();
-//	
-	
-
 	public List<Partner> findAll();
 	
 	public Partner findByPartnerId(long partnerId);
@@ -30,8 +25,4 @@ public interface PartnerRepository extends JpaRepository<Partner, Long>{
 			"GROUP BY p.partner_id, p.partner_name, p.partner_location",
 			nativeQuery = true)
 	List<Object[]> findAverageRatingsForPartners();
-
-	
-//@Query("select p from Partner p where p.partner_id = :partner_id")
-//public Partner findAll(@Param("partner_id") PartnerDTO partnerId);
 }

@@ -15,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,7 +34,8 @@ import lombok.ToString;
 @Entity
 public class Inquiry {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "inquiry_seq_gen")
+	@SequenceGenerator(name = "inquiry_seq_gen", sequenceName = "inquiry_seq", initialValue = 1, allocationSize = 1)
 	@Column(name = "inquiry_id")
 	private long inquiryId;
 
