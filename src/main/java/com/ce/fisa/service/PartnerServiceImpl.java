@@ -91,20 +91,20 @@ public class PartnerServiceImpl implements PartnerService {
 	}
 
 	public List<Map<String, Object>> getAverageRatings() {
-		List<Object[]> results = partnerDAO.findAverageRatingsForPartners();
-		List<Map<String, Object>> response = new ArrayList<>();
+	    List<Object[]> results = partnerDAO.findAverageRatingsForPartners();
+	    List<Map<String, Object>> response = new ArrayList<>();
 
-		for (Object[] result : results) {
-			Map<String, Object> map = new HashMap<>();
-			map.put("partnerId", result[0]);
-			map.put("partnerName", result[1]);
-			map.put("partnerLocation", result[2]);
-			map.put("averageRating", result[3]);
-			response.add(map);
-		}
+	    for (Object[] result : results) {
+	        Map<String, Object> map = new HashMap<>();
+	        map.put("partnerId", result[0]);
+	        map.put("partnerName", result[1]);
+	        map.put("partnerLocation", result[2]);
+	        map.put("averageRating", result[3] != null ? result[3] : 0); // Handle NULL values
+	        response.add(map);
+	    }
 
-		logger.info("파트너 전체조회 성공");
-		return response;
+	    logger.info("Partner 전체조회 성공");
+	    return response;
 	}
 
 }
