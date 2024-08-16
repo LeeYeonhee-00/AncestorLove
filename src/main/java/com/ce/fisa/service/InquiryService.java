@@ -21,7 +21,7 @@ public interface InquiryService {
 	public InquiryDTO getInquiry(long inquiryId) throws NotExistInquiryException;
 
 	// Inquiry 작성
-	public Inquiry postInquiry(InquiryDTO inquiryDTO) throws NotExistInquiryException;
+	public List<Object> postInquiry(InquiryDTO inquiryDTO) throws NotExistInquiryException;
 	
 	// Comment 작성
 	public Comment postComment(CommentDTO commentDTO) throws NotExistInquiryException;
