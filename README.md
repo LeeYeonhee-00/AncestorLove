@@ -1,5 +1,5 @@
 # <p align="center">[우리FISA 3기 클라우드 엔지니어링] AncestorLove 미니 프로젝트
-## <p align="center"><font color="blue">조 상 사 랑</font></p>
+## <p align="center"><font color="blue"> 🖤 조 상 사 랑 🖤</font></p>
 
 ---
 
