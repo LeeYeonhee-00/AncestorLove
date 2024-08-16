@@ -54,10 +54,10 @@ public class InquiryController {
 			logger.info("의뢰하기 작성 성공");
 			return "의뢰하기 성공!!";
 		} else {
+			logger.warn("의뢰하기 작성 실패");
 			throw new NotExistInquiryException("유효한 값을 입력하세요");
 		}
 	}
-	
 	
 	// Comment 작성
 	@PostMapping("/comment")
@@ -69,10 +69,27 @@ public class InquiryController {
 
 		if (result != null) {
 			logger.info("댓글 작성 성공");
-			return ResponseEntity.ok("Comment 작성 성공");
+			return ResponseEntity.ok("댓글 작성 성공!!");
 		} else {
 			logger.warn("댓글 작성 실패");
 			return ResponseEntity.status(401).body("댓글 작성 실패");
+		}
+	}
+	
+	// 계약 체결
+	@PostMapping("/consign/{id}")
+	public ResponseEntity<String> postConsignByCommentId(@PathVariable("id") Long commentid) throws NotExistInquiryException {
+		
+		logger.debug("[ancestorlove] 계약 체결 요청");
+		
+		Comment result = inqService.postConsign(commentid);
+		
+		if (result != null) {
+			logger.info("[ancestorlove] 계약 체결 성공");
+			return ResponseEntity.ok("계약 체결 성공!!");
+		} else {
+			logger.warn("[ancestorlove] 계약 체결 실패");
+			return ResponseEntity.status(401).body("계약 체결 실패");
 		}
 	}
 	

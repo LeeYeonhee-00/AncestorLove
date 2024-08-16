@@ -129,7 +129,7 @@ button:active {
 		<tbody id="inquiryList">
 		</tbody>
 	</table>
-	
+
 	<script>
     document.addEventListener('DOMContentLoaded', function() {
         fetch('/allinquiry')
@@ -139,6 +139,13 @@ button:active {
                 inquiryList.innerHTML = '';
 
                 data.forEach(function(inquiry, index) {
+                    // 날짜를 사람이 읽기 좋은 형식으로 변환
+                    const formattedDate = new Date(inquiry.inquiryDate).toLocaleDateString('ko-KR', { 
+                        year: 'numeric', 
+                        month: '2-digit', 
+                        day: '2-digit' 
+                    });
+
                     inquiryList.innerHTML += `
                         <tr class='body'>
                             <td>${index + 1}</td>
