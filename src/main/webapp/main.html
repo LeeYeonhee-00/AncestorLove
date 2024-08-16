@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>W3.CSS Template</title>
+<title>조상사랑 - 예초 벌초 매칭 서비스</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -11,6 +11,7 @@
 	href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="icon" type="image/png" sizes="16x16" href="../images/favicon.png">
 <style>
 body, h1, h2, h3, h4, h5, h6 {
 	font-family: "Lato", sans-serif
@@ -20,20 +21,27 @@ body, h1, h2, h3, h4, h5, h6 {
 	font-family: "Lato", sans-serif
 }
 
-/* 버튼 스타일 통일 */
 .immediately-button {
-	padding: 50px 50px; /* 버튼의 패딩 조정 */
-	font-size: 26px; /* 폰트 크기 조정 */
-	border-radius: 8px; /* 버튼의 모서리 둥글게 조정 */
+	padding: 50px 50px; 
+	font-size: 26px; 
+	border-radius: 8px; 
 	font-weight: bold;
 	font-style: oblique;
+}
+
+.footer {
+    position: relative;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    background-color: #f1f1f1; 
 }
 </style>
 </head>
 <body>
 
-	<!-- Navbar -->
-
+	<!-- 네비게이션 바 -->
 	<div class="w3-top">
 		<div class="w3-bar w3-light-green w3-card w3-left-align w3-large">
 			<a
@@ -43,21 +51,21 @@ body, h1, h2, h3, h4, h5, h6 {
 			</a> <a href="main.html"
 				class="w3-bar-item w3-button w3-padding-large w3-hover-white w3-green">Home</a>
 			<a href="list.html"
-				class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">의뢰하기</a>
+				class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">의뢰 게시판</a>
 			<a href="partner.html"
 				class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
 			<div id="loginSection" class="w3-right">
-				<!-- 로그인/로그아웃 버튼이 여기에 동적으로 삽입됩니다 -->
+				<!-- 로그인/로그아웃 버튼이 여기에 동적으로 삽입 -->
 			</div>
 		</div>
 
-		<!-- Navbar on small screens -->
+		<!-- 네비게이션 바 on small screens -->
 		<div id="navDemo"
 			class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
 		</div>
 	</div>
+	
 	<!-- Header -->
-
 	<header class="w3-container w3-light-green w3-center"
 		style="padding: 128px 16px">
 		<h1 class="w3-margin w3-jumbo">조상사랑</h1>
@@ -66,12 +74,13 @@ body, h1, h2, h3, h4, h5, h6 {
 			onclick="location.href='write.html'">지금 바로 의뢰하기</button>
 	</header>
 
-	<!-- First Grid -->
+	<!-- 첫번째 Grid -->
 	<div class="w3-row-padding w3-padding-64 w3-container">
 		<div class="w3-content">
 			<div class="w3-twothird">
 				<h1>조상사랑</h1>
-				<h5 class="w3-padding-32">조상사랑을 방문해주셔서 감사합니다. 조상사랑은 예초, 벌초 또는
+				<h3> 예초 및 벌초 의뢰 매칭 서비스</h3>
+				<h5 class="w3-padding-32">조상사랑을 방문해주셔서 감사합니다. <br>조상사랑은 예초, 벌초 또는
 					정원관리하는 업체와 매칭을 해주는 서비스로, 고객과 업체를 매칭함으로써 모두가 만족하는 서비스를 누릴 수 있도록 노력하고
 					있습니다.</h5>
 
@@ -111,15 +120,6 @@ body, h1, h2, h3, h4, h5, h6 {
 		<h1 class="w3-margin w3-xlarge">조상을 사랑하는 마음 : 조상사랑</h1>
 	</div>
 
-	<!-- Footer -->
-	<footer class="w3-container w3-padding-64 w3-center w3-opacity">
-
-		<p>
-			Powered by <a href="https://github.com/LeeYeonhee-00/AncestorLove"
-				target="_blank">체큇아웃</a>
-		</p>
-	</footer>
-
 	<script>
 	
 	 // 로그인 상태 확인 및 UI 업데이트 함수
@@ -149,17 +149,46 @@ body, h1, h2, h3, h4, h5, h6 {
 		    }
 		}
 
-// 로그아웃 함수
-function logout() {
-    localStorage.removeItem('user');
-    updateLoginUI();
-    alert('로그아웃이 완료되었습니다.'); 
-    window.location.href = 'main.html';
-    // logout api 추가하기
-}
+	 // 로그아웃 함수
+	function logout() {
+    	localStorage.removeItem('user');
+    	updateLoginUI();
+    
+ 	// 서버에 로그아웃 요청을 보냅니다.
+    	fetch('/logout', {
+        	method: 'POST',
+        	headers: {
+            	'Content-Type': 'application/json',
+        	},
+        	credentials: 'include' // 세션 쿠키를 포함시킵니다.
+    	})
+    	.then(response => {
+        	if (response.ok) {
+           	 return response.text();
+        	} else {
+            	throw new Error('로그아웃 실패');
+        	}
+    	})
+    	.then(message => {
+    		alert('로그아웃이 완료되었습니다.'); 
+        	localStorage.removeItem('user');  // 로컬 저장소에서 사용자 정보를 삭제합니다.
+       	 window.location.href = 'main.html';  // 로그아웃 후 메인 페이지로 이동합니다.
+    	})
+    	.catch(error => {
+        	console.error('Error:', error);
+        	alert('로그아웃 중 오류가 발생했습니다.');
+    	});
+	}
 
-// 페이지 로드 시 로그인 UI 업데이트
-document.addEventListener('DOMContentLoaded', updateLoginUI);
-	</script>
+	// 페이지 로드 시 로그인 UI 업데이트
+	document.addEventListener('DOMContentLoaded', updateLoginUI);
+</script>
+<footer class="w3-container w3-padding-16 w3-center w3-opacity footer">
+    	<div class="w3-xlarge"></div>
+    	<p>
+      	  Powered by <a href="https://github.com/LeeYeonhee-00/AncestorLove"
+          	  target="_blank">체큇아웃</a>
+   		</p>
+	</footer>
 </body>
 </html>
