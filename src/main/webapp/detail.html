@@ -4,57 +4,93 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<title>detail.html</title>
+<link rel="icon" type="image/png" sizes="16x16" href="../images/favicon.png">
+<title>조상사랑 - 예초 벌초 매칭 서비스</title>
 <style>
-    .content {
-        margin: auto;
-        width: 80%;
-        padding: 20px;
-        padding-top: 70px; /* 네비게이션 바 높이에 맞춰 패딩 추가 */
-        border: 1px solid lightgray;
-        border-radius: 10px;
-    }
+body, h1, h2, h3, h4, h5, h6 {
+	font-family: "Lato", sans-serif
+}
+
+.w3-bar, h1, button {
+	font-family: "Lato", sans-serif
+}
+
+.content {
+	margin: auto;
+	width: 80%;
+	padding: 20px;
+	border: 1px solid lightgray;
+	border-radius: 10px;
+}
+
+.footer {
+    position: relative;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    background-color: #f1f1f1; 
+}
+
+ .comment-container {
+            position: relative;
+            width: fit-content; 
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            display: block;
+            margin-bottom: 0;
+            resize: none; 
+        }
+
+        .submit-btn {
+            position: absolute;
+            right: 0;
+            bottom: -45px; 
+            padding: 5px 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
 </style>
 </head>
 <body>
 
-<!-- Navbar -->
-<div class="w3-top">
-    <div class="w3-bar w3-light-green w3-card w3-left-align w3-large">
-        <a
-            class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
-            href="javascript:void(0);" title="Toggle Navigation Menu"> 
-            <i class="fa fa-bars"></i>
-        </a>
-        <a href="main.html" class="w3-bar-item w3-button w3-padding-large w3-hover-white w3-green">Home</a>
-        <a href="list.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">의뢰하기</a>
-        <a href="partner.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
-        <div id="loginSection" class="w3-right">
-            <!-- 로그인/로그아웃 버튼이 여기에 동적으로 삽입됩니다 -->
-        </div>
-    </div>
+	<!-- 네비게이션 바 -->
+	<div class="w3-top">
+		<div class="w3-bar w3-light-green w3-card w3-left-align w3-large">
+			<a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
+				href="javascript:void(0);" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a> 
+				<a href="main.html" class="w3-bar-item w3-button w3-padding-large w3-hover-white w3-green">Home</a>
+			<a href="list.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">의뢰 게시판</a>
+			<a href="partner.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
+			<div id="loginSection" class="w3-right">
+			
+				<!-- 로그인/로그아웃 버튼이 여기에 동적으로 삽입 -->
+			</div>
+		</div>
 
-    <!-- Navbar on small screens -->
-    <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-    </div>
-</div>
+		<!-- 네비게이션 바 on small screens -->
+		<div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+		</div>
+	</div>
 
-<div class="content">
-    <div id="inquiry-details"></div>
-
-    <!-- JavaScript to parse the query string and display the details based on the ID -->
-    <script>
-        // URL에서 inquiryId를 가져옵니다.
+	<div class="content"><br><br>
+		<div id="inquiry-details">
+		</div>
+	
+		<script>
+      
         const urlParams = new URLSearchParams(window.location.search);
         const inquiryId = urlParams.get('id');  // URL에서 실제 id 값을 가져옴
 
         if (inquiryId) {
+            // 백엔드에서 의뢰 데이터를 가져옵니다.
             fetch(`/inquiry/${inquiryId}`)  // 백엔드 API 호출
                 .then(response => response.json())  // JSON 형식으로 응답을 파싱
                 .then(data => {
+                    // HTML 요소에 데이터를 삽입합니다.
                     const inquiryDetails = document.getElementById('inquiry-details');
                     inquiryDetails.innerHTML = `
                         <h3>의뢰 번호: ${data.inquiryId}</h3>
@@ -64,7 +100,18 @@
                         <p>작업주소: ${data.inquiryAddress}</p>
                         <p>작업날짜: ${new Date(data.inquiryDate).toLocaleString()}</p>
                         <p>의뢰내용: ${data.inquiryContent}</p>
-                        <h4>댓글</h4>
+                        <hr>
+                        <h4>댓글달기</h4>
+                        <form action="/action_page.php" id="usrform">
+                        파트너 : <input type="text" name="partnername"><br><br>
+                        	<div class="comment-container">
+                        댓글내용 : <textarea id="commentContent" rows="4" cols="50" name="comment"></textarea><br>
+                            <button onclick="submitComment()" class="submit-btn">작성하기</button>
+                        </div>
+                    		</form>
+                    		<br><hr><br>
+                    	<h4>댓글목록</h4>
+
                         <ul>
                             ${data.comments && data.comments.length > 0 
                                 ? data.comments.map(comment => `<li>${comment.content}</li>`).join('') 
@@ -73,53 +120,130 @@
                     `;
                 })
                 .catch(error => {
-                    console.error('Error fetching inquiry details:', error);
+                    console.error('의뢰 상세내용을 불러올 수 없습니다.:', error);
                     document.getElementById('inquiry-details').innerHTML = '<p>의뢰 내용을 가져오는 중 오류가 발생했습니다.</p>';
                 });
         } else {
             document.getElementById('inquiry-details').innerHTML = '<p>유효한 의뢰 ID가 제공되지 않았습니다.</p>';
         }
 
-        // 로그인 상태 확인 및 UI 업데이트 함수
-        function updateLoginUI() {
+        function submitComment() {
+            const commentContent = document.getElementById('commentContent').value;
             const user = JSON.parse(localStorage.getItem('user'));
-            const loginSection = document.getElementById('loginSection');
-            const smallScreenLogin = document.getElementById('smallScreenLogin');
-
-            if (user && user.name) {
-                loginSection.innerHTML = `
-                    <a class="w3-bar-item w3-hide-small w3-padding-large">${user.name}님 환영합니다</a>
-                    <a onclick="logout()" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그아웃</a>
-                `;
-                if (smallScreenLogin) {
-                    smallScreenLogin.textContent = "로그아웃";
-                    smallScreenLogin.onclick = logout;
-                }
-            } else {
-                loginSection.innerHTML = `
-                    <a href="login.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그인</a>
-                `;
-                if (smallScreenLogin) {
-                    smallScreenLogin.textContent = "로그인";
-                    smallScreenLogin.onclick = null;
-                    smallScreenLogin.href = "login.html";
-                }
+            
+            if (!user) {
+                alert('댓글을 작성하려면 로그인이 필요합니다.');
+                return;
             }
+
+            const commentDTO = {
+                inquiryId: inquiryId,  // 이미 정의된 inquiryId 사용
+                userId: user.id,  // 로그인한 사용자의 ID
+                content: commentContent
+            };
+
+            fetch('/comment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(commentDTO)
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();  // 서버로부터 생성된 댓글의 데이터를 받음
+                } else {
+                    throw new Error('댓글 작성에 실패했습니다.');
+                }
+            })
+            .then(comment => {
+                alert('댓글이 성공적으로 작성되었습니다.');
+
+                // 새로 작성된 댓글을 댓글 목록에 추가
+                const commentList = document.querySelector('#inquiry-details ul');
+                const newComment = document.createElement('li');
+                newComment.textContent = comment.content;  // 서버로부터 받은 댓글 내용
+                commentList.appendChild(newComment);
+
+                // 댓글 작성 후 텍스트 에어리어 초기화
+                document.getElementById('commentContent').value = '';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('댓글 작성 중 오류가 발생했습니다.');
+            });
         }
+        
+        
+    	// 로그인 상태 확인 및 UI 업데이트 함수
+		function updateLoginUI() {
+	    	const user = JSON.parse(localStorage.getItem('user'));
+	    	const loginSection = document.getElementById('loginSection');
+	    	const smallScreenLogin = document.getElementById('smallScreenLogin');
 
-        // 로그아웃 함수
-        function logout() {
-            localStorage.removeItem('user');
-            updateLoginUI();
-            alert('로그아웃이 완료되었습니다.');
-            window.location.href = 'main.html';
-            // logout api 추가하기
-        }
+	   		if (user && user.name) {
+	        	loginSection.innerHTML = `
+	            	<a class="w3-bar-item w3-hide-small w3-padding-large">${user.name}님 환영합니다</a>
+	            	<a onclick="logout()" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그아웃</a>
+	        	`;
+	        if (smallScreenLogin) {
+	            smallScreenLogin.textContent = "로그아웃";
+	            smallScreenLogin.onclick = logout;
+	        }
+	    } else {
+	        loginSection.innerHTML = `
+	            <a href="login.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그인</a>
+	    	`;
+	        if (smallScreenLogin) {
+	            smallScreenLogin.textContent = "로그인";
+	            smallScreenLogin.onclick = null;
+	            smallScreenLogin.href = "login.html";
+	        }
+	    }
+	}
 
-        // 페이지 로드 시 로그인 UI 업데이트
-        document.addEventListener('DOMContentLoaded', updateLoginUI);
-    </script>
-</div>
+	// 로그아웃 함수
+	function logout() {
+	    localStorage.removeItem('user');
+	    updateLoginUI();
+	    
+	 // 서버에 로그아웃 요청을 보냅니다.
+	    fetch('/logout', {
+	        method: 'POST',
+	        headers: {
+	            'Content-Type': 'application/json',
+	        },
+	        credentials: 'include' // 세션 쿠키를 포함시킵니다.
+	    })
+	    .then(response => {
+	        if (response.ok) {
+	            return response.text();
+	        } else {
+	            throw new Error('로그아웃을 실패하였습니다.');
+	        }
+	    })
+	    .then(message => {
+	    	alert('로그아웃이 완료되었습니다.'); 
+	        localStorage.removeItem('user');  // 로컬 저장소에서 사용자 정보를 삭제합니다.
+	        window.location.href = 'main.html';  // 로그아웃 후 메인 페이지로 이동합니다.
+	    })
+	    .catch(error => {
+	        console.error('Error:', error);
+	        alert('로그아웃 중 오류가 발생했습니다.');
+	    });
+	}
 
+	// 페이지 로드 시 로그인 UI 업데이트
+	document.addEventListener('DOMContentLoaded', updateLoginUI);
+	</script>
+	</div>
+	
+		<footer class="w3-container w3-padding-16 w3-center w3-opacity footer">
+    	<div class="w3-xlarge"></div>
+    	<p>
+      	  Powered by <a href="https://github.com/LeeYeonhee-00/AncestorLove"
+          	  target="_blank">체큇아웃</a>
+   		</p>
+	</footer>
 </body>
 </html>
