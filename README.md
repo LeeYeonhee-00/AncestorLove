@@ -14,12 +14,6 @@
 
 <br>
 
-## 프로젝트 개요
-
-- 채울예정
-
-<br>
-
 ## 학습 목적 
 
 - 채울예정
@@ -35,7 +29,7 @@
 ---
 
 
-## 협업 툴 🚻
+## 협업 툴 🌷
 
 |<img src="https://github.com/user-attachments/assets/4260362c-bd6b-4a62-be26-f0e9877d6d2d" width="100" height="100"/>|<img src="https://github.com/user-attachments/assets/891e0922-5faf-42e7-9084-05cf7665de66" width="100" height="100"/>|<img src="https://github.com/user-attachments/assets/01db835f-c1b9-4464-a4ab-246a7909bd39" width="100" height="100"/>|<img src="https://github.com/user-attachments/assets/edacbb9d-b24f-421d-8949-e74dffd265a7" width="100" height="100"/>|<img src="https://github.com/user-attachments/assets/cb500407-367c-4fbd-9034-164b787c454f" width="100" height="100"/>|<img src="https://github.com/user-attachments/assets/7f0cebd8-646a-4c8a-8984-c95c73a38f7f" width="100" height="100"/>|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -122,7 +116,7 @@
 
 <br>
 
-### 3️⃣) 커밋 메세지 구조  1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣
+### 3️⃣) 커밋 메세지 구조  
 ```Markdown
 #header
 type: title(제목)
@@ -155,8 +149,17 @@ header에서 충분히 표현할 수 있다면 생략 가능
 |rename      |파일명 or 폴더명 수정  |
 |remove  |파일 삭제 |
 
+---
+
+## 비즈니스 모델 💰
+
+### 1️⃣) B2C
 
 ---
+
+1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣
+
+
 ## 회 고 📝
 
 ### [김성호](https://github.com/castlhoo)
