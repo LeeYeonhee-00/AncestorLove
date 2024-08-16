@@ -13,10 +13,10 @@ import lombok.ToString;
 @ToString
 
 public class PartnerAndReviewDTO {
-	
-	    private String partnerName;
-	    private String partnerLocation;
-	    private double averageRating;
 
+	private long partnerId;
+	private String partnerName;
+	private String partnerLocation;
+	private double averageRating;
 
 }

@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,7 +29,8 @@ import lombok.ToString;
 @Entity
 public class Partner {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "partner_seq_gen")
+	@SequenceGenerator(name = "partner_seq_gen", sequenceName = "partner_seq", initialValue = 1, allocationSize = 1)
 	@Column(name = "partner_id")
 	private long partnerId; 
 

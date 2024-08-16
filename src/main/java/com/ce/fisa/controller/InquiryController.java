@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ce.fisa.exception.InvalidSignupException;
 import com.ce.fisa.exception.NotExistInquiryException;
 import com.ce.fisa.model.dto.AllInquiryDTO;
 import com.ce.fisa.model.dto.CommentDTO;
@@ -20,7 +19,6 @@ import com.ce.fisa.model.entity.Inquiry;
 import com.ce.fisa.service.InquiryService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @RestController
@@ -34,46 +32,64 @@ public class InquiryController {
 	// 전체 Inquiry 리스트 조회
 	@GetMapping("/allinquiry")
 	public List<AllInquiryDTO> getAllInquiryList() {
-		logger.debug("Inquiry 전체조회 요청");
+		logger.debug("의뢰하기 전체 조회 요청");
 		return inqService.getAllInquiry();
 	}
 	
 	// 특정 Inquiry 상세 조회
 	@GetMapping("/inquiry/{id}")
 	public InquiryDTO getInquiryById(@PathVariable("id") Long inquiryid) throws NotExistInquiryException {
+		logger.debug("의뢰하기 상세 조회 요청");
 		return inqService.getInquiry(inquiryid);
 	}
 	
 	// Inquiry 작성
 	@PostMapping("inquiry")
 	public String postInquiry(@RequestBody InquiryDTO inquiryDTO) throws NotExistInquiryException {
-		logger.debug("의뢰하기 요청");
+		logger.debug("의뢰하기 작성 요청");
 		
 		Inquiry result = inqService.postInquiry(inquiryDTO);
 
 		if (result != null) {
-			logger.info("의뢰하기 성공");
+			logger.info("의뢰하기 작성 성공");
 			return "의뢰하기 성공!!";
 		} else {
+			logger.warn("의뢰하기 작성 실패");
 			throw new NotExistInquiryException("유효한 값을 입력하세요");
 		}
 	}
-	
 	
 	// Comment 작성
 	@PostMapping("/comment")
 	public ResponseEntity<String> postComment(@RequestBody CommentDTO commentDTO) throws NotExistInquiryException {
 
-		logger.debug("Comment 작성 요청");
+		logger.debug("댓글 작성 요청");
 
 		Comment result = inqService.postComment(commentDTO);
 
 		if (result != null) {
-			logger.info("Comment 작성 성공");
-			return ResponseEntity.ok("Comment 작성 성공");
+			logger.info("댓글 작성 성공");
+			return ResponseEntity.ok("댓글 작성 성공!!");
 		} else {
-			logger.warn("Comment 작성 실패");
-			return ResponseEntity.status(401).body("Comment 작성 실패");
+			logger.warn("댓글 작성 실패");
+			return ResponseEntity.status(401).body("댓글 작성 실패");
+		}
+	}
+	
+	// 계약 체결
+	@PostMapping("/consign/{id}")
+	public ResponseEntity<String> postConsignByCommentId(@PathVariable("id") Long commentid) throws NotExistInquiryException {
+		
+		logger.debug("[ancestorlove] 계약 체결 요청");
+		
+		Comment result = inqService.postConsign(commentid);
+		
+		if (result != null) {
+			logger.info("[ancestorlove] 계약 체결 성공");
+			return ResponseEntity.ok("계약 체결 성공!!");
+		} else {
+			logger.warn("[ancestorlove] 계약 체결 실패");
+			return ResponseEntity.status(401).body("계약 체결 실패");
 		}
 	}
 	

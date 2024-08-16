@@ -25,4 +25,7 @@ public interface InquiryService {
 	
 	// Comment 작성
 	public Comment postComment(CommentDTO commentDTO) throws NotExistInquiryException;
+	
+	// 계약 체결
+	public Comment postConsign(long commentid) throws NotExistInquiryException;
 }

@@ -96,9 +96,10 @@ public class PartnerServiceImpl implements PartnerService {
 
 		for (Object[] result : results) {
 			Map<String, Object> map = new HashMap<>();
-			map.put("partnerName", result[0]);
-			map.put("partnerLocation", result[1]);
-			map.put("averageRating", result[2]);
+			map.put("partnerId", result[0]);
+			map.put("partnerName", result[1]);
+			map.put("partnerLocation", result[2]);
+			map.put("averageRating", result[3]);
 			response.add(map);
 		}
 

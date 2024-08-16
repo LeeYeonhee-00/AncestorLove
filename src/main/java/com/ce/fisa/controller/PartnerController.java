@@ -27,21 +27,21 @@ public class PartnerController {
 	// Partner 상세 조회
 	@GetMapping("/partner/{id}")
 	public PartnerDTO getPartners(@PathVariable("id") Long partnerId) throws NotExistPartnerException {
-		logger.debug("Partner 상세조회 요청");
+		logger.debug("파트너 상세조회 요청");
 		return partnerService.getPartners(partnerId);
 	}
 	
-	// 별점 평균 없이 Partner 전체 정보 조회
+	// 별점 평균 없이 Partner 전체 정보 조회 - 사용 안함(디버깅 위함)
 	@GetMapping("/partnerall")
 	public List<PartnerDTO> getAllPartner() {
-		logger.debug("Partner 정보 전체조회");
+		logger.debug("파트너 정보 전체조회");
 		return partnerService.getAllPartner();
 	}
 	
 	// Partner 전체 리스트 조회
 	@GetMapping("/allpartner")
 	public List<Map<String, Object>> getAverageRatings() {
-		logger.debug("Partner 전체조회 요청");
+		logger.debug("파트너 전체조회 요청");
 		return partnerService.getAverageRatings();
 	}
 

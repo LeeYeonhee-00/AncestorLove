@@ -17,6 +17,8 @@ public interface UserService {
 	
 	// 로그인
 	public boolean authenticate(String userEmail, String userPW) throws NotExistUserException;
+	
+	// 로그아웃
 	public boolean logout (HttpSession httpSession);
 
 }
