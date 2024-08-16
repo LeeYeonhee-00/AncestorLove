@@ -118,6 +118,11 @@ body, h1, h2, h3, h4, h5, h6 {
 		<script>
             const urlParams = new URLSearchParams(window.location.search);
             const inquiryId = urlParams.get('id');
+            
+            // 로그인 상태 확인 함수
+            function isUserLoggedIn() {
+                return localStorage.getItem('user') !== null;
+            }
 
             function fetchInquiryDetails() {
                 if (inquiryId) {
@@ -164,8 +169,16 @@ body, h1, h2, h3, h4, h5, h6 {
             }
 
             function submitComment() {
+            	if (!isUserLoggedIn()) {
+                    alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
+                    window.location.href = 'login.html'; // 로그인 페이지로 리디렉션
+                    return;
+                }
                 const commentContent = document.getElementById('commentContent').value;
-
+				if (!commentContent){
+					alert('내용을 입력하세요.');
+                    return;
+				}
                 fetch('/comment', {
                     method: 'POST',
                     headers: {
@@ -179,7 +192,7 @@ body, h1, h2, h3, h4, h5, h6 {
                 })
                 .then(response => {
                     if (response.ok) {
-                        return response.text();  // 서버 응답을 텍스트로 처리
+                      	return response.text();  // 서버 응답을 텍스트로 처리
                     } else {
                         throw new Error('댓글 작성에 실패했습니다.');
                     }

@@ -1,6 +1,7 @@
 package com.ce.fisa.service;
 
 import java.util.List;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
@@ -107,7 +108,7 @@ public class InquiryServiceImpl implements InquiryService {
 		        ))
 		        .collect(Collectors.toList());
 		
-		logger.info("의뢰하기 전체 조회 성공");
+		logger.info("[ancestorlove] 의뢰하기 전체 조회 성공");
 		return inquiryDTOList;
 	}
 
@@ -118,18 +119,18 @@ public class InquiryServiceImpl implements InquiryService {
 		logger.debug("inquiryEntity() : " + inquiryEntity);
 		
 		if (inquiryEntity == null) {
-			logger.warn("의뢰하기 상세조회 실패");
+			logger.warn("[ancestorlove] 의뢰하기 상세조회 실패");
 			throw new NotExistInquiryException("해당 의뢰는 존재하지 않습니다.");
 		}
 		
 		InquiryDTO inquiryDTO = convertToDTO(inquiryEntity);
-		logger.debug("inquiryDTO() : " + inquiryDTO);
-		logger.info("의뢰하기 상세 조회 성공");
+		logger.debug("[ancestorlove] inquiryDTO() : " + inquiryDTO);
+		logger.info("[ancestorlove] 의뢰하기 상세 조회 성공");
 		return inquiryDTO;
 	}
 
 	@Override
-	public Inquiry postInquiry(InquiryDTO inquiryDTO) throws NotExistInquiryException {
+	public List<Object> postInquiry(InquiryDTO inquiryDTO) throws NotExistInquiryException {
 		
 		long seesionUserId = (long)httpSession.getAttribute("userId");
 		User user = userDAO.findByUserId(seesionUserId);
@@ -143,7 +144,9 @@ public class InquiryServiceImpl implements InquiryService {
 		Inquiry inquiry = convertToEntity(user, work, inquiryDTO);
 		Inquiry result = inquiryDAO.save(inquiry);
 		
-		return result;
+		String workname = work.getWorkName();
+		
+		return Arrays.asList(result, workname);
 	}
 	
 	@Override
