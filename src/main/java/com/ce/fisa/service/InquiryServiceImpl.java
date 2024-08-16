@@ -1,6 +1,7 @@
 package com.ce.fisa.service;
 
 import java.util.List;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
@@ -146,7 +147,7 @@ public class InquiryServiceImpl implements InquiryService {
 	}
 
 	@Override
-	public Inquiry postInquiry(InquiryDTO inquiryDTO) throws NotExistInquiryException {
+	public List<Object> postInquiry(InquiryDTO inquiryDTO) throws NotExistInquiryException {
 		
 		long seesionUserId = (long)httpSession.getAttribute("userId");
 		User user = userDAO.findByUserId(seesionUserId);
@@ -160,7 +161,9 @@ public class InquiryServiceImpl implements InquiryService {
 		Inquiry inquiry = convertToEntity(user, work, inquiryDTO);
 		Inquiry result = inquiryDAO.save(inquiry);
 		
-		return result;
+		String workname = work.getWorkName();
+		
+		return Arrays.asList(result, workname);
 	}
 	
 	@Override

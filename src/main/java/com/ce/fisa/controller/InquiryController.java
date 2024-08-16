@@ -18,6 +18,9 @@ import com.ce.fisa.model.dto.getInquiryDTO;
 import com.ce.fisa.model.entity.Comment;
 import com.ce.fisa.model.entity.Inquiry;
 import com.ce.fisa.service.InquiryService;
+
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -27,6 +30,9 @@ public class InquiryController {
 	
 	@Autowired
 	private InquiryService inqService;
+	
+	@Autowired
+	private HttpSession httpSession;
 	
 	private static final Logger logger = LogManager.getLogger(PartnerController.class);
 	
@@ -49,10 +55,14 @@ public class InquiryController {
 	public String postInquiry(@RequestBody InquiryDTO inquiryDTO) throws NotExistInquiryException {
 		logger.debug("[ancestorlove] 의뢰하기 작성 요청");
 		
-		Inquiry result = inqService.postInquiry(inquiryDTO);
+		List<Object> results = inqService.postInquiry(inquiryDTO);
+		Inquiry inquiryResult = (Inquiry)results.get(0);
+		String work = (String)results.get(1);
 
-		if (result != null) {
-			logger.info("[ancestorlove] 의뢰하기 작성 성공");
+		if (inquiryResult != null) {
+			logger.info("[ancestorlove] 의뢰하기 작성 성공" + "사용자 성별 : "+ httpSession.getAttribute("userGender") +
+					", 사용자 나이 : " + httpSession.getAttribute("userAge") + ", 의뢰 유형 : " + work +", 의뢰장소 : " + inquiryDTO.getInquiryAddress()+
+					", 작업 날짜 : " + inquiryDTO.getInquiryDate());			
 			return "의뢰하기 성공!!";
 		} else {
 			logger.warn("[ancestorlove] 의뢰하기 작성 실패");
