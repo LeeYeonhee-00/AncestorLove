@@ -19,6 +19,7 @@ import com.ce.fisa.model.dto.AllInquiryDTO;
 import com.ce.fisa.model.dto.CommentDTO;
 import com.ce.fisa.model.dto.InquiryDTO;
 import com.ce.fisa.model.entity.Comment;
+import com.ce.fisa.model.entity.Contract;
 import com.ce.fisa.model.entity.Inquiry;
 import com.ce.fisa.model.entity.User;
 import com.ce.fisa.model.entity.Work;
@@ -136,7 +137,6 @@ public class InquiryServiceImpl implements InquiryService {
 		Work work = workDAO.findByWorkId(inquiryDTO.getWorkId());
 		
 		if (user == null) {
-			logger.warn("Inquiry 작성 실패");
 			throw new NotExistInquiryException("작성자 정보가 누락되었습니다.");
 		}
 		
@@ -152,7 +152,6 @@ public class InquiryServiceImpl implements InquiryService {
 		Inquiry inquiry = inquiryDAO.findByInquiryId(commentDTO.getInquiryId());
 		
 		if (inquiry == null) {
-			logger.warn("Comment 작성 실패");
 			throw new NotExistInquiryException("해당 의뢰는 존재하지 않습니다.");
 		}
 		
@@ -160,6 +159,19 @@ public class InquiryServiceImpl implements InquiryService {
 		Comment result = commentDAO.save(comment);
 		
 		return result;
+	}
+
+	@Override
+	public Comment postConsign(long commentid) throws NotExistInquiryException {
+		
+		Comment comment = commentDAO.findByComId(commentid);
+		
+		if (comment == null) {
+			throw new NotExistInquiryException("해당 댓글은 존재하지 않습니다.");
+		}
+		
+		comment.setComConsign(Contract.CONSIGN);
+		return commentDAO.save(comment);
 	}
 
 }

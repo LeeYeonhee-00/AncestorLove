@@ -17,6 +17,7 @@ public interface PartnerService {
 
 	public List<PartnerDTO> getAllPartner();
 
+	// 파트너 상세 조회
 	public PartnerDTO getPartners(long partnerId) throws NotExistPartnerException;
 
 }
