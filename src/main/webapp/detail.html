@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="icon" type="image/png" sizes="16x16" href="../images/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16"
+	href="../images/favicon.png">
 <title>조상사랑 - 예초 벌초 매칭 서비스</title>
 <style>
 body, h1, h2, h3, h4, h5, h6 {
@@ -24,40 +25,63 @@ body, h1, h2, h3, h4, h5, h6 {
 }
 
 .footer {
-    position: relative;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    background-color: #f1f1f1; 
+	position: relative;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100%;
+	background-color: #f1f1f1;
 }
 
-   .comment-box {
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-        }
-        .comment-input {
-            display: flex;
-            margin-bottom: 20px;
-        }
-        .comment-input textarea {
-            flex-grow: 1;
-            margin-right: 10px;
-            height: 40px;
-        }
-        .comment-input button {
-            height: 40px;
-        }
-        .contract-btn {
-            float: right;
-            margin-top: 5px;
-        }
-        .comment-content {
-            margin-bottom: 10px;
-        }
-        
+.comment-box {
+	border: 1px solid #ddd;
+	padding: 10px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	overflow: hidden;
+	word-wrap: break-word;
+}
+
+.comment-input {
+	display: flex;
+	margin-bottom: 20px;
+}
+
+.comment-input textarea {
+	flex-grow: 1;
+	margin-right: 10px;
+	height: 40px;
+	overflow: auto;
+	resize: vertical;
+}
+
+.comment-input button {
+	height: 40px;
+}
+
+.contract-btn {
+	float: right;
+	margin-top: 5px;
+	background-color: #ff0000;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.contract-btn.completed {
+	background-color: green;
+	cursor: default;
+}
+
+.comment-content {
+	margin-bottom: 10px;
+}
 </style>
 </head>
 <body>
@@ -65,71 +89,80 @@ body, h1, h2, h3, h4, h5, h6 {
 	<!-- 네비게이션 바 -->
 	<div class="w3-top">
 		<div class="w3-bar w3-light-green w3-card w3-left-align w3-large">
-			<a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
-				href="javascript:void(0);" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a> 
-				<a href="main.html" class="w3-bar-item w3-button w3-padding-large w3-hover-white w3-green">Home</a>
-			<a href="list.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">의뢰 게시판</a>
-			<a href="partner.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
+			<a
+				class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
+				href="javascript:void(0);" title="Toggle Navigation Menu"><i
+				class="fa fa-bars"></i></a> <a href="main.html"
+				class="w3-bar-item w3-button w3-padding-large w3-hover-white w3-green">Home</a>
+			<a href="list.html"
+				class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">의뢰
+				게시판</a> <a href="partner.html"
+				class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
 			<div id="loginSection" class="w3-right">
-			
+
 				<!-- 로그인/로그아웃 버튼이 여기에 동적으로 삽입 -->
 			</div>
 		</div>
 
 		<!-- 네비게이션 바 on small screens -->
-		<div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+		<div id="navDemo"
+			class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
 		</div>
 	</div>
 
-	    <div class="content"><br><br>
-        <div id="inquiry-details"></div>
-    
-        <script>
+	<div class="content">
+		<br>
+		<br>
+		<div id="inquiry-details"></div>
+
+		<script>
             const urlParams = new URLSearchParams(window.location.search);
             const inquiryId = urlParams.get('id');
 
-            if (inquiryId) {
-                fetch(`/inquiry/${inquiryId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const inquiryDetails = document.getElementById('inquiry-details');
-                        inquiryDetails.innerHTML = `
-                            <h3>의뢰 번호: ${data.inquiryId}</h3>
-                            <p>제목: ${data.inquiryTitle}</p>
-                            <p>작업유형: ${data.workId}</p>
-                            <p>작성자 ID: ${data.userId}</p>
-                            <p>작업주소: ${data.inquiryAddress}</p>
-                            <p>작업날짜: ${new Date(data.inquiryDate).toLocaleString()}</p>
-                            <p>의뢰내용: ${data.inquiryContent}</p>
-                            <hr>
-                            <h4>댓글목록</h4>
-                            <div id="commentList">
-                                ${data.comments && data.comments.length > 0 
-                                    ? data.comments.map(comment => `
-                                        <div class="comment-box">
-                                            <div class="comment-content">${comment.comContent}</div>
-                                            <button onclick="proposeContract(${comment.comId})" class="contract-btn">계약체결</button>
-                                        </div>
-                                    `).join('') 
-                                    : '<p>댓글이 없습니다.</p>'}
-                            </div>
-                            <hr>
-                            <h4>댓글달기</h4>
-                            <div class="comment-input">
-                                <textarea id="commentContent" placeholder="댓글 내용을 입력하세요"></textarea>
-                                <button onclick="submitComment()">작성하기</button>
-                            </div>
-                        `;
-                    })
-                    .catch(error => {
-                        console.error('의뢰 상세내용을 불러올 수 없습니다.:', error);
-                        document.getElementById('inquiry-details').innerHTML = '<p>의뢰 내용을 가져오는 중 오류가 발생했습니다.</p>';
-                    });
-            } else {
-                document.getElementById('inquiry-details').innerHTML = '<p>유효한 의뢰 ID가 제공되지 않았습니다.</p>';
+            function fetchInquiryDetails() {
+                if (inquiryId) {
+                    fetch(`/inquiry/${inquiryId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            const inquiryDetails = document.getElementById('inquiry-details');
+                            inquiryDetails.innerHTML = `
+                                <h3>의뢰 번호: ${data.inquiryId}</h3>
+                                <p>제목: ${data.inquiryTitle}</p>
+                                <p>작업유형: ${data.workName}</p>
+                                <p>작성자 ID: ${data.userName}</p>
+                                <p>작업주소: ${data.inquiryAddress}</p>
+                                <p>작업날짜: ${new Date(data.inquiryDate).toLocaleString()}</p>
+                                <p>의뢰내용: ${data.inquiryContent}</p>
+                                <hr>
+                                <h4>댓글목록</h4>
+                                <div id="commentList">
+                                    ${data.comments && data.comments.length > 0 
+                                        ? data.comments.map(comment => `
+                                            <div class="comment-box">
+                                                <div class="comment-content">${comment.comContent}</div>
+                                                <button onclick="proposeContract(${comment.comId}, this)" 
+                                                	class="contract-btn ${comment.comConsign === 'CONSIGN' ? 'completed' : ''}" ${comment.comConsign === 'CONSIGN' ? 'disabled' : ''}>${comment.comConsign === 'CONSIGN' ? '체결 완료' : '계약체결'}</button>
+                                            </div>
+                                        `).join('') 
+                                        : '<p>댓글이 없습니다.</p>'}
+                                </div>
+                                <hr>
+                                <h4>댓글달기</h4>
+                                <div class="comment-input">
+                                    <textarea id="commentContent" placeholder="댓글 내용을 입력하세요"></textarea>
+                                    <button onclick="submitComment()">작성하기</button>
+                                </div>
+                            `;
+                        })
+                        .catch(error => {
+                            console.error('의뢰 상세내용을 불러올 수 없습니다.:', error);
+                            document.getElementById('inquiry-details').innerHTML = '<p>의뢰 내용을 가져오는 중 오류가 발생했습니다.</p>';
+                        });
+                } else {
+                    document.getElementById('inquiry-details').innerHTML = '<p>유효한 의뢰 ID가 제공되지 않았습니다.</p>';
+                }
             }
-            
-            
+
             function submitComment() {
                 const commentContent = document.getElementById('commentContent').value;
 
@@ -155,19 +188,7 @@ body, h1, h2, h3, h4, h5, h6 {
                     alert(message);  // 서버로부터 받은 메시지를 경고창으로 표시
                     
                     // 댓글 작성 후 댓글 목록 업데이트
-                    const commentList = document.querySelector('#commentList');
-                    if (commentList.querySelector('p')) {
-                        commentList.innerHTML = '';  // 댓글이 없는 경우의 메시지 제거
-                    }
-                    const newCommentBox = document.createElement('div');
-                    newCommentBox.className = 'comment-box';
-                    newCommentBox.innerHTML = `
-                        <div class="comment-content">${commentContent}</div>
-                        <button onclick="proposeContract(${inquiryId})" class="contract-btn">계약체결</button>
-                    `;
-                    commentList.appendChild(newCommentBox);
-
-                    // 댓글 작성 후 텍스트 에어리어 초기화
+                    fetchInquiryDetails();
                     document.getElementById('commentContent').value = '';
                 })
                 .catch(error => {
@@ -175,39 +196,64 @@ body, h1, h2, h3, h4, h5, h6 {
                     alert('댓글 작성 중 오류가 발생했습니다.');
                 });
             }
-            function proposeContract(commentId) {
-                // 계약 체결 로직 구현
-                alert(`계약 체결 요청이 접수되었습니다. (댓글 ID: ${commentId})`);
+            
+            function proposeContract(commentId, buttonElement) {
+                fetch(`/consign/${commentId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include' // 세션 쿠키를 포함시킵니다.
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text(); // 서버 응답을 텍스트로 처리
+                    } else {
+                        throw new Error('계약 체결 요청에 실패했습니다.');
+                    }
+                })
+                .then(message => {
+                    alert(message); // 서버로부터 받은 메시지를 경고창으로 표시
+                    
+                    // 계약 체결 성공 시 버튼 업데이트
+                    buttonElement.textContent = '체결 완료';
+                    buttonElement.classList.add('completed'); // 클래스 추가
+                    buttonElement.disabled = true; // 버튼 비활성화
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('계약 체결 중 오류가 발생했습니다.');
+                });
             }
-            
-            
-            
-    	// 로그인 상태 확인 및 UI 업데이트 함수
-		function updateLoginUI() {
-	    	const user = JSON.parse(localStorage.getItem('user'));
-	    	const loginSection = document.getElementById('loginSection');
-	    	const smallScreenLogin = document.getElementById('smallScreenLogin');
 
-	   		if (user && user.name) {
-	        	loginSection.innerHTML = `
-	            	<a class="w3-bar-item w3-hide-small w3-padding-large">${user.name}님 환영합니다</a>
-	            	<a onclick="logout()" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그아웃</a>
-	        	`;
-	        if (smallScreenLogin) {
-	            smallScreenLogin.textContent = "로그아웃";
-	            smallScreenLogin.onclick = logout;
-	        }
-	    } else {
-	        loginSection.innerHTML = `
-	            <a href="login.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그인</a>
-	    	`;
-	        if (smallScreenLogin) {
-	            smallScreenLogin.textContent = "로그인";
-	            smallScreenLogin.onclick = null;
-	            smallScreenLogin.href = "login.html";
-	        }
-	    }
-	}
+            document.addEventListener('DOMContentLoaded', fetchInquiryDetails);
+            
+         // 로그인 상태 확인 및 UI 업데이트 함수
+    		function updateLoginUI() {
+    		    const user = JSON.parse(localStorage.getItem('user'));
+    		    const loginSection = document.getElementById('loginSection');
+    		    const smallScreenLogin = document.getElementById('smallScreenLogin');
+
+    		    if (user && user.name) {
+    		        loginSection.innerHTML = `
+    		            <a class="w3-bar-item w3-hide-small w3-padding-large">${user.name}님 환영합니다</a>
+    		            <a onclick="logout()" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그아웃</a>
+    		        `;
+    		        if (smallScreenLogin) {
+    		            smallScreenLogin.textContent = "로그아웃";
+    		            smallScreenLogin.onclick = logout;
+    		        }
+    		    } else {
+    		        loginSection.innerHTML = `
+    		            <a href="login.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그인</a>
+    		        `;
+    		        if (smallScreenLogin) {
+    		            smallScreenLogin.textContent = "로그인";
+    		            smallScreenLogin.onclick = null;
+    		            smallScreenLogin.href = "login.html";
+    		        }
+    		    }
+    		}
 
 	// 로그아웃 함수
 	function logout() {
@@ -244,13 +290,13 @@ body, h1, h2, h3, h4, h5, h6 {
 	document.addEventListener('DOMContentLoaded', updateLoginUI);
 	</script>
 	</div>
-	
-		<footer class="w3-container w3-padding-16 w3-center w3-opacity footer">
-    	<div class="w3-xlarge"></div>
-    	<p>
-      	  Powered by <a href="https://github.com/LeeYeonhee-00/AncestorLove"
-          	  target="_blank">체큇아웃</a>
-   		</p>
+
+	<footer class="w3-container w3-padding-16 w3-center w3-opacity footer">
+		<div class="w3-xlarge"></div>
+		<p>
+			Powered by <a href="https://github.com/LeeYeonhee-00/AncestorLove"
+				target="_blank">체큇아웃</a>
+		</p>
 	</footer>
 </body>
 </html>
