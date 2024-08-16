@@ -1,64 +1,179 @@
-# [우리FISA 3기 클라우드 엔지니어링] AncestorLove 미니 프로젝트
+# <p align="center">[우리FISA 3기 클라우드 엔지니어링] AncestorLove 미니 프로젝트
+## <p align="center"><font color="blue">조 상 사 랑</font></p>
 
 ---
+
 <h2 style="font-size: 25px;"> 개발팀원👨‍👨‍👧‍👦💻<br>
 <br>
 
 |<img src="https://avatars.githubusercontent.com/u/175369539?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/98442485?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/79312705?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/175371231?v=4" width="150" height="150"/>|
 |:-:|:-:|:-:|:-:|
 |[@김성호](https://github.com/castlhoo)|[@이연희](https://github.com/LeeYeonhee-00)|[@김상민](https://github.com/isshomin)|[@오재웅](https://github.com/ohwoong2)|
+
 ---
-<br>
-
-
-# 프로젝트 개요
-
-- 타이타닉을 둘러싼 의혹과 루머를 파헤치는 것
-- 데이터를 이용하여 루머를 확인하고, 검증까지 해보기
 
 <br>
 
-# 학습 목적 
+## 프로젝트 개요
 
- - MySQL + ELK Pipeline 환경 구축 역량 강화
- - Kibana visualize 역량 강화
+- 채울예정
+
+<br>
+
+## 학습 목적 
+
+- 채울예정
+
+<br>
+
+## 서비스 서사
+
+- 채울예정
 
 <br>
 
 ---
 
-# 개발 환경 ⛅
 
-<p align="left"><img src="https://github.com/user-attachments/assets/404b5775-4e5d-483e-8b64-f2c9817fdf0b"></p><br>
+## 협업 툴 🚻
+
+|<img src="https://github.com/user-attachments/assets/4260362c-bd6b-4a62-be26-f0e9877d6d2d" width="100" height="100"/>|<img src="https://github.com/user-attachments/assets/891e0922-5faf-42e7-9084-05cf7665de66" width="100" height="100"/>|<img src="https://github.com/user-attachments/assets/01db835f-c1b9-4464-a4ab-246a7909bd39" width="100" height="100"/>|<img src="https://github.com/user-attachments/assets/edacbb9d-b24f-421d-8949-e74dffd265a7" width="100" height="100"/>|<img src="https://github.com/user-attachments/assets/cb500407-367c-4fbd-9034-164b787c454f" width="100" height="100"/>|<img src="https://github.com/user-attachments/assets/7f0cebd8-646a-4c8a-8984-c95c73a38f7f" width="100" height="100"/>|
+|:-:|:-:|:-:|:-:|:-:|:-:|
+|[github](https://github.com/LeeYeonhee-00/AncestorLove)|[Figma](https://www.figma.com/design/nbH74PZ2kNx8eawHeOr5H0/%EC%A1%B0%EC%83%81%EC%82%AC%EB%9E%91?node-id=0-1&t=SZhNT1U5q2xakiA1-0)|[ERD Cloud](https://www.erdcloud.com/d/PkKH2x6a8DdbHu5sv)|[draw.io](https://app.diagrams.net/#G13KcZneZoogQibX7kvNiEjm0LWQps9WMd)|[Google Drive](https://drive.google.com/drive/folders/1ziIkdKyo4RybZGGjVkOe5-O1DvyDgCOx)|[Google Sheets](https://docs.google.com/spreadsheets/d/10_TurIupL0CsPPRj1C1vxaj9Yeoeu376W5fhB-p0QYE/edit?gid=0#gid=0)|
+
+ <br>
+ 
+ ---
+<br>
+
+## 개발 환경 구성도 🎨
+
+<p align="center"><img src="https://img.shields.io/badge/Framework-%23121011?style=for-the-badge"><img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
+<img src="https://img.shields.io/badge/Build-%23121011?style=for-the-badge"><img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white">
+<img src="https://img.shields.io/badge/Language-%23121011?style=for-the-badge"><img src="https://img.shields.io/badge/java-%23ED8B00?style=for-the-badge&logo=openjdk&logoColor=white">
+<img src="https://img.shields.io/badge/Project Encoding-%23121011?style=for-the-badge"><img src="https://img.shields.io/badge/UTF 8-EA2328?style=for-the-badge">
+<p align="left"><img src="https://github.com/user-attachments/assets/ac901fe8-29d6-4156-8783-354af2154d78"></p><br>
+
+---
+
+## 요구사항 정의서 📝
+|서비스      |기능        |요구사항 설명|필요 데이터|
+|-----------    |------------|----|---|
+| 유저           |회원가입     |자체 회원가입 기능  |ID, 비밀번호, 이름, 성별, 나이, 이메일| 
+|               |로그인         |로그인 기능 |ID, 비밀번호   | 
+| 문의           |문의 등록         |로그인한 유저는 문의를 등록할 수 있음  |작업 종류, 날짜, 주소, 내용| 
+|               |댓글 등록 |로그인한 유저는 댓글을 등록할 수 있음   |댓글 내용
+| 파트너         |파트너 페이지 |제휴한 파트너들의 목록과 간단한 정보를 볼 수 있는 페이지 |파트너 이름, 파트너 사진, 파트너 작업 지역, 만족도   | 
+|               |파트너 상세 페이지      |특정 파트너의 상세한 정보를 볼 수 있는 페이지 |파트너 이름, 평당 금액, 분묘 금액, 파트너 설명, 후기내용, 파트너 사진   |
+|               |계약 체결         |파트너는 의뢰에서 계약을 원하는 댓글 하나에만 체결 버튼을 누를 수 있음 |계약 체결   |
+| 기 타            |랜딩 페이지         |‘지금 바로 의뢰하기’ 버튼이 있는 랜딩 페이지 |   |
+|                |네비게이션 바 |로그인/로그아웃 버튼, 로고 버튼(클릭 시 랜딩 페이지 이동), 의뢰하기 버튼, 파트너 정보 버튼 |   |
+
+<br>
+
+### 1️⃣) 요구사항 
+
+- 랜딩페이지 출력
+  - 지금 바로 의뢰하기 버튼
+- 로그인
+- 회원가입
+- 의뢰 문의글 작성
+- 댓글 작성
+- 의뢰 문의글 조회
+- 파트너(기업) 정보 리스트 조회
+- 파트너(기업) 상세 정보 조회
+- 네비게이션 바 출력
+ - 로그인 버튼
+ - 홈 버튼(클릭 시 랜딩페이지로)
+ - 파트너(기업) 버튼
+ - 의뢰하기 버튼
+- inquiry는 의뢰하기 게시물 하나를 의미
+- 하나의 의뢰에는 하나의 작업만 가능 (작업 = work)
+
+<br>
+
+### 2️⃣) 사전 정의사항
+
+- 기업데이터는 관리자가 직접 데이터베이스에 넣는 것으로 한다.
+- 의뢰하기 게시글 작성은 로그인한 사용자만 작성하는 것으로 한다.
+- 계약 체결된 댓글에서 게시글에 기입된 날짜 이후 모달창으로 후기를 작성할 수 있게 한다.
+- 의뢰하기를 원하는 사용자가 게시글 작성, 파트너 사에서 의뢰하기 게시글을 보고 계약 제의 댓글을 달아 사용자가 원하는 기업과 계약체결이 될 수 있도록 한다.
+
+<br>
+
+## Github 협업 규칙 👮‍♂️
+
+<br>
+
+### 1️⃣) branch 규칙
+  - 서비스마다 branch를 만들어서 작업한다.
+   - main / user / inquiry / partner / front
+
+<br>
+
+### 2️⃣) 커밋 메세지 규칙
+   - 제목과 본문을 빈 행으로 구분한다.
+   - 제목은 50글자 이내로 제한한다.
+   - 제목의 첫 글자는 대문자로 작성한다.
+   - 제목 끝에는 마침표를 넣지 않는다.
+   - 제목은 명령문으로 사용하며 과거형을 사용하지 않는다.
+   - 본문의 각 행은 72글자 내로 제한한다.
+   - 어떻게 보다는 무엇과 왜를 명확히 설명한다.
+
+<br>
+
+### 3️⃣) 커밋 메세지 구조  1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣
+```Markdown
+#header
+type: title(제목)
+header는 필수
+
+#body
+header에서 표현할 수 없는 상세한 내용 기입
+header에서 충분히 표현할 수 있다면 생략 가능
+
+#footer
+어떤 이슈에서 왔는지 같은 참조 정보들을 추가하는 용도로 사용
+생략가능
+```
+
+<br>
+
+### 4️⃣) type 분류 및 용도
+|type 이름     |내용        |
+|-----------|------------|
+|feat|새로운 기능 추가        |
+|fix   |버그 수정         |
+|doc     |문서 수정         |
+|style   |코드 스타일 변경(코드 포맷, 세미콜론 누락 등)|
+|design   |UI/UX 디자인 수정|
+|test     |테스트 코드 추가 및 수정     |
+|refactor     |리팩토링      |
+|build     |빌드 파일 수정 및 업데이트       |
+|perf    |성능 개선 |
+|chore      |자잘한 수정    |
+|rename      |파일명 or 폴더명 수정  |
+|remove  |파일 삭제 |
 
 
 ---
-// 내용 작성 ~~~~~~
----
-
-## 결 론 📢
-
-### 이 루머는 진실입니다.
-### 루머를 확실하게 검증할 수 없지만 비교적 생사를 결정할 수 있는 1, 2 등급의 남성 탑승객의 생존율은 영국이 프랑스에 비해 낮았습니다.
----
-
 ## 회 고 📝
 
 ### [김성호](https://github.com/castlhoo)
-> 기존 가상머신에 설치를 하려했다가, 문제가 있다면 빨리 새로 설치하는 것도 방법이라는 것을 깨달았다. 필터를 통해 내가 원하는 데이터가 나올 수 있도록 하는 것이 신기하면서도, 코드에 대해 빨리 공부를 해야겠다고 생각했다.
+> 1
 <br>
 
 ### [이연희](https://github.com/LeeYeonhee-00)
-> logstash config파일에서 filter를 사용하여 데이터 전처리 하는 법을 연습할 수 있어서 좋았다. 또한, mysql + ELK pipeline 환경 구축을 하며 연결되어 값이 들어오는 것을 확인하고 kibana로 시각화해보는 과정이 재미있었다. 
+> 2
 
 <br>
 
 ### [김상민](https://github.com/isshomin)
-> 키바나를 통해 visualize 할 때 아직 기능에 대한 것이 많이 미숙하다고 느꼈다. 한 번 만들었던 표를 여러 번 반복해서 만들면서 반복숙달로 통해 점점 익숙해져가는 느낌이 들었다. 다른 팀 발표를 보면서 전처리 과정이 sql을 이용하든 logstash를 이용하든 다양하게 할 수 있다는 것을 깨달았다.
+> 3
 
 <br>
 
 ### [오재웅](https://github.com/ohwoong2)
-> 환경 구축부터 시각화까지 했으나 그중 Logstash의 필터 기능으로 데이터를 처리하는 과정이 가장 인상 깊었습니다. 시각화를 통해 데이터를 표현하는 과정을 더 잘할 수 있었을 것 같은데 그러지 못해서 아쉬웠습니다. 가설을 검증하는 과정들이 재미있었어요
+> 4
 
 ---
