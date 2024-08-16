@@ -18,6 +18,7 @@ import com.ce.fisa.exception.NotExistInquiryException;
 import com.ce.fisa.model.dto.AllInquiryDTO;
 import com.ce.fisa.model.dto.CommentDTO;
 import com.ce.fisa.model.dto.InquiryDTO;
+import com.ce.fisa.model.dto.getInquiryDTO;
 import com.ce.fisa.model.entity.Comment;
 import com.ce.fisa.model.entity.Contract;
 import com.ce.fisa.model.entity.Inquiry;
@@ -64,6 +65,22 @@ public class InquiryServiceImpl implements InquiryService {
             			.collect(Collectors.toList()))
                 .build();
     }
+	
+	// Entity to DTO conversion for Inquiry 상세 조회
+	private getInquiryDTO convertToGetInquiryDTO(Inquiry inquiry) {
+		return getInquiryDTO.builder()
+				.inquiryId(inquiry.getInquiryId())
+				.userName(inquiry.getUserId().getUserName())  
+				.workName(inquiry.getWorkId().getWorkName())  
+				.inquiryDate(inquiry.getInquiryDate())
+				.inquiryAddress(inquiry.getInquiryAddress())
+				.inquiryContent(inquiry.getInquiryContent())
+				.inquiryTitle(inquiry.getInquiryTitle())
+				.comments(inquiry.getComments().stream()
+						.map(this::convertCommentToDTO)
+						.collect(Collectors.toList()))
+				.build();
+	}
 	
 	// Entity to DTO conversion
 	private CommentDTO convertCommentToDTO(Comment comment) {
@@ -112,7 +129,7 @@ public class InquiryServiceImpl implements InquiryService {
 	}
 
 	@Override
-	public InquiryDTO getInquiry(long inquiryId) throws NotExistInquiryException {
+	public getInquiryDTO getInquiry(long inquiryId) throws NotExistInquiryException {
 
 		Inquiry inquiryEntity = inquiryDAO.findByInquiryId(inquiryId);
 		logger.debug("inquiryEntity() : " + inquiryEntity);
@@ -122,10 +139,10 @@ public class InquiryServiceImpl implements InquiryService {
 			throw new NotExistInquiryException("해당 의뢰는 존재하지 않습니다.");
 		}
 		
-		InquiryDTO inquiryDTO = convertToDTO(inquiryEntity);
-		logger.debug("[ancestorlove] inquiryDTO() : " + inquiryDTO);
+		getInquiryDTO getinquiryDTO = convertToGetInquiryDTO(inquiryEntity);
+		logger.debug("[ancestorlove] inquiryDTO() : " + getinquiryDTO);
 		logger.info("[ancestorlove] 의뢰하기 상세 조회 성공");
-		return inquiryDTO;
+		return getinquiryDTO;
 	}
 
 	@Override

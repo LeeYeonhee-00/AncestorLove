@@ -14,6 +14,7 @@ import com.ce.fisa.exception.NotExistInquiryException;
 import com.ce.fisa.model.dto.AllInquiryDTO;
 import com.ce.fisa.model.dto.CommentDTO;
 import com.ce.fisa.model.dto.InquiryDTO;
+import com.ce.fisa.model.dto.getInquiryDTO;
 import com.ce.fisa.model.entity.Comment;
 import com.ce.fisa.model.entity.Inquiry;
 import com.ce.fisa.service.InquiryService;
@@ -38,7 +39,7 @@ public class InquiryController {
 	
 	// 특정 Inquiry 상세 조회
 	@GetMapping("/inquiry/{id}")
-	public InquiryDTO getInquiryById(@PathVariable("id") Long inquiryid) throws NotExistInquiryException {
+	public getInquiryDTO getInquiryById(@PathVariable("id") Long inquiryid) throws NotExistInquiryException {
 		logger.debug("[ancestorlove] 의뢰하기 상세 조회 요청");
 		return inqService.getInquiry(inquiryid);
 	}

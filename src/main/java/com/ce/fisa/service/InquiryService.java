@@ -8,6 +8,7 @@ import com.ce.fisa.exception.NotExistInquiryException;
 import com.ce.fisa.model.dto.AllInquiryDTO;
 import com.ce.fisa.model.dto.CommentDTO;
 import com.ce.fisa.model.dto.InquiryDTO;
+import com.ce.fisa.model.dto.getInquiryDTO;
 import com.ce.fisa.model.entity.Comment;
 import com.ce.fisa.model.entity.Inquiry;
 
@@ -18,7 +19,7 @@ public interface InquiryService {
 	public List<AllInquiryDTO> getAllInquiry();
 	
 	// ID값으로 Inquiry 상세 조회
-	public InquiryDTO getInquiry(long inquiryId) throws NotExistInquiryException;
+	public getInquiryDTO getInquiry(long inquiryId) throws NotExistInquiryException;
 
 	// Inquiry 작성
 	public Inquiry postInquiry(InquiryDTO inquiryDTO) throws NotExistInquiryException;
