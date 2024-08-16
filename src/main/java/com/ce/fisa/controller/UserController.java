@@ -30,16 +30,6 @@ public class UserController {
 
 	private static final Logger logger = LogManager.getLogger(UserController.class);
 	
-	@PostMapping("/logout")
-	public ResponseEntity<String> logout(HttpSession session){
-		boolean result = userService.logout(session);
-        if (result) {
-            return ResponseEntity.ok("로그아웃 성공");
-        } else {
-            return ResponseEntity.status(500).body("로그아웃 실패");
-        }
-		
-	}
 
 	@PostMapping("/signup")
 	public String signupUser(@RequestBody UserDTO user) throws InvalidSignupException {
@@ -67,18 +57,23 @@ public class UserController {
 			long id = (long)httpSession.getAttribute("userId");
 			String name = (String)httpSession.getAttribute("userName");
 			
-			LoginResponseDTO response = new LoginResponseDTO("로그인 성공", id, name);
+			LoginResponseDTO response = new LoginResponseDTO("로그인 성공!!", id, name);
 	        return ResponseEntity.ok(response);
 	    } else {
-	        logger.warn("로그인 실패");
+	        logger.warn("ancestorlove : 로그인 실패");
 	        return ResponseEntity.status(401).body(new LoginResponseDTO("로그인 실패", 0, null));
 	    }
-			
-//			return ResponseEntity.ok("로그인 성공");
-//		} else {
-//			logger.warn("로그인 실패");
-//			return ResponseEntity.status(401).body("로그인 실패");
-//		}
 	}
 
+	@PostMapping("/logout")
+	public ResponseEntity<String> logout(HttpSession session){
+		boolean result = userService.logout(session);
+		if (result) {
+			logger.info("로그아웃 성공 - 세션 무효화 완료");
+			return ResponseEntity.ok("로그아웃 성공");
+		} else {
+			logger.warn("로그아웃 실패 - 세션이 null입니다.");
+			return ResponseEntity.status(500).body("로그아웃 실패");
+		}
+	}
 }

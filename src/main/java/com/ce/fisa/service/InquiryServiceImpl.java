@@ -136,7 +136,6 @@ public class InquiryServiceImpl implements InquiryService {
 		Work work = workDAO.findByWorkId(inquiryDTO.getWorkId());
 		
 		if (user == null) {
-			logger.warn("Inquiry 작성 실패");
 			throw new NotExistInquiryException("작성자 정보가 누락되었습니다.");
 		}
 		
@@ -152,7 +151,6 @@ public class InquiryServiceImpl implements InquiryService {
 		Inquiry inquiry = inquiryDAO.findByInquiryId(commentDTO.getInquiryId());
 		
 		if (inquiry == null) {
-			logger.warn("Comment 작성 실패");
 			throw new NotExistInquiryException("해당 의뢰는 존재하지 않습니다.");
 		}
 		

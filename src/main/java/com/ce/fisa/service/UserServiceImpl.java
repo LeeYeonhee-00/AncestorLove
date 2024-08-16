@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.ce.fisa.controller.UserController;
 import com.ce.fisa.dao.UserRepository;
 import com.ce.fisa.exception.InvalidSignupException;
-import com.ce.fisa.exception.NotExistInquiryException;
 import com.ce.fisa.exception.NotExistUserException;
 import com.ce.fisa.model.dto.UserDTO;
 import com.ce.fisa.model.entity.User;
@@ -34,7 +33,6 @@ public class UserServiceImpl implements UserService {
 		// UserDTO -> User
 		if (userDTO.getUserName() == null || userDTO.getUserName().isEmpty() || userDTO.getUserEmail() == null
 				|| userDTO.getUserEmail().isEmpty() || userDTO.getUserPw() == null || userDTO.getUserPw().isEmpty()) {
-			logger.warn("회원가입 실패");
 			throw new InvalidSignupException("사용자 이름, 이메일 또는 비밀번호가 누락되었습니다.");
 		}
 		User user = mapper.map(userDTO, User.class);
@@ -51,9 +49,10 @@ public class UserServiceImpl implements UserService {
 				// 로그인 성공 시 세션에 사용자 정보 저장
 				httpSession.setAttribute("userId", user.getUserId());
 				httpSession.setAttribute("userName", user.getUserName());
+				httpSession.setAttribute("userAge", user.getUserAge());
+				httpSession.setAttribute("userGender", user.getUserGender());
 
 				 // 세션 사용법 
-
 				logger.debug("사용자 id: " + httpSession.getAttribute("userId"));
 				logger.debug("사용자 이름: " + httpSession.getAttribute("userName"));
 
@@ -66,13 +65,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean logout(HttpSession session) {
-//		System.out.println("로그아웃 할 계정의 id:" + session.getAttribute("userId"));
         if (session.getAttribute("userId") != null) {
+        	logger.debug("로그아웃 할 계정의 id:" + session.getAttribute("userId"));
             session.invalidate();
-            logger.info("로그아웃 성공: 세션 무효화 완료");
             return true;
         }
-        logger.warn("로그아웃 실패: 세션이 null입니다.");
         return false;
     }
 
