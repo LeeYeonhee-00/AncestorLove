@@ -55,8 +55,8 @@ public class UserServiceImpl implements UserService {
 
 				 // 세션 사용법 
 
-				logger.debug("사용자 id: " + httpSession.getAttribute("userId"));
-				logger.debug("사용자 이름: " + httpSession.getAttribute("userName"));
+				logger.debug("[ancestorlove] 사용자 id: " + httpSession.getAttribute("userId"));
+				logger.debug("[ancestorlove] 사용자 이름: " + httpSession.getAttribute("userName"));
 
 				return true;
 			}
@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean logout(HttpSession session) {
         if (session.getAttribute("userId") != null) {
-        	logger.debug("로그아웃 할 계정의 id:" + session.getAttribute("userId"));
+        	logger.debug("[ancestorlove] 로그아웃 할 계정의 id:" + session.getAttribute("userId"));
             session.invalidate();
             return true;
         }

@@ -32,29 +32,29 @@ public class InquiryController {
 	// 전체 Inquiry 리스트 조회
 	@GetMapping("/allinquiry")
 	public List<AllInquiryDTO> getAllInquiryList() {
-		logger.debug("의뢰하기 전체 조회 요청");
+		logger.debug("[ancestorlove] 의뢰하기 전체 조회 요청");
 		return inqService.getAllInquiry();
 	}
 	
 	// 특정 Inquiry 상세 조회
 	@GetMapping("/inquiry/{id}")
 	public InquiryDTO getInquiryById(@PathVariable("id") Long inquiryid) throws NotExistInquiryException {
-		logger.debug("의뢰하기 상세 조회 요청");
+		logger.debug("[ancestorlove] 의뢰하기 상세 조회 요청");
 		return inqService.getInquiry(inquiryid);
 	}
 	
 	// Inquiry 작성
 	@PostMapping("inquiry")
 	public String postInquiry(@RequestBody InquiryDTO inquiryDTO) throws NotExistInquiryException {
-		logger.debug("의뢰하기 작성 요청");
+		logger.debug("[ancestorlove] 의뢰하기 작성 요청");
 		
 		Inquiry result = inqService.postInquiry(inquiryDTO);
 
 		if (result != null) {
-			logger.info("의뢰하기 작성 성공");
+			logger.info("[ancestorlove] 의뢰하기 작성 성공");
 			return "의뢰하기 성공!!";
 		} else {
-			logger.warn("의뢰하기 작성 실패");
+			logger.warn("[ancestorlove] 의뢰하기 작성 실패");
 			throw new NotExistInquiryException("유효한 값을 입력하세요");
 		}
 	}
@@ -63,15 +63,15 @@ public class InquiryController {
 	@PostMapping("/comment")
 	public ResponseEntity<String> postComment(@RequestBody CommentDTO commentDTO) throws NotExistInquiryException {
 
-		logger.debug("댓글 작성 요청");
+		logger.debug("[ancestorlove] 댓글 작성 요청");
 
 		Comment result = inqService.postComment(commentDTO);
 
 		if (result != null) {
-			logger.info("댓글 작성 성공");
+			logger.info("[ancestorlove] 댓글 작성 성공");
 			return ResponseEntity.ok("댓글 작성 성공!!");
 		} else {
-			logger.warn("댓글 작성 실패");
+			logger.warn("[ancestorlove] 댓글 작성 실패");
 			return ResponseEntity.status(401).body("댓글 작성 실패");
 		}
 	}

@@ -107,7 +107,7 @@ public class InquiryServiceImpl implements InquiryService {
 		        ))
 		        .collect(Collectors.toList());
 		
-		logger.info("의뢰하기 전체 조회 성공");
+		logger.info("[ancestorlove] 의뢰하기 전체 조회 성공");
 		return inquiryDTOList;
 	}
 
@@ -118,13 +118,13 @@ public class InquiryServiceImpl implements InquiryService {
 		logger.debug("inquiryEntity() : " + inquiryEntity);
 		
 		if (inquiryEntity == null) {
-			logger.warn("의뢰하기 상세조회 실패");
+			logger.warn("[ancestorlove] 의뢰하기 상세조회 실패");
 			throw new NotExistInquiryException("해당 의뢰는 존재하지 않습니다.");
 		}
 		
 		InquiryDTO inquiryDTO = convertToDTO(inquiryEntity);
-		logger.debug("inquiryDTO() : " + inquiryDTO);
-		logger.info("의뢰하기 상세 조회 성공");
+		logger.debug("[ancestorlove] inquiryDTO() : " + inquiryDTO);
+		logger.info("[ancestorlove] 의뢰하기 상세 조회 성공");
 		return inquiryDTO;
 	}
 

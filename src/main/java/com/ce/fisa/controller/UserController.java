@@ -34,10 +34,10 @@ public class UserController {
 	public ResponseEntity<String> logout(HttpSession session){
 		boolean result = userService.logout(session);
         if (result) {
-        	logger.info("로그아웃 성공 - 세션 무효화 완료");
+        	logger.info("[ancestorlove] 로그아웃 성공 - 세션 무효화 완료");
             return ResponseEntity.ok("로그아웃 성공");
         } else {
-        	logger.warn("로그아웃 실패 - 세션이 null입니다.");
+        	logger.warn("[ancestorlove] 로그아웃 실패 - 세션이 null입니다.");
             return ResponseEntity.status(500).body("로그아웃 실패");
         }
 		
@@ -45,13 +45,13 @@ public class UserController {
 
 	@PostMapping("/signup")
 	public String signupUser(@RequestBody UserDTO user) throws InvalidSignupException {
-		logger.debug("회원가입 요청");
+		logger.debug("[ancestorlove] 회원가입 요청");
 		boolean valid = userService.signupUser(user);
 		if (valid) {
-			logger.info("회원가입 성공");
+			logger.info("[ancestorlove] 회원가입 성공");
 			return "회원가입 성공!!";
 		} else {
-	 		logger.warn("회원가입 실패");
+	 		logger.warn("[ancestorlove] 회원가입 실패");
 			throw new InvalidSignupException("유효한 값을 입력하세요");
 		}
 	}
@@ -59,12 +59,12 @@ public class UserController {
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponseDTO> login(@RequestBody UserDTO user) throws NotExistUserException {
 
-		logger.debug("로그인 요청");
+		logger.debug("[ancestorlove] 로그인 요청");
 
 		boolean isAuthenticated = userService.authenticate(user.getUserEmail(), user.getUserPw());
 
 		if (isAuthenticated) {
-			logger.info("로그인 성공");
+			logger.info("[ancestorlove] 로그인 성공");
 			
 			long id = (long)httpSession.getAttribute("userId");
 			String name = (String)httpSession.getAttribute("userName");
@@ -72,7 +72,7 @@ public class UserController {
 			LoginResponseDTO response = new LoginResponseDTO("로그인 성공", id, name);
 	        return ResponseEntity.ok(response);
 	    } else {
-	        logger.warn("로그인 실패");
+	        logger.warn("[ancestorlove] 로그인 실패");
 	        return ResponseEntity.status(401).body(new LoginResponseDTO("로그인 실패", 0, null));
 	    }
 			
