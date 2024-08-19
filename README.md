@@ -52,7 +52,7 @@
 
 ## 요구사항 정의서 📝
 |서비스      |기능        |요구사항 설명|필요 데이터|
-|-----------    |------------|----|---|
+|-------------------|------------|----|---|
 | 유저           |회원가입     |자체 회원가입 기능  |ID, 비밀번호, 이름, 성별, 나이, 이메일| 
 |               |로그인         |로그인 기능 |ID, 비밀번호   | 
 | 문의           |문의 등록         |로그인한 유저는 문의를 등록할 수 있음  |작업 종류, 날짜, 주소, 내용| 
@@ -155,7 +155,85 @@ header에서 충분히 표현할 수 있다면 생략 가능
 
 ### 1️⃣) B2C
 
+- 계약 체결 시 중개 수수료
+- 제휴 파트너에 등록(기업 정보 게시) 수수료
+- 네이버 카페, 당근마켓 등 웹사이트, 앱 내에 광고 게시
+
+
 ---
+
+## API명세서 📑
+
+
+|이름     |태그        |URL     |
+|-----------|------------|------|
+|회원가입 |POST       |http://127.0.0.1/signup |
+|로그인   |POST         |http://127.0.0.1/signup |
+|댓글 작성  |POST         |http://127.0.0.1/comment |
+|파트너 리스트 조회 |GET |http://127.0.0.1/allpartner |
+|파트너 상세 조회   |GET |http://127.0.0.1/partner/{id} |
+|의뢰하기 글 작성     |POST     |http://127.0.0.1/inquriy |
+|의뢰하기 리스트 조회     |GET      |http://127.0.0.1/allinquriy |
+|의뢰하기 상세 조회     |GET       |http://127.0.0.1/inquriy/{id} |
+|로그아웃    |POST |http://127.0.0.1/logout |
+|계약체결      |POST    |http://127.0.0.1/logout |
+
+---
+
+<details>
+<summary> <h2 style="font-size: 10px;">💻개발 주요 과정</summary>
+
+### 1️⃣) 데이터 스키마
+
+<p align="left"><img src="https://github.com/user-attachments/assets/79ca6973-e11f-48d0-b9d0-0e4fc7d67d3d">
+
+ <br>
+
+### 2️⃣) Entity
+
+<p align="left"><img src="https://github.com/user-attachments/assets/8575f573-f809-43cd-87d4-ae73456a3fcc">
+
+ <br>
+
+### 3️⃣) DTO
+
+<p align="left"><img src="https://github.com/user-attachments/assets/4eb4b078-661d-4706-93cc-5d8585292b5a">
+
+ <br>
+
+### 4️⃣) Controller
+
+<p align="left"><img src="https://github.com/user-attachments/assets/161751fa-3a00-4946-8913-3ab1a6c0a8fc">
+
+ <br>
+
+### 5️⃣) Repository
+
+<p align="left"><img src="https://github.com/user-attachments/assets/34727c50-18ea-4243-b17c-04e9e33b37bd">
+
+ <br>
+
+### 6️⃣) Service
+
+<p align="left"><img src="https://github.com/user-attachments/assets/93bb366a-a284-4f8d-ba84-71a797ad6cb8">
+
+ <br>
+
+<p align="left"><img src="https://github.com/user-attachments/assets/7d0600b3-0872-4e12-bcc2-8bf8bded72b6">
+
+ <br>
+
+### 7️⃣) login.html
+
+<p align="left"><img src="https://github.com/user-attachments/assets/a7fd42c5-02de-431a-8c42-263a1b0e2d63">
+
+ <br>
+
+---
+
+</details>
+
+## 🎞시연 영상
 
 1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣
 
