@@ -38,17 +38,24 @@
  <br>
  
  ---
+ 
 <br>
 
 ## 개발 환경 구성도 🎨
 
+
+<p align="left"><img src="https://github.com/user-attachments/assets/ac901fe8-29d6-4156-8783-354af2154d78"></p>
 <p align="center"><img src="https://img.shields.io/badge/Framework-%23121011?style=for-the-badge"><img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
 <img src="https://img.shields.io/badge/Build-%23121011?style=for-the-badge"><img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white">
 <img src="https://img.shields.io/badge/Language-%23121011?style=for-the-badge"><img src="https://img.shields.io/badge/java-%23ED8B00?style=for-the-badge&logo=openjdk&logoColor=white">
 <img src="https://img.shields.io/badge/Project Encoding-%23121011?style=for-the-badge"><img src="https://img.shields.io/badge/UTF 8-EA2328?style=for-the-badge">
-<p align="left"><img src="https://github.com/user-attachments/assets/ac901fe8-29d6-4156-8783-354af2154d78"></p><br>
+
+ <br>
+ <br>
 
 ---
+
+<br>
 
 ## 요구사항 정의서 📝
 |서비스      |기능        |요구사항 설명|필요 데이터|
@@ -153,7 +160,7 @@ header에서 충분히 표현할 수 있다면 생략 가능
 
 ## 비즈니스 모델 💰
 
-### 1️⃣) B2C
+### B2C
 
 - 계약 체결 시 중개 수수료
 - 제휴 파트너에 등록(기업 정보 게시) 수수료
@@ -161,6 +168,7 @@ header에서 충분히 표현할 수 있다면 생략 가능
 
 
 ---
+<br>
 
 ## API명세서 📑
 
@@ -179,6 +187,7 @@ header에서 충분히 표현할 수 있다면 생략 가능
 |계약체결      |POST    |http://127.0.0.1/logout |
 
 ---
+<br>
 
 <details>
 <summary> <h2 style="font-size: 10px;">💻개발 주요 과정</summary>
@@ -234,6 +243,103 @@ header에서 충분히 표현할 수 있다면 생략 가능
 </details>
 
 ## 🎞시연 영상
+
+[![조상사랑시연영상](https://github.com/user-attachments/assets/28284586-15b1-439f-8aa8-150ec0e925e6)](https://youtu.be/Gubi7e5XXRs)
+
+
+<br>
+
+---
+
+## ELK Pipeline🧵
+
+### 1️⃣) 서비스 로그 작성 규칙
+
+- ancestorlove → 태그 추가
+
+<br>
+
+- API 요청 시 → DEBUG 레벨 로그 작성 logger.debug("ancestorlove 의뢰하기 요청");
+
+<br>
+
+- 요청 성공 시 → INFO 레벨 로그 작성 logger.info("ancestorlove 의뢰하기 작성 성공");
+
+<br>
+
+- 요청 실패 시 → WARN 레벨 로그 작성 logger.warn("ancestorlove 의뢰하기 작성 실패");
+
+<br>
+
+- 로그 예시 → 2024-08-16 15:04:03 INFO  c.c.f.c.PartnerController:63 - ancestorlove 의뢰하기 작성 성공사용자 성별 : FEMALE, 사용자 나이 : 22, 의뢰 유형 : 예초, 의뢰장소 : testtest, 작업 날짜 : 2024-08-16T15:03
+
+<br>
+
+### 2️⃣) Filter
+
+```YAML
+input {
+ # beat에서 데이터를 받을 port지정
+  beats {
+    port => 5044 
+  }
+}
+
+filter {
+  if [message] =~ /\[ancestorlove\]/ {
+    grok {
+      match => { "message" => "%{TIMESTAMP_ISO8601:log_timestamp} %{LOGLEVEL:log_level} %{DATA:class} - \[ancestorlove\] %{GREEDYDATA:log_message}" }
+    }
+
+    if [log_message] =~ /의뢰하기 작성 성공/ {
+      grok {
+        match => { "log_message" => "의뢰하기 작성 성공사용자 성별 : %{WORD:gender}, 사용자 나이 : %{NUMBER:age:int}, 의뢰 유형 : %{DATA:request_type}, 의뢰장소 : %{DATA:request_location}, 작업 날짜 : %{TIMESTAMP_ISO8601:work_date}" }
+      }
+
+      date {
+        match => [ "log_timestamp", "yyyy-MM-dd HH:mm:ss" ]
+        target => "request_date"
+      }
+
+      mutate {
+        remove_field => [ "message", "log_message", "@version", "ecs", "agent", "log", "input", "tags", "host" ]
+      }
+    } else {
+      drop { }
+    }
+  } else {
+    drop { }
+  }
+}
+
+output {
+
+  # 콘솔창에 어떤 데이터들로 필터링 되었는지 확인
+  stdout {
+    codec => rubydebug
+  }
+
+  # 위에서 설치한 Elasticsearch 로 "ancestorlove" 라는 이름으로 인덱싱 
+  elasticsearch {
+    hosts => ["http://localhost:9200"]
+    index => "ancestorlove"
+  }
+}
+```
+
+<br>
+
+### Elastic Search 결과
+
+<p align="left"><img src="https://github.com/user-attachments/assets/b39f6b8a-fd3a-4bf2-b416-59a0535a8edf">
+
+<br>
+
+<p align="left"><img src="https://github.com/user-attachments/assets/8a275211-295e-45a7-939b-32b4b6805f82">
+
+<br>
+
+
 
 1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣
 
