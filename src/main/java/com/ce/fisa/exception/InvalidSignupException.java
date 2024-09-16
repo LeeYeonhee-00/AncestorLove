@@ -7,6 +7,9 @@
 
 package com.ce.fisa.exception;
 
+import lombok.Getter;
+
+@Getter
 public class InvalidSignupException extends Exception {
 	
 	public InvalidSignupException() {}

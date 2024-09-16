@@ -57,24 +57,26 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<LoginResponseDTO> login(@RequestBody UserDTO user) throws NotExistUserException {
+	public ResponseEntity<LoginResponseDTO> login(@RequestBody UserDTO user) {
 
 		logger.debug("[ancestorlove] 로그인 요청");
 
 		boolean isAuthenticated = userService.authenticate(user.getUserEmail(), user.getUserPw());
 
-		if (isAuthenticated) {
-			logger.info("[ancestorlove] 로그인 성공");
+//		if (isAuthenticated) {
 			
 			long id = (long)httpSession.getAttribute("userId");
 			String name = (String)httpSession.getAttribute("userName");
 			
 			LoginResponseDTO response = new LoginResponseDTO("로그인 성공", id, name);
+			logger.info("[ancestorlove] 로그인 성공");
+
 	        return ResponseEntity.ok(response);
-	    } else {
-	        logger.warn("[ancestorlove] 로그인 실패");
-	        return ResponseEntity.status(401).body(new LoginResponseDTO("로그인 실패", 0, null));
-	    }
+//	    } 
+//		else {
+//	        logger.warn("[ancestorlove] 로그인 실패");
+//	        return ResponseEntity.status(401).body(new LoginResponseDTO("로그인 실패", 0, null));
+//	    }
 			
 	}
 

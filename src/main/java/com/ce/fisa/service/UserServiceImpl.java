@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ce.fisa.controller.UserController;
 import com.ce.fisa.dao.UserRepository;
+import com.ce.fisa.exception.ErrorCode;
 import com.ce.fisa.exception.InvalidSignupException;
 import com.ce.fisa.exception.NotExistInquiryException;
 import com.ce.fisa.exception.NotExistUserException;
@@ -42,7 +43,7 @@ public class UserServiceImpl implements UserService {
 		return true;
 	}
 
-	public boolean authenticate(String userEmail, String userPw) throws NotExistUserException {
+	public boolean authenticate(String userEmail, String userPw) {
 		User user = userRepository.findByUserEmail(userEmail);
 		if (user != null) {
 
@@ -62,7 +63,7 @@ public class UserServiceImpl implements UserService {
 			}
 
 		}
-		throw new NotExistUserException("해당 유저는 존재하지 않습니다.");
+		throw new NotExistUserException("해당 유저는 존재하지 않습니다.",ErrorCode.NOT_EXIST_USER);
 	}
 
 	@Override

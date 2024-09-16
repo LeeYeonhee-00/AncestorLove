@@ -7,12 +7,16 @@
 
 package com.ce.fisa.exception;
 
-public class NotExistUserException extends Exception {
+import lombok.Getter;
+
+@Getter
+public class NotExistUserException extends RuntimeException {
 	
-	public NotExistUserException() {}
-	
-	public NotExistUserException(String message) {
+	private ErrorCode errorCode;
+		
+	public NotExistUserException(String message, ErrorCode errorCode) {
 		super(message);
+		this.errorCode = errorCode;
 	}
 
 }
