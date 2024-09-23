@@ -82,6 +82,7 @@ body, h1, h2, h3, h4, h5, h6 {
 .comment-content {
 	margin-bottom: 10px;
 }
+
 </style>
 </head>
 <body>
@@ -102,11 +103,6 @@ body, h1, h2, h3, h4, h5, h6 {
 
 				<!-- 로그인/로그아웃 버튼이 여기에 동적으로 삽입 -->
 			</div>
-		</div>
-
-		<!-- 네비게이션 바 on small screens -->
-		<div id="navDemo"
-			class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
 		</div>
 	</div>
 
@@ -145,8 +141,12 @@ body, h1, h2, h3, h4, h5, h6 {
                                         ? data.comments.map(comment => `
                                             <div class="comment-box">
                                                 <div class="comment-content">${comment.comContent}</div>
-                                                <button onclick="proposeContract(${comment.comId}, this)" 
-                                                	class="contract-btn ${comment.comConsign === 'CONSIGN' ? 'completed' : ''}" ${comment.comConsign === 'CONSIGN' ? 'disabled' : ''}>${comment.comConsign === 'CONSIGN' ? '체결 완료' : '계약체결'}</button>
+                                                <button data-comment-id="${comment.comId}" 
+                                                    onclick="proposeContract(${comment.comId}, this)" 
+                                                    class="contract-btn ${comment.comConsign === 'CONSIGN' ? 'completed' : ''}" 
+                                                    ${comment.comConsign === 'CONSIGN' ? 'disabled' : ''}>
+                                                    ${comment.comConsign === 'CONSIGN' ? '체결완료' : '계약체결'}
+                                                </button>
                                             </div>
                                         `).join('') 
                                         : '<p>댓글이 없습니다.</p>'}
@@ -158,6 +158,8 @@ body, h1, h2, h3, h4, h5, h6 {
                                     <button onclick="submitComment()">작성하기</button>
                                 </div>
                             `;
+                            
+                            checkAndDisableButtons(); // 새로고침 후에도 버튼 상태 유지
                         })
                         .catch(error => {
                             console.error('의뢰 상세내용을 불러올 수 없습니다.:', error);
@@ -229,9 +231,11 @@ body, h1, h2, h3, h4, h5, h6 {
                     alert(message); // 서버로부터 받은 메시지를 경고창으로 표시
                     
                     // 계약 체결 성공 시 버튼 업데이트
-                    buttonElement.textContent = '체결 완료';
+                    buttonElement.textContent = '체결완료';
                     buttonElement.classList.add('completed'); // 클래스 추가
                     buttonElement.disabled = true; // 버튼 비활성화
+                    
+                    updateAllButtons(commentId);
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -239,6 +243,33 @@ body, h1, h2, h3, h4, h5, h6 {
                 });
             }
 
+            function updateAllButtons(selectedCommentId) {
+                const buttons = document.querySelectorAll('.contract-btn');
+                buttons.forEach(button => {
+                    const buttonCommentId = button.getAttribute('data-comment-id');
+                    if (buttonCommentId == selectedCommentId) {
+                        button.textContent = '체결완료';
+                        button.classList.add('completed');
+                        button.disabled = true;
+                    } else if (!button.classList.contains('completed')) {
+                        button.disabled = true;
+                        button.textContent = '체결불가';
+                    }
+                });
+            }
+
+            function checkAndDisableButtons() {
+                const completedButton = document.querySelector('.contract-btn.completed');
+                if (completedButton) {
+                    const buttons = document.querySelectorAll('.contract-btn:not(.completed)');
+                    buttons.forEach(button => {
+                        button.disabled = true;
+                        button.textContent = '체결불가';
+                    });
+                }
+            }
+            
+            
             document.addEventListener('DOMContentLoaded', fetchInquiryDetails);
             
          // 로그인 상태 확인 및 UI 업데이트 함수

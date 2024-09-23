@@ -44,4 +44,7 @@ public class Comment {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "com_consign")
 	private Contract comConsign;
+	
+	@Column(name = "com_riview", length = 800)
+	private String comRiview;
 }

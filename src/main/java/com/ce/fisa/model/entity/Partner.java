@@ -17,6 +17,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -36,6 +37,14 @@ public class Partner {
 
 	@Column(name = "partner_name")
 	private String partnerName;
+	
+	@Column(name = "partner_email", nullable = false)
+	@NonNull
+	private String partnerEmail;
+	
+	@Column(name = "partner_pw", length = 100, nullable = false)
+	@NonNull
+	private String partnerPw;
 
 	@Column(name = "partner_location")
 	private String partnerLocation;
