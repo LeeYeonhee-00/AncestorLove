@@ -13,12 +13,13 @@ import jakarta.servlet.http.HttpSession;
 public interface UserService {
 	
 	// 회원가입
-	public boolean signupUser(UserDTO user) throws InvalidSignupException ;
+	public boolean userSignup(UserDTO userDTO) throws InvalidSignupException ;
 	
 	// 로그인
-	public boolean authenticate(String userEmail, String userPW) throws NotExistUserException;
+	public boolean userAuthenticate(String userEmail, String userPW) throws NotExistUserException;
 	
 	// 로그아웃
-	public boolean logout (HttpSession httpSession);
+	public boolean userLogout (HttpSession httpSession);
 
+	
 }

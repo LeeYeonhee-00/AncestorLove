@@ -30,9 +30,9 @@ public class UserController {
 
 	private static final Logger logger = LogManager.getLogger(UserController.class);
 	
-	@PostMapping("/logout")
-	public ResponseEntity<String> logout(HttpSession session){
-		boolean result = userService.logout(session);
+	@PostMapping("/userLogout")
+	public ResponseEntity<String> userLogout(HttpSession session){
+		boolean result = userService.userLogout(session);
         if (result) {
         	logger.info("[ancestorlove] 로그아웃 성공 - 세션 무효화 완료");
             return ResponseEntity.ok("로그아웃 성공");
@@ -43,10 +43,10 @@ public class UserController {
 		
 	}
 
-	@PostMapping("/signup")
+	@PostMapping("/userSignup")
 	public String signupUser(@RequestBody UserDTO user) throws InvalidSignupException {
 		logger.debug("[ancestorlove] 회원가입 요청");
-		boolean valid = userService.signupUser(user);
+		boolean valid = userService.userSignup(user);
 		if (valid) {
 			logger.info("[ancestorlove] 회원가입 성공");
 			return "회원가입 성공!!";
@@ -56,12 +56,12 @@ public class UserController {
 		}
 	}
 
-	@PostMapping("/login")
+	@PostMapping("/userLogin")
 	public ResponseEntity<LoginResponseDTO> login(@RequestBody UserDTO user) throws NotExistUserException {
 
 		logger.debug("[ancestorlove] 로그인 요청");
 
-		boolean isAuthenticated = userService.authenticate(user.getUserEmail(), user.getUserPw());
+		boolean isAuthenticated = userService.userAuthenticate(user.getUserEmail(), user.getUserPw());
 
 		if (isAuthenticated) {
 			logger.info("[ancestorlove] 로그인 성공");

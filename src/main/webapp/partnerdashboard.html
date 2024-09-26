@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>조상사랑 - 예초 벌초 매칭 서비스</title>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="icon" type="image/png" sizes="16x16" href="../images/favicon.png">
+<style>
+body, h1, h2, h3, h4, h5, h6 {
+    font-family: "Lato", sans-serif
+}
+.w3-bar, h1, button {
+    font-family: "Lato", sans-serif
+}
+.header-container {
+    padding-top: 20px;
+}
+.partner-detail-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+    margin-top: 60px;
+}
+.partner-info {
+    max-width: 60%;
+}
+.partner-info h2 {
+    margin-bottom: 10px;
+}
+.partner-info p {
+    margin: 5px 0;
+}
+.partner-photo {
+    max-width: 30%;
+    text-align: center;
+}
+.partner-photo img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+.reviews-section {
+    padding: 20px;
+}
+.review {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+.review img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.review p {
+    flex: 1;
+}
+.review .stars, .review .date {
+    margin-left: 10px;
+    text-align: right;
+}
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    background-color: #f1f1f1;
+}
+</style>
+</head>
+<body>
+
+    <!-- 네비게이션 바 -->
+    <div class="w3-top">
+        <div class="w3-bar w3-light-green w3-card w3-left-align w3-large">
+            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
+                href="javascript:void(0);" title="Toggle Navigation Menu"> <i class="fa fa-bars"></i></a>
+            <a href="main.html" class="w3-bar-item w3-button w3-padding-large w3-hover-white w3-green">Home</a>
+            <a href="list.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">의뢰 게시판</a> 
+            <a href="partner.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
+            <a href="partnerdashboard.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너 정보</a>
+
+            <div id="loginSection" class="w3-right">
+                <!-- 로그인/로그아웃 버튼이 여기에 동적으로 삽입 -->
+            </div>
+        </div>
+        
+        <!-- 네비게이션 on small screens -->
+        <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+        </div>
+    </div>
+
+    <!-- 대시보드 정보 -->
+    <div class="dashboard-container" id="partnerDashboard">
+        <!-- 파트너 정보가 여기에 동적으로 로드 -->
+    </div>
+
+  <script>
+    // URL에서 파트너 ID를 추출하는 함수
+    function getPartnerId() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('id');
+    }
+
+    // 로그인한 파트너만 대시보드에 접근할 수 있게 하는 함수
+    function verifyPartnerAccess() {
+        const userSession = JSON.parse(sessionStorage.getItem('user')); // 세션에 저장된 로그인된 사용자 정보
+        const urlPartnerId = getPartnerId(); // URL에서 파트너 ID를 추출
+
+        if (!userSession || !userSession.partnerid) {
+            // 사용자가 로그인하지 않은 경우 또는 세션에 id가 없는 경우 접근 차단
+            alert("접근 권한이 없습니다. 로그인 후 다시 시도해주세요.");
+            window.location.href = "login.html"; // 로그인 페이지로 리다이렉션
+            return;
+        }
+
+        // 세션에서 가져온 사용자 ID와 URL의 파트너 ID가 일치하는지 확인
+        if (userSession.id !== urlPartnerId) {
+            // 로그인된 사용자 ID와 URL의 파트너 ID가 일치하지 않으면 접근 차단
+            alert("해당 파트너 대시보드에 접근 권한이 없습니다.");
+            window.location.href = "main.html"; // 접근 권한이 없으면 메인 페이지로 리다이렉션
+            return;
+        }
+
+        // 파트너 정보를 로드
+        loadPartnerDashboard(urlPartnerId);
+    }
+
+    // 파트너 정보를 불러와서 대시보드에 표시하는 함수
+    function loadPartnerDashboard(partnerId) {
+        fetch(`/api/partner/${partnerId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('파트너 정보를 불러오는 데 실패했습니다.');
+                }
+                return response.json();
+            })
+            .then(partner => {
+                document.getElementById('partnerDashboard').innerHTML = `
+                    <h1>${partner.partnerName}님의 대시보드</h1>
+                    <div class="partner-info">
+                        <h2>파트너 정보</h2>
+                        <p>이름: ${partner.partnerName}</p>
+                        <p>지역: ${partner.partnerLocation}</p>
+                        <p>평당 금액: ${partner.metricPrice}원</p>
+                        <p>설명: ${partner.partnerInfo}</p>
+                    </div>
+                    <div class="partner-stats">
+                        <h3>분석 자료</h3>
+                        <!-- 키바나로 분석한 통계자료가 여기에 포함됩니다. -->
+                        <iframe src="${partner.kibanaDashboardUrl}" width="100%" height="400px" frameborder="0"></iframe>
+                    </div>
+                `;
+            })
+            .catch(error => {
+                console.error('파트너 대시보드를 불러오는 데 실패했습니다:', error);
+                document.getElementById('partnerDashboard').innerHTML = '<p>파트너 정보를 불러오는 데 실패했습니다.</p>';
+            });
+    }
+
+    // 로그인 상태 확인 및 UI 업데이트 함수
+    function updateLoginUI() {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const loginSection = document.getElementById('loginSection');
+        const smallScreenLogin = document.getElementById('smallScreenLogin');
+
+        if (user && user.name) {
+            loginSection.innerHTML = `
+                <a class="w3-bar-item w3-hide-small w3-padding-large">${user.name}님 환영합니다</a>
+                <a onclick="logout()" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그아웃</a>
+            `;
+            if (smallScreenLogin) {
+                smallScreenLogin.textContent = "로그아웃";
+                smallScreenLogin.onclick = logout;
+            }
+        } else {
+            loginSection.innerHTML = `
+                <a href="login.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그인</a>
+            `;
+            if (smallScreenLogin) {
+                smallScreenLogin.textContent = "로그인";
+                smallScreenLogin.onclick = null;
+                smallScreenLogin.href = "login.html";
+            }
+        }
+    }
+
+    // 로그아웃 함수
+    function logout() {
+        localStorage.removeItem('user');
+        updateLoginUI();
+
+        // 서버에 로그아웃 요청을 보냅니다.
+        fetch('/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include' // 세션 쿠키를 포함시킵니다.
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.text();
+            } else {
+                throw new Error('로그아웃을 실패하였습니다.');
+            }
+        })
+        .then(message => {
+            alert('로그아웃이 완료되었습니다.');
+            localStorage.removeItem('user'); // 로컬 저장소에서 사용자 정보를 삭제합니다.
+            window.location.href = 'main.html'; // 로그아웃 후 메인 페이지로 이동합니다.
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('로그아웃 중 오류가 발생했습니다.');
+        });
+    }
+
+    // 페이지 로드 시 로그인 UI 및 파트너 접근 확인
+    document.addEventListener('DOMContentLoaded', () => {
+        updateLoginUI();
+        verifyPartnerAccess(); // 파트너 접근 권한 확인 추가
+    });
+    </script>
+
+    <footer class="w3-container w3-padding-16 w3-center w3-opacity footer">
+        <div class="w3-xlarge"></div>
+        <p>
+            Powered by <a href="https://github.com/LeeYeonhee-00/AncestorLove" target="_blank">체큇아웃</a>
+        </p>
+    </footer>
+</body>
+</html>

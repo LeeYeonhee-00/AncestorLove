@@ -190,239 +190,258 @@ input[type="text"], input[type="password"], input[type="date"] {
 		</div>
 	</div>
 
-	<!-- 로그인 Grid -->
-	<div
-		class="w3-row-padding w3-light-grey w3-padding-64 w3-container w3-center">
-		<img src="../images/roundlogo.png" style="width: 300px; height: 400px;" class="w3-padding-64 w3-text-red w3-margin-right" alt="Round_Logo">
-		<div class="w3-content">
-			<div class="w3-third w3-center"></div>
-				<div class="container">
-					<h1>Login</h1>
-					<label for="uname"><b>이메일</b></label> <input type="text" placeholder="Enter Username" name="userEmail" required> 
-					<label for="psw"><b>비밀번호</b></label> <input type="password" placeholder="Enter Password" name="userPw" required>
+    <!-- 로그인 창 -->
+    <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container w3-center">
+        <div class="container">
+            <h1>로그인</h1>
+            
+            <div class="radio-selection">
+                <label><input type="radio" name="loginType" value="user" checked> 회원</label>
+                <label><input type="radio" name="loginType" value="partner"> 파트너</label>
+            </div>
 
-					<div class="button-container">
-						<button type="submit">로그인</button>
-						<button id="openModalBtn" style="width: auto;">회원가입</button>
-					</div>
-				</div>
+            <form id="loginForm">
+                <label for="email"><b>이메일</b></label>
+                <input type="text" placeholder="Enter Email" id="email" name="email" required>
+                
+                <label for="psw"><b>비밀번호</b></label>
+                <input type="password" placeholder="Enter Password" id="password" name="password" required>
 
-			<div id="id01" class="modal">
-				<div class="modal-content">
-					<span class="close">&times;</span>
-					<form id="signupForm">
-					<div class="container">
-						<h3><font color="blue">회원가입을 위해<br> 정보를 입력해주세요.</font></h3>
-						<hr>
-						<label for="name"><b>이름</b></label> <input type="text" placeholder="Enter Name" name="userName" required>
-						<label for="email"><b>이메일</b></label> <input type="text" placeholder="Enter Email" name="userEmail" required> 
-						<label for="psw"><b>비밀번호</b></label> <input type="password" placeholder="Enter Password" name="userPw" required>
-						<label for="age"><b>나이</b></label> <input type="number" min="0" placeholder="Enter Age" name="userAge" required> 
-						<label for="gender"><b>성별</b></label>
-							<div class="gender-selection">
-							<label> <input type="radio" name="userGender" value="male" required> 남성</label> 
-							<label> <input type="radio" name="userGender" value="female" required> 여성</label>
-							</div>
+                <div class="button-container">
+                    <button type="submit" class="loginbtn">로그인</button>
+                    <button type="button" class="signupbtn" id="openSignupModal">회원가입</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-					</div>
-					<div class="clearfix">
-						<button type="button" class="cancelbtn">취소</button>
-						<button type="submit" class="signupbtn">가입하기</button>
-					</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+    <!-- 회원가입 모달 -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>회원가입</h2>
+            <div class="radio-selection">
+                <label><input type="radio" name="signupType" value="user" checked> 회원</label>
+                <label><input type="radio" name="signupType" value="partner"> 파트너</label>
+            </div>
 
+            <!-- 유저 회원가입 폼 -->
+            <form id="userSignupForm">
+                <label for="name"><b>이름</b></label>
+                <input type="text" placeholder="Enter Name" name="userName" required>
 
-	<script>
-	// 모달 관련 코드
-	var modal = document.getElementById('id01');
-	var btn = document.getElementById("openModalBtn");
-	var span = document.getElementsByClassName("close")[0];
-	var cancelBtn = document.querySelector('.cancelbtn');
+                <label for="signupEmail"><b>이메일</b></label>
+                <input type="text" placeholder="Enter Email" name="userEmail" required>
 
-	btn.onclick = function() {
-	    modal.style.display = "block";
-	}
-	
-	cancelBtn.onclick = function() {
-	    modal.style.display = "none";
-	}
+                <label for="signupPassword"><b>비밀번호</b></label>
+                <input type="password" placeholder="Enter Password" name="userPw" required>
 
-	span.onclick = function() {
-	    modal.style.display = "none";
-	}
+                <label for="age"><b>나이</b></label>
+                <input type="number" min="0" placeholder="Enter Age" name="userAge" required>
 
-	window.onclick = function(event) {
-	    if (event.target == modal) {
-	        modal.style.display = "none";
-	    }
-	} 
- 
-	
-	<!-- 회원가입 db연동 -->
-	
-	document.getElementById('signupForm').addEventListener('submit', function(event) {
-	    event.preventDefault();
+                <label for="gender"><b>성별</b></label>
+                <div class="radio-selection">
+                    <label><input type="radio" name="userGender" value="male" required> 남성</label>
+                    <label><input type="radio" name="userGender" value="female" required> 여성</label>
+                </div>
 
-	    var userName = document.getElementsByName('userName')[0].value;
-	    var userEmail = document.getElementsByName('userEmail')[1].value;
-	    var userPw = document.getElementsByName('userPw')[1].value;
-	    var userAge = document.getElementsByName('userAge')[0].value;
-	    var userGender = document.querySelector('input[name="userGender"]:checked').value;
+                <button type="submit" class="loginbtn">회원가입</button>
+            </form>
 
-	    // Gender 값을 대문자로 변경
-	    userGender = userGender.toUpperCase();
+            <!-- 파트너 회원가입 폼 -->
+            <form id="partnerSignupForm" style="display:none;">
+                <label for="name"><b>이름</b></label>
+                <input type="text" placeholder="Enter Name" name="partnerName" required>
 
-	    if (!userName || !userEmail || !userPw || !userAge || !userGender) {
-	        alert('모든 정보를 입력해주세요.');
-	        return;
-	    }
+                <label for="signupEmail"><b>이메일</b></label>
+                <input type="text" placeholder="Enter Email" name="partnerEmail" required>
 
-	    fetch('/signup', {
-	        method: 'POST',
-	        headers: {
-	            'Content-Type': 'application/json'
-	        },
-	        body: JSON.stringify({
-	            userName: userName,
-	            userEmail: userEmail,
-	            userPw: userPw,
-	            userAge: parseInt(userAge),
-	            userGender: userGender // 'userGender'로 키 이름 변경
-	        })
-	    })
-	    .then(response => {
-	        if (!response.ok) {
-	            throw new Error('서버 응답이 실패했습니다.');
-	        }
-	        return response.text();
-	    })
-	    .then(data => {
-	        alert(data);
-	        modal.style.display = "none";
-	    })
-	    .catch(error => {
-	        console.error('Error:', error);
-	        alert('회원가입 중 오류가 발생했습니다: ' + error.message);
-	    });
-	});
-	
-	// 로그인 폼 제출 처리 (기존 코드 유지)
-	document.querySelector('button[type="submit"]').addEventListener('click', function(event) {
-	    event.preventDefault();
+                <label for="signupPassword"><b>비밀번호</b></label>
+                <input type="password" placeholder="Enter Password" name="partnerPw" required>
 
-	    var userEmail = document.getElementsByName('userEmail')[0].value;
-	    var userPw = document.getElementsByName('userPw')[0].value;
+                <button type="submit" class="loginbtn">회원가입</button>
+            </form>
+        </div>
+    </div>
 
-	    if (!userEmail || !userPw) {
-	        alert('이메일과 비밀번호를 입력하세요.');
-	        return;
-	    }
+    <script>
+        // 로그인 폼 제출 처리
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
 
-	    document.querySelector('button[type="submit"]').addEventListener('click', function(event) {
-	        event.preventDefault();
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var loginType = document.querySelector('input[name="loginType"]:checked').value;
 
-	        var userEmail = document.getElementsByName('userEmail')[0].value;
-	        var userPw = document.getElementsByName('userPw')[0].value;
+            if (!email || !password) {
+                alert('이메일과 비밀번호를 입력하세요.');
+                return;
+            }
 
-	        if (!userEmail || !userPw) {
-	            alert('이메일과 비밀번호를 입력하세요.');
-	            return;
-	        }
+            var requestBody = {};
+            var url = "";
+            if (loginType === "user") {
+                requestBody.userEmail = email;
+                requestBody.userPw = password;
+                url = "/userLogin";
+            } else {
+                requestBody.partnerEmail = email;
+                requestBody.partnerPw = password;
+                url = "/partnerLogin";
+            }
 
-	        // 로그인 요청 코드
-	        fetch('/login', {
-	            method: 'POST',
-	            headers: {
-	                'Content-Type': 'application/json'
-	            },
-	            body: JSON.stringify({
-	                userEmail: userEmail,
-	                userPw: userPw
-	            })
-	        })
-	        .then(response => {
-	            if (!response.ok) {
-	                throw new Error('서버 응답이 실패했습니다.');
-	            }
-	            return response.json();
-	        })
-	        .then(data => {
-	            if (data.success) {
-	                alert('로그인 성공하였습니다.');
-	                window.location.href = '/'; // 로그인 성공 시 리다이렉트할 페이지
-	            } else {
-	                alert('로그인 실패: ' + data.message);
-	            }
-	        })
-	        .catch(error => {
-	            console.error('Error:', error);
-	            alert('로그인 중 오류가 발생했습니다: ' + error.message);
-	        });
-	    });
-	});
-	
-	
-	// 로그인 db연동
-	document.querySelector('button[type="submit"]').addEventListener('click', function(event) {
-	    event.preventDefault();
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestBody),
+                credentials: 'include' // 쿠키를 포함하여 요청을 보냄
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('서버 응답 실패');
+                }
+                return response.json();  
+            })
+           .then(data => {
+                if (data.message === "로그인 성공") {
+                    alert('로그인 성공');
+                    // 세션 정보를 로컬 스토리지에 저장
+                    if (loginType === "user") {
+                        sessionStorage.setItem('userInfo', JSON.stringify({
+                            id: data.id,
+                            name: data.name,
+                            type: 'user'
+                        }));
+                    } else {
+                        sessionStorage.setItem('partnerInfo', JSON.stringify({
+                            id: data.id,
+                            name: data.name,
+                            type: 'partner'
+                        }));
+                    }
+                    // 홈페이지로 리다이렉트
+                    window.location.href = '/';
+                } else {
+                    alert('로그인 실패: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('로그인 중 오류 발생: ' + error.message);
+            });
+        });
 
-	    var userEmail = document.getElementsByName('userEmail')[0].value;
-	    var userPw = document.getElementsByName('userPw')[0].value;
+        // 모달 관련 코드
+        var signupModal = document.getElementById('signupModal');
+        var openSignupModalBtn = document.getElementById('openSignupModal');
+        var closeSignupModalBtn = document.getElementsByClassName('close')[0];
 
-	    if (!userEmail || !userPw) {
-	        alert('이메일과 비밀번호를 입력하세요.');
-	        return;
-	    }
+        openSignupModalBtn.onclick = function() {
+            signupModal.style.display = "block";
+            updateSignupForm();
+        }
 
-	    // 로그인 요청 코드
-	    fetch('/login', {
-	        method: 'POST',
-	        headers: {
-	            'Content-Type': 'application/json'
-	        },
-	        body: JSON.stringify({
-	            userEmail: userEmail,
-	            userPw: userPw
-	        })
-	    })
-	    /* .then(response => response.text()) */  // JSON 대신 텍스트로 응답을 받습니다
-	    .then(response => {
-	        if (!response.ok) {
-	            throw new Error('서버 응답이 실패했습니다.');
-	        }
-	        return response.json();  // JSON 형식으로 응답을 파싱합니다.
-	    })
-	    .then(data => {
-	        if (data.message === "로그인 성공") {
-	            alert('로그인 성공하였습니다.');
-	            // 사용자 정보를 localStorage에 저장
-	            localStorage.setItem('user', JSON.stringify({
-	                id: data.id,
-	                name: data.name
-	            }));
-	            window.location.href = '/';  // 로그인 성공 시 리다이렉트할 페이지
-	        } else {
-	            alert(data.message);
-	        }
-	    })
-	    .catch(error => {
-	        console.error('Error:', error);
-	        alert('로그인 중 오류가 발생했습니다: ' + error.message);
-	    });
-	});
-	
+        closeSignupModalBtn.onclick = function() {
+            signupModal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == signupModal) {
+                signupModal.style.display = "none";
+            }
+        }
+
+        // 회원가입 폼 업데이트
+        const updateSignupForm = () => {
+            const signupType = document.querySelector('input[name="signupType"]:checked').value;
+            document.getElementById('userSignupForm').style.display = (signupType === 'user') ? 'block' : 'none';
+            document.getElementById('partnerSignupForm').style.display = (signupType === 'partner') ? 'block' : 'none';
+        }
+
+        document.querySelectorAll('input[name="signupType"]').forEach(el => {
+            el.addEventListener('change', updateSignupForm);
+        });
+
+        // 유저 회원가입 폼 제출 처리
+        document.getElementById('userSignupForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            var userName = document.getElementsByName('userName')[0].value;
+            var userEmail = document.getElementsByName('userEmail')[0].value;
+            var userPw = document.getElementsByName('userPw')[0].value;
+            var userAge = document.getElementsByName('userAge')[0].value;
+            var userGender = document.querySelector('input[name="userGender"]:checked').value;
+
+            if (!userName || !userEmail || !userPw || !userAge || !userGender) {
+                alert('모든 필드를 입력하세요.');
+                return;
+            }
+
+            fetch('/userSignup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userName: userName,
+                    userEmail: userEmail,
+                    userPw: userPw,
+                    userAge: parseInt(userAge),
+                    userGender: userGender.toUpperCase()
+                })
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                signupModal.style.display = "none";
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('회원가입 중 오류 발생: ' + error.message);
+            });
+        });
+
+        // 파트너 회원가입 폼 제출 처리
+        document.getElementById('partnerSignupForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            var partnerName = document.getElementsByName('partnerName')[0].value;
+            var partnerEmail = document.getElementsByName('partnerEmail')[0].value;
+            var partnerPw = document.getElementsByName('partnerPw')[0].value;
+
+            if (!partnerName || !partnerEmail || !partnerPw) {
+                alert('모든 필드를 입력하세요.');
+                return;
+            }
+
+            fetch('/partnerSignup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    partnerName: partnerName,
+                    partnerEmail: partnerEmail,
+                    partnerPw: partnerPw
+                })
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                signupModal.style.display = "none";
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('회원가입 중 오류 발생: ' + error.message);
+            });
+        });
     </script>
-    
-    	<footer class="w3-container w3-padding-16 w3-center w3-opacity footer">
-    	<div class="w3-xlarge"></div>
-    	<p>
-      	  Powered by <a href="https://github.com/LeeYeonhee-00/AncestorLove"
-          	  target="_blank">체큇아웃</a>
-   		</p>
-	</footer>
+
+    <footer class="w3-container w3-padding-16 w3-center w3-opacity footer">
+        <div class="w3-xlarge"></div>
+        <p>Powered by <a href="https://github.com/LeeYeonhee-00/AncestorLove" target="_blank">체큇아웃</a></p>
+    </footer>
 </body>
 </html>

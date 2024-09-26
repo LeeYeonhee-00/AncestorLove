@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 	private ModelMapper mapper = new ModelMapper();
 
 	@Override
-	public boolean signupUser(UserDTO userDTO) throws InvalidSignupException {
+	public boolean userSignup(UserDTO userDTO) throws InvalidSignupException {
 		// UserDTO -> User
 		if (userDTO.getUserName() == null || userDTO.getUserName().isEmpty() || userDTO.getUserEmail() == null
 				|| userDTO.getUserEmail().isEmpty() || userDTO.getUserPw() == null || userDTO.getUserPw().isEmpty()) {
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
 		return true;
 	}
 
-	public boolean authenticate(String userEmail, String userPw) throws NotExistUserException {
+	public boolean userAuthenticate(String userEmail, String userPw) throws NotExistUserException {
 		User user = userRepository.findByUserEmail(userEmail);
 		if (user != null) {
 
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean logout(HttpSession session) {
+	public boolean userLogout(HttpSession session) {
         if (session.getAttribute("userId") != null) {
         	logger.debug("[ancestorlove] 로그아웃 할 계정의 id:" + session.getAttribute("userId"));
             session.invalidate();
@@ -74,5 +74,6 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
+
 
 }

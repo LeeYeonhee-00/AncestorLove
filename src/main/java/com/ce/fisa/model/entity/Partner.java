@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -17,8 +18,10 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.NonFinal;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -36,6 +39,14 @@ public class Partner {
 
 	@Column(name = "partner_name")
 	private String partnerName;
+	
+	@Column (name ="partner_email")
+	@Nonnull
+	private String partnerEmail;
+	
+	@Column(name = "partner_pw", length = 100, nullable = false)
+	@NonNull
+	private String partnerPw;
 
 	@Column(name = "partner_location")
 	private String partnerLocation;

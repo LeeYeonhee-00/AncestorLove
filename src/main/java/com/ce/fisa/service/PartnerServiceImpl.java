@@ -15,31 +15,89 @@ import org.springframework.stereotype.Service;
 import com.ce.fisa.controller.PartnerController;
 import com.ce.fisa.dao.PartnerRepository;
 import com.ce.fisa.dao.ReviewRepository;
+import com.ce.fisa.exception.InvalidSignupException;
 import com.ce.fisa.exception.NotExistInquiryException;
 import com.ce.fisa.exception.NotExistPartnerException;
+import com.ce.fisa.exception.NotExistUserException;
 import com.ce.fisa.model.dto.CommentDTO;
 import com.ce.fisa.model.dto.InquiryDTO;
 import com.ce.fisa.model.dto.PartnerAndReviewDTO;
 import com.ce.fisa.model.dto.PartnerDTO;
 import com.ce.fisa.model.dto.ReviewDTO;
+import com.ce.fisa.model.dto.UserDTO;
 import com.ce.fisa.model.entity.Comment;
 import com.ce.fisa.model.entity.Inquiry;
 import com.ce.fisa.model.entity.Partner;
 import com.ce.fisa.model.entity.Review;
+import com.ce.fisa.model.entity.User;
+
+import jakarta.servlet.http.HttpSession;
 
 @Service
 public class PartnerServiceImpl implements PartnerService {
 
 	@Autowired
-	private PartnerRepository partnerDAO;
+	private PartnerRepository partnerRepository;
+	
+	@Autowired
+	private HttpSession httpSession;
 
 	private ModelMapper mapper = new ModelMapper();
 
 	private static final Logger logger = LogManager.getLogger(PartnerServiceImpl.class);
 	
+	@Override
+	public boolean signupPartner(PartnerDTO partnerDTO) throws InvalidSignupException {
+		if (partnerDTO.getPartnerName() == null || partnerDTO.getPartnerName().isEmpty() || partnerDTO.getPartnerEmail() == null
+				|| partnerDTO.getPartnerEmail().isEmpty() || partnerDTO.getPartnerPw() == null || partnerDTO.getPartnerPw().isEmpty()) {
+			throw new InvalidSignupException("사용자 이름, 이메일 또는 비밀번호가 누락되었습니다.");
+		}
+		Partner partner = mapper.map(partnerDTO, Partner.class);
+		Partner result = partnerRepository.save(partner);
+
+		return true;
+	}
+
+	public boolean authenticatePartner(String partnerEmail, String partnerPw) throws NotExistPartnerException {
+		Partner partner = partnerRepository.findByPartnerEmail(partnerEmail);
+		if (partner != null) {
+		
+			if (partnerPw.equals(partner.getPartnerPw())) {
+				// 로그인 성공 시 세션에 사용자 정보 저장
+				httpSession.setAttribute("partnerId", partner.getPartnerId());
+				httpSession.setAttribute("partnerName", partner.getPartnerName());
+
+				 // 세션 사용법 
+
+				logger.debug("[ancestorlove] 파트너 id: " + httpSession.getAttribute("partnerId"));
+				logger.debug("[ancestorlove] 파트너 이름: " + httpSession.getAttribute("partnerName"));
+
+				return true;
+			}
+
+		}
+		throw new NotExistPartnerException("해당 파트너는 존재하지 않습니다.");
+}
+
+	@Override
+	public boolean logoutPartner(HttpSession session) {
+        if (session.getAttribute("partnerId") != null) {
+        	logger.debug("[ancestorlove] 로그아웃 할 계정의 id:" + session.getAttribute("partnerId"));
+            session.invalidate();
+            return true;
+        }
+        return false;
+    }
+	
+	
+	
+	
+	
+	
 	private PartnerDTO convertPartnerToDTO(Partner partner) {
 	    return PartnerDTO.builder()
 	            .partnerId(partner.getPartnerId())  // Partner 엔티티에서 partnerId 가져오기
+	            .partnerEmail(partner.getPartnerEmail())
 	            .partnerName(partner.getPartnerName())  // Partner 이름 가져오기
 	            .partnerLocation(partner.getPartnerLocation())  // Partner 위치 가져오기
 	            .metricPrice(partner.getMetricPrice())  // Metric 가격 가져오기
@@ -65,7 +123,7 @@ public class PartnerServiceImpl implements PartnerService {
 	@Override
 	public PartnerDTO getPartners(long partnerId) throws NotExistPartnerException {
 
-		Partner partnerEntity = partnerDAO.findByPartnerId(partnerId);
+		Partner partnerEntity = partnerRepository.findByPartnerId(partnerId);
 
 		if (partnerEntity == null) {
 			logger.warn("[ancestorlove] Partner 상세조회 실패");
@@ -80,7 +138,7 @@ public class PartnerServiceImpl implements PartnerService {
 
 	@Override
 	public List<PartnerDTO> getAllPartner() {
-		List<Partner> partnerEntityList = partnerDAO.findAll();
+		List<Partner> partnerEntityList = partnerRepository.findAll();
 		System.out.println("getAllPartner() : " + partnerEntityList);
 
 		List<PartnerDTO> partnerDTOList = partnerEntityList.stream().map(entity -> mapper.map(entity, PartnerDTO.class))
@@ -91,7 +149,7 @@ public class PartnerServiceImpl implements PartnerService {
 	}
 
 	public List<Map<String, Object>> getAverageRatings() {
-	    List<Object[]> results = partnerDAO.findAverageRatingsForPartners();
+	    List<Object[]> results = partnerRepository.findAverageRatingsForPartners();
 	    List<Map<String, Object>> response = new ArrayList<>();
 
 	    for (Object[] result : results) {
@@ -106,6 +164,6 @@ public class PartnerServiceImpl implements PartnerService {
 	    logger.info("[ancestorlove] Partner 평균 평점 조회 성공");
 	    return response;
 	}
-	
+
 
 }

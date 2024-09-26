@@ -21,6 +21,8 @@ import lombok.ToString;
 public class PartnerDTO {
 	private long partnerId; 
 	private String partnerName;
+	private String partnerEmail;
+	private String partnerPw;
 	private String partnerLocation;
 	private int metricPrice;
 	private String partnerInfo;
