@@ -42,6 +42,9 @@ public class PartnerServiceImpl implements PartnerService {
 	private PartnerRepository partnerRepository;
 	
 	@Autowired
+	private ReviewRepository reviewRepository;
+	
+	@Autowired
 	private HttpSession httpSession;
 
 	private ModelMapper mapper = new ModelMapper();
@@ -186,7 +189,7 @@ public class PartnerServiceImpl implements PartnerService {
 					.reRating(reviewDTO.getReRating())
 					.build();
 			
-			reviewDAO.save(review);
+			reviewRepository.save(review);
 			
 			}
 		else if (!partner1.isPresent()) {

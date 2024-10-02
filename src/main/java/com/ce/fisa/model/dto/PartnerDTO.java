@@ -27,6 +27,4 @@ public class PartnerDTO {
 	private int metricPrice;
 	private String partnerInfo;
 	private List<ReviewDTO> reviews = new ArrayList<>();
-	private String partnerPw;
-	private String partnerEmail;
 }
