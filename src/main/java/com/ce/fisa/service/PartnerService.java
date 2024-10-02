@@ -27,15 +27,7 @@ public interface PartnerService {
 	//파트너 상세 조회
 	public PartnerDTO getPartners(long partnerId) throws NotExistPartnerException;
 
-	//파트너 회원가입
-	public boolean signupPartner(PartnerDTO partner) throws InvalidSignupException;
-	
-	//파트너 로그인
-	public boolean authenticate(String partnerEmail, String partnerPw) throws NotExistPartnerException;
-	
-	//파트너 로그아웃
-	public boolean logout (HttpSession httpSession);
 	
 	// 리뷰생성
-	public void createReview(ReviewDTO reviewDTO);
+	public void createReview(ReviewDTO reviewDTO) throws NotExistPartnerException;
 }

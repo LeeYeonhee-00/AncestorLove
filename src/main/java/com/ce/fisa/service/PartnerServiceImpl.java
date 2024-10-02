@@ -110,52 +110,12 @@ public class PartnerServiceImpl implements PartnerService {
 	    return response;
 	}
 	
-	@Override
-	public boolean signupPartner(PartnerDTO partner) throws InvalidSignupException {
-		if(partner.getPartnerName() == null || partner.getPartnerName().isEmpty() || partner.getPartnerEmail() == null ||
-				partner.getPartnerEmail().isEmpty() || partner.getPartnerPw() ==null || partner.getPartnerPw().isEmpty()) {
-			throw new InvalidSignupException("파트너 이름, 이메일 또는 비밀번호가 누락되었습니다.");
-		}
-		Partner partner2 = mapper.map(partner, Partner.class);
-		Partner result = partnerDAO.save(partner2);
-		
-		return true;
-	}
-
 	
-	@Override
-	public boolean authenticate(String partnerEmail, String partnerPw) throws NotExistPartnerException {
-		Partner partner = partnerDAO.findByPartnerEmail(partnerEmail);
-		if(partner != null) {
-			if(partnerPw.equals(partner.getPartnerPw())) {
-				httpSession.setAttribute("partnerId", partner.getPartnerId());
-				httpSession.setAttribute("partnerName", partner.getPartnerName());
-				
-				logger.debug("[ancestorlove] 파트너 id: " + httpSession.getAttribute("partnerId"));
-				logger.debug("[ancestorlove] 파트너 이름: " + httpSession.getAttribute("partnerName"));
-
-				return true;
-			}
-		}
-		
-		throw new NotExistPartnerException("해당 파트너는 존재하지 않습니다.");
-	}
-	
-	@Override
-	public boolean logout(HttpSession httpSession) {
-		if(httpSession.getAttribute("partnerId") != null) {
-			logger.debug("[ancestorlove] 로그아웃 할 파트너의 id:" + httpSession.getAttribute("partnerId"));
-			httpSession.invalidate();
-			return true;
-		}
-		
-		return false;
-	}
 	
 	// 리뷰등록
 	
 	@Override
-	public void createReview(ReviewDTO reviewDTO) {
+	public void createReview(ReviewDTO reviewDTO) throws NotExistPartnerException {
 		
 		Optional<Partner> partner1 = partnerDAO.findById(reviewDTO.getPartnerId());
 		
@@ -173,8 +133,9 @@ public class PartnerServiceImpl implements PartnerService {
 			reviewDAO.save(review);
 			
 			}
-		
-	};
-	
-	
+		else if (!partner1.isPresent()) {
+	        throw new NotExistPartnerException("해당 파트너는 존재하지 않습니다.");
+	    }
+	}
+
 }

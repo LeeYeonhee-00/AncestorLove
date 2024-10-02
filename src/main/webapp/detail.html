@@ -106,6 +106,14 @@ body, h1, h2, h3, h4, h5, h6 {
 		</div>
 	</div>
 
+	<!-- 모달 HTML 구조 -->
+	<div id="modal" class="w3-modal">
+    	<div class="w3-modal-content">
+        	<span onclick="document.getElementById('modal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+        	<div id="modalContent"></div>
+    	</div>
+	</div>
+
 	<div class="content">
 		<br>
 		<br>
@@ -126,29 +134,37 @@ body, h1, h2, h3, h4, h5, h6 {
                         .then(response => response.json())
                         .then(data => {
                             const inquiryDetails = document.getElementById('inquiry-details');
+                            const inquiryDate = new Date(data.inquiryDate);
+                            const currentDate = new Date();
+                            const daysSinceInquiry = Math.floor((currentDate - inquiryDate) / (1000 * 60 * 60 * 24)); // 경과일 계산
+
                             inquiryDetails.innerHTML = `
                                 <h3>의뢰 번호: ${data.inquiryId}</h3>
                                 <p>제목: ${data.inquiryTitle}</p>
                                 <p>작업유형: ${data.workName}</p>
                                 <p>작성자 ID: ${data.userName}</p>
                                 <p>작업주소: ${data.inquiryAddress}</p>
-                                <p>작업날짜: ${new Date(data.inquiryDate).toLocaleString()}</p>
-                                <p>의뢰내용: ${data.inquiryContent}</p>
+                                <p>작업날짜: ${inquiryDate.toLocaleString()}</p>
                                 <hr>
                                 <h4>댓글목록</h4>
                                 <div id="commentList">
                                     ${data.comments && data.comments.length > 0 
-                                        ? data.comments.map(comment => `
-                                            <div class="comment-box">
-                                                <div class="comment-content">${comment.comContent}</div>
-                                                <button data-comment-id="${comment.comId}" 
-                                                    onclick="proposeContract(${comment.comId}, this)" 
-                                                    class="contract-btn ${comment.comConsign === 'CONSIGN' ? 'completed' : ''}" 
-                                                    ${comment.comConsign === 'CONSIGN' ? 'disabled' : ''}>
-                                                    ${comment.comConsign === 'CONSIGN' ? '체결완료' : '계약체결'}
-                                                </button>
-                                            </div>
-                                        `).join('') 
+                                        ? data.comments.map(comment => {
+                                            const isCompleted = comment.comConsign === 'CONSIGN';
+                                            const isReviewButton = isCompleted && daysSinceInquiry >= 7;
+
+                                            return `
+                                                <div class="comment-box">
+                                                    <div class="comment-content">${comment.comContent}</div>
+                                                    <button data-comment-id="${comment.comId}" 
+                                                        onclick="${isReviewButton ? 'openReviewModal()' : `proposeContract(${comment.comId}, this)`}" 
+                                                        class="contract-btn ${isCompleted ? 'completed' : ''}" 
+                                                        ${isCompleted && !isReviewButton ? 'disabled' : ''}>
+                                                        ${isReviewButton ? '리뷰를 남겨주세요!' : (isCompleted ? '체결완료' : '계약체결')}
+                                                    </button>
+                                                </div>
+                                            `;
+                                        }).join('') 
                                         : '<p>댓글이 없습니다.</p>'}
                                 </div>
                                 <hr>
@@ -169,6 +185,111 @@ body, h1, h2, h3, h4, h5, h6 {
                     document.getElementById('inquiry-details').innerHTML = '<p>유효한 의뢰 ID가 제공되지 않았습니다.</p>';
                 }
             }
+
+            function openReviewModal(partnerId) {
+                const userId = JSON.parse(localStorage.getItem('user')).id;
+                const modalContent = `
+                    <div style="padding: 20px;">
+                        <h3>리뷰 작성하기</h3>
+                        <textarea id="reviewContent" placeholder="리뷰 내용을 입력하세요" style="width: 100%; height: 100px; resize: none;"></textarea>
+                        <div style="margin-top: 10px;">
+                            <label for="reviewRating">별 점:</label> <!-- 별점 텍스트 추가 -->
+                            <select id="reviewRating" style="width: 5%; margin-left: 5px;">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <button onclick="submitReview('${userId}', '${partnerId}')" style="margin-top: 10px;">작성하기</button>
+                    </div>
+                `;
+
+                document.getElementById('modalContent').innerHTML = modalContent;
+                document.getElementById('modal').style.display = 'block';
+            }
+
+            // 모달 닫기
+            document.getElementById('modal').onclick = function(event) {
+                if (event.target === this) {
+                    this.style.display = 'none';
+                }
+            };
+
+
+
+            function submitReview(partnerId) {
+                const reviewContent = document.getElementById('reviewContent').value;
+                const reviewRating = document.getElementById('reviewRating').value;
+                const userId = JSON.parse(localStorage.getItem('user')).id;  // 로컬 저장소에서 사용자 ID 가져옴
+
+                // 각 변수가 유효한지 확인
+                if (!partnerId || !reviewContent || reviewRating === undefined) {
+                    alert('모든 필드를 올바르게 입력해야 합니다.');
+                    return;
+                }
+
+                const reviewDTO = {
+                    partnerId: partnerId,
+                    reuserId: userId,  // 사용자 ID 추가
+                    reContent: reviewContent,
+                    reRating: parseInt(reviewRating)  // reRating을 숫자로 변환
+                };
+
+                fetch('/review', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(reviewDTO)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // 리뷰 제출 성공 후 모달 닫기
+                        document.getElementById('modal').style.display = 'none';
+                        alert("리뷰가 작성되었습니다.");
+
+                        // 리뷰 내용과 평점을 보여주는 창 생성
+                        const reviewDisplay = document.createElement('div');
+                        reviewDisplay.innerHTML = `
+                            <h4>리뷰 내용:</h4>
+                            <p>${reviewContent}</p>
+                            <h4>별 점: ${reviewRating}</h4>
+                        `;
+                        
+                        // "리뷰 보기" 버튼으로 변경
+                        const button = document.querySelector(`button[data-comment-id="${partnerId}"]`);
+                        if (button) {
+                            button.textContent = '리뷰 보기';
+                            button.onclick = function() {
+                                // 리뷰 내용을 보여주는 창을 표시
+                                const reviewModal = document.createElement('div');
+                                reviewModal.innerHTML = `
+                                    <div style="padding: 20px; border: 1px solid lightgray; border-radius: 5px;">
+                                        <h4>리뷰 내용:</h4>
+                                        <p>${reviewContent}</p>
+                                        <h4>별 점: ${reviewRating}</h4>
+                                        <button onclick="this.parentElement.parentElement.remove();">닫기</button>
+                                    </div>
+                                `;
+                                document.body.appendChild(reviewModal);
+                            };
+                        }
+                    } else {
+                        return response.text().then(message => { throw new Error(message); });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('리뷰 작성 중 오류가 발생했습니다: ' + error.message);
+                });
+            }
+
+
+
+
+
 
             function submitComment() {
             	if (!isUserLoggedIn()) {
