@@ -40,8 +40,8 @@ public class Partner {
 	@Column(name = "partner_name")
 	private String partnerName;
 	
-	@Column (name ="partner_email")
-	@Nonnull
+	@Column(name = "partner_email", nullable = false)
+	@NonNull
 	private String partnerEmail;
 	
 	@Column(name = "partner_pw", length = 100, nullable = false)

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
@@ -12,7 +13,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ce.fisa.controller.PartnerController;
 import com.ce.fisa.dao.PartnerRepository;
 import com.ce.fisa.dao.ReviewRepository;
 import com.ce.fisa.exception.InvalidSignupException;
@@ -30,6 +30,8 @@ import com.ce.fisa.model.entity.Inquiry;
 import com.ce.fisa.model.entity.Partner;
 import com.ce.fisa.model.entity.Review;
 import com.ce.fisa.model.entity.User;
+
+import jakarta.servlet.http.HttpSession;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -165,5 +167,31 @@ public class PartnerServiceImpl implements PartnerService {
 	    return response;
 	}
 
+	
+	// 리뷰등록
+	
+	@Override
+	public void createReview(ReviewDTO reviewDTO) throws NotExistPartnerException {
+		
+		Optional<Partner> partner1 = partnerRepository.findById(reviewDTO.getPartnerId());
+		
+		if (partner1.isPresent()) {
+			Partner partner2 = partner1.get();
+			
+			Review review = Review.builder()
+					.partnerId(partner2)
+					.reuserId(reviewDTO.getReuserId())
+					.reContent(reviewDTO.getReContent())
+					.reDate(reviewDTO.getReDate())
+					.reRating(reviewDTO.getReRating())
+					.build();
+			
+			reviewDAO.save(review);
+			
+			}
+		else if (!partner1.isPresent()) {
+	        throw new NotExistPartnerException("해당 파트너는 존재하지 않습니다.");
+	    }
+	}
 
 }

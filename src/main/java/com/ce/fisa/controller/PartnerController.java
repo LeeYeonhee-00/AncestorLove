@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ce.fisa.exception.InvalidSignupException;
@@ -21,6 +22,7 @@ import com.ce.fisa.model.dto.InquiryDTO;
 import com.ce.fisa.model.dto.LoginResponseDTO;
 import com.ce.fisa.model.dto.PartnerDTO;
 import com.ce.fisa.model.dto.UserDTO;
+import com.ce.fisa.model.dto.ReviewDTO;
 import com.ce.fisa.service.PartnerService;
 
 import jakarta.servlet.http.HttpSession;
@@ -55,6 +57,21 @@ public class PartnerController {
 	public List<Map<String, Object>> getAverageRatings() {
 		logger.debug("[ancestorlove] 파트너 전체조회 요청");
 		return partnerService.getAverageRatings();
+	}
+	
+	
+	@PostMapping("/review")
+	public ResponseEntity<String> review(@RequestBody ReviewDTO reviewDTO) throws NotExistPartnerException {
+	    // 유효성 검사
+	    if (reviewDTO.getReuserId() <= 0 || reviewDTO.getPartnerId() <= 0 || 
+	        reviewDTO.getReContent() == null || reviewDTO.getReContent().isEmpty() || 
+	        reviewDTO.getReRating() < 1 || reviewDTO.getReRating() > 5) {
+	        return ResponseEntity.badRequest().body("모든 필드는 필수이며, 평점은 1에서 5 사이여야 합니다.");
+	    }
+
+	    // 리뷰 작성 로직 실행
+	    partnerService.createReview(reviewDTO);
+	    return ResponseEntity.ok("리뷰가 성공적으로 작성되었습니다.");
 	}
 
 	@PostMapping("/partnerLogout")
@@ -120,10 +137,5 @@ public class PartnerController {
 	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponseDTO("세션 없음", 0, null));
 	    }
 	}
-
-
-
-	
-	
 	
 }

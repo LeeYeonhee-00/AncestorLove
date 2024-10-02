@@ -2,6 +2,8 @@ package com.ce.fisa.model.entity;
 
 import java.time.LocalDateTime;
 
+import com.ce.fisa.model.dto.ReviewDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,6 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +27,7 @@ import lombok.ToString;
 @ToString
 @Table(name = "Review")
 @Entity
+@Builder
 public class Review {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "review_seq_gen")
