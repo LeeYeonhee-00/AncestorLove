@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -92,10 +93,10 @@ public class PartnerController {
 		if (isAuthenticated) {
 			logger.info("[ancestorlove] 로그인 성공");
 			
-			long id = (long)httpSession.getAttribute("partnerId");
-			String name = (String)httpSession.getAttribute("partnerName");
+			long partnerId = (long)httpSession.getAttribute("partnerId");
+			String partnerName = (String)httpSession.getAttribute("partnerName");
 			
-			LoginResponseDTO response = new LoginResponseDTO("로그인 성공", id, name);
+			LoginResponseDTO response = new LoginResponseDTO("로그인 성공", partnerId, partnerName);
 	        return ResponseEntity.ok(response);
 	    } else {
 	        logger.warn("[ancestorlove] 로그인 실패");
@@ -103,6 +104,24 @@ public class PartnerController {
 	    }
 			
 	}
+	
+	// 세션에 저장된 파트너 정보 확인
+	@GetMapping("/verifyPartnerSession")
+	public ResponseEntity<LoginResponseDTO> verifyPartnerSession(HttpSession httpSession) {
+	    Long partnerId = (Long) httpSession.getAttribute("partnerId");
+	    String partnerName = (String) httpSession.getAttribute("partnerName");
+
+	    if (partnerId != null && partnerName != null) {
+	        // 세션에 유효한 파트너 정보가 있을 때
+	        LoginResponseDTO response = new LoginResponseDTO("세션 유효", partnerId, partnerName);
+	        return ResponseEntity.ok(response);
+	    } else {
+	        // 세션에 파트너 정보가 없을 때
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponseDTO("세션 없음", 0, null));
+	    }
+	}
+
+
 
 	
 	
