@@ -443,6 +443,12 @@ output {
 
 ---
 
+## 리팩토링 ✨
+
+---
+
+<br>
+
 ## 회 고 📝
 
 ### [김성호](https://github.com/castlhoo)
