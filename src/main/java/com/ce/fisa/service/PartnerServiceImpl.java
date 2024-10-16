@@ -25,6 +25,7 @@ import com.ce.fisa.model.dto.PartnerAndReviewDTO;
 import com.ce.fisa.model.dto.PartnerDTO;
 import com.ce.fisa.model.dto.ReviewDTO;
 import com.ce.fisa.model.dto.UserDTO;
+import com.ce.fisa.model.dto.getInquiryDTO;
 import com.ce.fisa.model.entity.Comment;
 import com.ce.fisa.model.entity.Inquiry;
 import com.ce.fisa.model.entity.Partner;
@@ -73,7 +74,6 @@ public class PartnerServiceImpl implements PartnerService {
 				httpSession.setAttribute("partnerName", partner.getPartnerName());
 
 				 // 세션 사용법 
-
 				logger.debug("[ancestorlove] 파트너 id: " + httpSession.getAttribute("partnerId"));
 				logger.debug("[ancestorlove] 파트너 이름: " + httpSession.getAttribute("partnerName"));
 
@@ -171,30 +171,35 @@ public class PartnerServiceImpl implements PartnerService {
 	}
 
 	
-	// 리뷰등록
+	private ReviewDTO convertToGetReviewDTO(Review review) {
+		return ReviewDTO.builder()
+				.reId(review.getReId())
+				.partnerId(review.getPartnerId().getPartnerId())  
+				.reuserId(review.getReuserId())  
+				.reDate(review.getReDate())
+				.reContent(review.getReContent())
+				.reRating(review.getReRating())
+				.build();
+	}
 	
+	
+	// 리뷰등록
 	@Override
 	public void createReview(ReviewDTO reviewDTO) throws NotExistPartnerException {
-		
-		Optional<Partner> partner1 = partnerRepository.findById(reviewDTO.getPartnerId());
-		
-		if (partner1.isPresent()) {
-			Partner partner2 = partner1.get();
-			
-			Review review = Review.builder()
-					.partnerId(partner2)
-					.reuserId(reviewDTO.getReuserId())
-					.reContent(reviewDTO.getReContent())
-					.reDate(reviewDTO.getReDate())
-					.reRating(reviewDTO.getReRating())
-					.build();
-			
-			reviewRepository.save(review);
-			
-			}
-		else if (!partner1.isPresent()) {
-	        throw new NotExistPartnerException("해당 파트너는 존재하지 않습니다.");
-	    }
-	}
+	    // 파트너 ID로 파트너를 검색합니다.
+	    Partner partner = partnerRepository.findById(reviewDTO.getPartnerId())
+	            .orElseThrow(() -> new NotExistPartnerException("해당 파트너는 존재하지 않습니다."));
 
+	    // Review 객체를 생성하고 저장합니다.
+	    Review review = Review.builder()
+	            .partnerId(partner)
+	            .reuserId(reviewDTO.getReuserId())
+	            .reContent(reviewDTO.getReContent())
+	            .reDate(reviewDTO.getReDate())
+	            .reRating(reviewDTO.getReRating())
+	            .build();
+
+	    reviewRepository.save(review);
+	}
+		
 }

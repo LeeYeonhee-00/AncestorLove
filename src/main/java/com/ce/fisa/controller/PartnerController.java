@@ -74,6 +74,7 @@ public class PartnerController {
 	    return ResponseEntity.ok("리뷰가 성공적으로 작성되었습니다.");
 	}
 
+	//파트너 로그아웃
 	@PostMapping("/partnerLogout")
 	public ResponseEntity<String> logoutPartner(HttpSession session){
 		boolean result = partnerService.logoutPartner(session);
@@ -87,6 +88,7 @@ public class PartnerController {
 		
 	}
 
+	//파트너 회원가입
 	@PostMapping("/partnerSignup")
 	public String partnerSignup(@RequestBody PartnerDTO partner) throws InvalidSignupException {
 		logger.debug("[ancestorlove] 회원가입 요청");
@@ -100,6 +102,7 @@ public class PartnerController {
 		}
 	}
 
+	//파트너 로그인
 	@PostMapping("/partnerLogin")
 	public ResponseEntity<LoginResponseDTO> login(@RequestBody PartnerDTO partner) throws NotExistPartnerException {
 

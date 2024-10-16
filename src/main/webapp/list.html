@@ -4,82 +4,79 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon.png">
 <title>조상사랑 - 예초 벌초 매칭 서비스</title>
 <style>
 body, h1, h2, h3, h4, h5, h6 {
-	font-family: "Lato", sans-serif
+    font-family: "Lato", sans-serif
 }
 
 .w3-bar, h1, button {
-	font-family: "Lato", sans-serif
+    font-family: "Lato", sans-serif
 }
 
 table {
-	margin: auto;
-	width: 800px; 
-	border-radius: 5px;
-	border-collapse: collapse;
-	border-top: none;
+    margin: auto;
+    width: 800px; 
+    border-radius: 5px;
+    border-collapse: collapse;
+    border-top: none;
 }
 
 .header {
-	background-color: rgb(218, 231, 255);
-	text-align: center;
+    background-color: rgb(218, 231, 255);
+    text-align: center;
 }
 
 .table td, .table th {
-	border-bottom: 1px lightgray solid;
-	height: 30px;
-	font-size: 14px;
+    border-bottom: 1px lightgray solid;
+    height: 30px;
+    font-size: 14px;
 }
 
 .num {
-	width: 50px;
+    width: 50px;
 }
 
 .title {
-	width: 400px;
+    width: 400px;
 }
 
 .type {
-	width: 150px;
+    width: 150px;
 }
 
 .body {
-	text-align: center;
+    text-align: center;
 }
 
 .body .title {
-	text-align: left;
+    text-align: left;
 }
 
 button {
-	width: 100px;
-	height: 40px;
-	font-size: 15px;
-	border: 0;
-	outline: 1.5px rgb(68, 136, 244) solid;
-	border-radius: 5px;
-	padding-left: 10px;
-	background-color: rgb(164, 199, 255);
+    width: 100px;
+    height: 40px;
+    font-size: 15px;
+    border: 0;
+    outline: 1.5px rgb(68, 136, 244) solid;
+    border-radius: 5px;
+    padding-left: 10px;
+    background-color: rgb(164, 199, 255);
 }
 
 button:active {
-	width: 100px;
-	height: 40px;
-	font-size: 15px;
-	border: 0;
-	border-radius: 5px;
-	outline: 1.5px rgb(27, 76, 155) solid;
-	padding-left: 10px;
-	background-color: rgb(68, 136, 244);
+    width: 100px;
+    height: 40px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 5px;
+    outline: 1.5px rgb(27, 76, 155) solid;
+    padding-left: 10px;
+    background-color: rgb(68, 136, 244);
 }
 
 .footer {
@@ -94,170 +91,161 @@ button:active {
 </head>
 <body>
 
-	<!-- 네비게이션 바 -->
-	<div class="w3-top">
-		<div class="w3-bar w3-light-green w3-card w3-left-align w3-large">
-			<a
-				class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
-				href="javascript:void(0);" title="Toggle Navigation Menu"><i
-				class="fa fa-bars"></i></a> 
-						<a href="main.html"
-				class="w3-bar-item w3-button w3-padding-large w3-hover-white w3-green">Home</a>
-						<a href="list.html"
-				class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">의뢰 게시판</a> 
-						<a href="partner.html"
-				class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
-						<a href="partnerdashboard.html" 
-            	class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너 정보</a>
-			<div id="loginSection" class="w3-right">
-			
-			
-				<!-- 로그인/로그아웃 버튼이 여기에 동적으로 삽입 -->
-			</div>
-		</div>
-	</div>
+    <!-- 네비게이션 바 -->
+    <div class="w3-top">
+        <div class="w3-bar w3-light-green w3-card w3-left-align w3-large">
+            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a> 
+            <a href="main.html" class="w3-bar-item w3-button w3-padding-large w3-hover-white w3-green">Home</a>
+            <a href="list.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">의뢰 게시판</a> 
+            <a href="partner.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너</a>
+            <a href="partnerdashboard.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">파트너 정보</a>
+            <div id="loginSection" class="w3-right">
+                <!-- 로그인/로그아웃 버튼이 여기에 동적으로 삽입 -->
+            </div>
+        </div>
+    </div>
 
-	<table class="table">
-		<tr>
-			<td colspan="5"><h2>의뢰게시판</h2></td></tr>
-		<tr class="header">
-			<td class="num">번호</td>
-			<td class="title">제목</td>
-			<td class="type">작업종류</td>
-			<td>작성날짜</td></tr>
-		<tbody id="inquiryList">
-		</tbody>
-	</table>
-	
-	<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        fetch('/allinquiry')
-            .then(response => response.json())
-            .then(data => {
-                var inquiryList = document.getElementById('inquiryList');
-                inquiryList.innerHTML = '';
-
-                data.forEach(function(inquiry, index) {
-                    inquiryList.innerHTML += `
-                        <tr class='body'>
-                            <td>${index + 1}</td>
-                            <td class='title'><a href='detail.html?id=${inquiry.inquiryId}'>${inquiry.inquiryTitle}</a></td>
-                            <td class='type'>${inquiry.workName}</td>
-                            <td>${inquiry.inquiryDate}</td>
-                        </tr>`;
-                });
-            });
-    });
+    <table class="table">
+        <tr>
+            <td colspan="5"><h2>의뢰게시판</h2></td>
+        </tr>
+        <tr class="header">
+            <td class="num">번호</td>
+            <td class="title">제목</td>
+            <td class="type">작업종류</td>
+            <td>작성날짜</td>
+        </tr>
+        <tbody id="inquiryList">
+        </tbody>
+    </table>
     
-  //로그인 상태 확인 및 UI 업데이트 함수
-	function updateLoginUI() {
-	    const user = JSON.parse(sessionStorage.getItem('userInfo'));
-	    const partner = JSON.parse(sessionStorage.getItem('partnerInfo'));
-	    const loginSection = document.getElementById('loginSection');
+    <br>
+    <table>
+        <tr><td><button id="writeButton" onclick="handleWriteButton()">글쓰기</button></td></tr>
+    </table>
+    
 
-	    if (user && user.name) {
-	        loginSection.innerHTML = `
-	            <a class="w3-bar-item w3-hide-small w3-padding-large">${user.name}님 환영합니다</a>
-	            <a onclick="logout()" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그아웃</a>
-	        `;
-	    } else if (partner && partner.name) {
-	        loginSection.innerHTML = `
-	            <a class="w3-bar-item w3-hide-small w3-padding-large">${partner.name}님 환영합니다 (파트너)</a>
-	            <a onclick="logout()" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그아웃</a>
-	        `;
-	    } else {
-	        loginSection.innerHTML = `
-	            <a href="login.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그인</a>
-	        `;
-	    }
-	}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('/allinquiry')
+        .then(response => response.json())
+        .then(data => {
+            var inquiryList = document.getElementById('inquiryList');
+            inquiryList.innerHTML = '';
 
-	// 페이지 로드 시 로그인 UI 업데이트
-	document.addEventListener('DOMContentLoaded', updateLoginUI);
+            data.forEach(function(inquiry, index) {
+                inquiryList.innerHTML += `
+                    <tr class='body'>
+                        <td>${index + 1}</td>
+                        <td class='title'><a href='detail.html?id=${inquiry.inquiryId}'>${inquiry.inquiryTitle}</a></td>
+                        <td class='type'>${inquiry.workName}</td>
+                        <td>${inquiry.inquiryDate}</td>
+                    </tr>`;
+            });
+        });
+    
+    updateLoginUI();
+});
 
-	// 로그아웃 함수
-	function logout() {
-	    const user = JSON.parse(sessionStorage.getItem('userInfo'));
-	    const partner = JSON.parse(sessionStorage.getItem('partnerInfo'));
+function updateLoginUI() {
+    const user = JSON.parse(sessionStorage.getItem('userInfo'));
+    const partner = JSON.parse(sessionStorage.getItem('partnerInfo'));
+    const loginSection = document.getElementById('loginSection');
 
-	    if (user) {
-	        // user가 로그인된 경우
-	        userLogout();
-	    } else if (partner) {
-	        // partner가 로그인된 경우
-	        partnerLogout();
-	    } else {
-	        // 로그인 정보가 없는 경우
-	        alert('로그인된 사용자가 없습니다.');
-	    }
-	}
+    if (user && user.name) {
+        loginSection.innerHTML = `
+            <a class="w3-bar-item w3-hide-small w3-padding-large">${user.name}님 환영합니다</a>
+            <a onclick="logout()" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그아웃</a>
+        `;
+    } else if (partner && partner.name) {
+        loginSection.innerHTML = `
+            <a class="w3-bar-item w3-hide-small w3-padding-large">${partner.name}님 환영합니다 (파트너)</a>
+            <a onclick="logout()" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그아웃</a>
+        `;
+    } else {
+        loginSection.innerHTML = `
+            <a href="login.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-green">로그인</a>
+        `;
+    }
+}
 
-	// 일반 사용자 로그아웃 함수
-	function userLogout() {
-	    sessionStorage.removeItem('userInfo');  // userInfo 삭제
-	    updateLoginUI();
+function logout() {
+    const user = JSON.parse(sessionStorage.getItem('userInfo'));
+    const partner = JSON.parse(sessionStorage.getItem('partnerInfo'));
 
-	    // 서버에 로그아웃 요청을 보냅니다.
-	    fetch('/userLogout', {  // user 전용 로그아웃 엔드포인트로 설정
-	        method: 'POST',
-	        headers: {
-	            'Content-Type': 'application/json',
-	        },
-	        credentials: 'include'  // 세션 쿠키를 포함시킵니다.
-	    })
-	    .then(response => {
-	        if (response.ok) {
-	            alert('사용자가 로그아웃되었습니다.');
-	            window.location.href = 'main.html';  // 로그아웃 후 메인 페이지로 이동
-	        } else {
-	            throw new Error('로그아웃 실패');
-	        }
-	    })
-	    .catch(error => {
-	        console.error('Error:', error);
-	        alert('로그아웃 중 오류가 발생했습니다.');
-	    });
-	}
+    if (user) {
+        userLogout();
+    } else if (partner) {
+        partnerLogout();
+    } else {
+        alert('로그인된 사용자가 없습니다.');
+    }
+}
 
-	// 파트너 로그아웃 함수
-	function partnerLogout() {
-	    sessionStorage.removeItem('partnerInfo');  // partnerInfo 삭제
-	    updateLoginUI();
+function userLogout() {
+    sessionStorage.removeItem('userInfo');
+    updateLoginUI();
 
-	    // 서버에 로그아웃 요청을 보냅니다.
-	    fetch('/partnerLogout', {  // partner 전용 로그아웃 엔드포인트로 설정
-	        method: 'POST',
-	        headers: {
-	            'Content-Type': 'application/json',
-	        },
-	        credentials: 'include'  // 세션 쿠키를 포함시킵니다.
-	    })
-	    .then(response => {
-	        if (response.ok) {
-	            alert('파트너가 로그아웃되었습니다.');
-	            window.location.href = 'main.html';  // 로그아웃 후 메인 페이지로 이동
-	        } else {
-	            throw new Error('로그아웃 실패');
-	        }
-	    })
-	    .catch(error => {
-	        console.error('Error:', error);
-	        alert('로그아웃 중 오류가 발생했습니다.');
-	    });
-	}
-	</script>
-	<br>
-	<table>
-		<tr><td><button onclick="location.href='write.html'">글쓰기</button></td></tr>
-	</table>
-	
-	<footer class="w3-container w3-padding-16 w3-center w3-opacity footer">
-    	<div class="w3-xlarge"></div>
-    	<p>
-      	  Powered by <a href="https://github.com/LeeYeonhee-00/AncestorLove"
-          	  target="_blank">체큇아웃</a>
-   		</p>
-	</footer>
+    fetch('/userLogout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include'
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('사용자가 로그아웃되었습니다.');
+            window.location.href = 'main.html';
+        } else {
+            throw new Error('로그아웃 실패');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('로그아웃 중 오류가 발생했습니다.');
+    });
+}
+
+function partnerLogout() {
+    sessionStorage.removeItem('partnerInfo');
+    updateLoginUI();
+
+    fetch('/partnerLogout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include'
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('파트너가 로그아웃되었습니다.');
+            window.location.href = 'main.html';
+        } else {
+            throw new Error('로그아웃 실패');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('로그아웃 중 오류가 발생했습니다.');
+    });
+}
+
+function handleWriteButton() {
+    const user = JSON.parse(sessionStorage.getItem('userInfo'));
+    const partner = JSON.parse(sessionStorage.getItem('partnerInfo'));
+
+    if (user) {
+        window.location.href = 'write.html';
+    } else if (partner) {
+        alert('유저만 작성할 수 있습니다.');
+    } else {
+        alert('로그인이 필요합니다.');
+        window.location.href = 'login.html';
+    }
+}
+</script>
 
 </body>
 </html>
